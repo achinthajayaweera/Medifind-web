@@ -4,6 +4,407 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>MediFind – Smart Medicine Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+
+  /* ---- RESET ---- */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ---- CSS VARIABLES ---- */
+  :root {
+    --navy: #070B18;
+    --dark: #0A0F1E;
+    --card-dark: #111827;
+    --light-bg: #F4F7FF;
+    --card-light: #FFFFFF;
+    --blue-deep: #1A3AFF;
+    --blue-mid: #2563EB;
+    --blue-bright: #3B82F6;
+    --blue-cyan: #06B6D4;
+    --blue-pill: #1E3A5F;
+    --text-white: #FFFFFF;
+    --text-muted: #93C5FD;
+    --text-dark: #070B18;
+    --text-gray: #6B7280;
+    --divider: #1E3A5F;
+    --gradient-hero: linear-gradient(135deg, #1A3AFF 0%, #06B6D4 45%, #0A0F1E 100%);
+    --gradient-btn: linear-gradient(90deg, #2563EB, #06B6D4);
+    --gradient-text: linear-gradient(135deg, #60A5FA, #06B6D4);
+  }
+
+  /* ---- BASE BODY ---- */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light-bg);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ---- BASE TYPOGRAPHY ---- */
+  h1, h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  h1 { font-size: 64px; }
+  h2 { font-size: 36px; }
+  h3 { font-size: 24px; }
+  h4 { font-size: 18px; }
+
+  p {
+    font-size: 15px;
+    color: var(--text-gray);
+  }
+
+  a {
+    color: var(--blue-mid);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  button {
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    border: none;
+  }
+
+  input {
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  /* ---- BASIC SECTION SPACING ---- */
+  section {
+    padding: 80px 48px;
+  }
+
+  /* ---- BASIC NAV ---- */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 48px;
+    background: var(--navy);
+    color: var(--text-white);
+  }
+
+  nav a {
+    color: var(--text-white);
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  nav ul {
+    display: flex;
+    gap: 32px;
+  }
+
+  nav ul a {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+  }
+
+  nav button {
+    background: var(--gradient-btn);
+    color: var(--text-white);
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  /* ---- BASIC HERO ---- */
+  #hero {
+    background: var(--gradient-hero);
+    color: var(--text-white);
+    text-align: center;
+    padding: 120px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  #hero h1 {
+    color: var(--text-white);
+    font-size: 80px;
+  }
+
+  #hero p {
+    color: var(--text-muted);
+    font-size: 18px;
+  }
+
+  #hero button {
+    background: var(--gradient-btn);
+    color: var(--text-white);
+    border-radius: 50px;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 8px;
+  }
+
+  #hero-pills {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  #hero-pills span {
+    background: rgba(30, 58, 95, 0.7);
+    color: var(--text-white);
+    border-radius: 50px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* ---- BASIC SECTIONS ---- */
+  #phone-showcase {
+    background: var(--light-bg);
+    text-align: center;
+    padding: 80px 48px;
+  }
+
+  #phone-showcase p {
+    font-size: 18px;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+  }
+
+  #features {
+    background: var(--dark);
+    padding: 80px 48px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  #features div {
+    padding: 24px;
+  }
+
+  #features h3 {
+    color: var(--text-white);
+    margin-bottom: 10px;
+  }
+
+  #features p {
+    color: var(--text-muted);
+  }
+
+  #dashboard {
+    background: var(--light-bg);
+    text-align: center;
+    padding: 80px 48px;
+  }
+
+  #dashboard h2 {
+    color: var(--text-dark);
+    margin-bottom: 12px;
+  }
+
+  #laptop-placeholder {
+    background: var(--card-dark);
+    color: var(--text-muted);
+    border-radius: 16px;
+    padding: 60px;
+    margin: 32px auto;
+    max-width: 800px;
+    font-size: 16px;
+  }
+
+  #dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  #dashboard-cards div {
+    background: var(--card-light);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: left;
+  }
+
+  #dashboard-cards span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--blue-mid);
+  }
+
+  #dashboard-cards h4 {
+    color: var(--text-dark);
+    margin: 8px 0;
+  }
+
+  #team {
+    background: var(--light-bg);
+    text-align: center;
+    padding: 80px 48px;
+  }
+
+  #team h2 {
+    color: var(--text-dark);
+    margin-bottom: 12px;
+  }
+
+  #team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1000px;
+    margin: 32px auto 0;
+  }
+
+  #team-grid div {
+    background: var(--card-light);
+    border-radius: 16px;
+    overflow: hidden;
+    text-align: left;
+    padding-bottom: 20px;
+  }
+
+  #team-grid img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  #team-grid h4 {
+    color: var(--blue-mid);
+    padding: 16px 16px 4px;
+  }
+
+  #team-grid p {
+    padding: 0 16px;
+    font-size: 13px;
+  }
+
+  #cta {
+    background: var(--dark);
+    text-align: center;
+    padding: 100px 48px;
+    color: var(--text-white);
+  }
+
+  #cta h2 {
+    color: var(--text-white);
+    margin-bottom: 16px;
+  }
+
+  #cta p {
+    color: var(--text-muted);
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+
+  #cta-features {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 24px 0;
+  }
+
+  #cta-features div {
+    background: rgba(30,58,95,0.6);
+    border-radius: 12px;
+    padding: 16px 20px;
+    min-width: 160px;
+    text-align: left;
+  }
+
+  #cta-features strong {
+    color: var(--text-white);
+    font-size: 14px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  #cta-features p {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  #cta-form {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 24px 0;
+  }
+
+  #cta-form input {
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.1);
+    color: var(--text-white);
+    font-size: 15px;
+    width: 300px;
+    outline: none;
+  }
+
+  #cta-form input::placeholder {
+    color: rgba(191,219,254,0.6);
+  }
+
+  #cta-form button {
+    background: var(--gradient-btn);
+    color: var(--text-white);
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  #cta a {
+    color: var(--blue-bright);
+  }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(30,58,95,0.5);
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+</style>
 </head>
 <body>
 
@@ -46,32 +447,27 @@
 
 <!-- FEATURES SECTION -->
 <section id="features">
-  <div id="feature-1">
+  <div>
     <h3>The one-stop for all your medicine needs</h3>
     <p>Discover and order medicines from verified local pharmacies through a single, unified platform experience.</p>
   </div>
-
-  <div id="feature-2">
+  <div>
     <h3>Verified pharmacies, trusted healthcare</h3>
     <p>Shop with confidence knowing every pharmacy partner is licensed, verified, and rated for authenticity.</p>
   </div>
-
-  <div id="feature-3">
+  <div>
     <h3>Manage your prescriptions digitally</h3>
     <p>Upload your prescription, our AI reads and verifies it instantly — no more manual pharmacy visits or lost papers.</p>
   </div>
-
-  <div id="feature-4">
+  <div>
     <h3>Your AI health partner</h3>
     <p>Receive smart medicine suggestions, check drug interactions, and explore healthcare options curated just for you.</p>
   </div>
-
-  <div id="feature-5">
+  <div>
     <h3>Fast delivery to your doorstep</h3>
     <p>Order medicines online and get them delivered within hours — track your order live every step of the way.</p>
   </div>
-
-  <div id="feature-6">
+  <div>
     <h3>Real-time order tracking</h3>
     <p>Stay informed with live updates from the moment you order to the second it arrives at your door.</p>
   </div>
@@ -90,25 +486,21 @@
   <div id="dashboard-cards">
     <div>
       <span>01</span>
-      <p>Manage</p>
       <h4>Control Your Medicine Listings</h4>
       <p>Create, update, and manage your products from pricing and stock to availability — all in one place.</p>
     </div>
     <div>
       <span>02</span>
-      <p>Track</p>
       <h4>Stay on Top of Every Order</h4>
       <p>Monitor incoming orders, track delivery progress, and ensure no order ever slips through the cracks.</p>
     </div>
     <div>
       <span>03</span>
-      <p>Analyze</p>
       <h4>Understand Demand &amp; Patterns</h4>
       <p>Capture customer purchase patterns and medicine demand to improve your future stock decisions.</p>
     </div>
     <div>
       <span>04</span>
-      <p>Improve</p>
       <h4>Learn from Customer Feedback</h4>
       <p>Review feedback to spot recurring issues, refine your service, and reduce unnecessary returns.</p>
     </div>
