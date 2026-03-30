@@ -55,22 +55,17 @@
     line-height: 1.2;
   }
 
-  h1 { font-size: 64px; }
-  h2 { font-size: 36px; }
-  h3 { font-size: 24px; }
-  h4 { font-size: 18px; }
-
-  p { font-size: 15px; color: var(--text-gray); }
-  a { color: var(--blue-mid); text-decoration: none; }
+  p  { font-size: 15px; color: var(--text-gray); }
+  a  { color: var(--blue-mid); text-decoration: none; }
   a:hover { text-decoration: underline; }
   img { max-width: 100%; display: block; }
   button { font-family: 'DM Sans', sans-serif; cursor: pointer; border: none; }
-  input { font-family: 'DM Sans', sans-serif; }
+  input  { font-family: 'DM Sans', sans-serif; }
   ul { list-style: none; }
   section { padding: 80px 48px; }
 
   /* ════════════════════════════════════════
-     FIXED NAV — slides in after hero exits
+     FIXED NAV
   ════════════════════════════════════════ */
   #fixedNav {
     position: fixed;
@@ -85,7 +80,6 @@
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(37, 99, 235, 0.2);
     box-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
-    /* hidden by default — JS will show it */
     opacity: 0;
     pointer-events: none;
     transform: translateY(-100%);
@@ -98,71 +92,31 @@
     transform: translateY(0);
   }
 
-  /* Logo */
   .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
+    display: flex; align-items: center; gap: 10px; text-decoration: none;
   }
+  .nav-logo img { height: 52px; width: auto; object-fit: contain; }
 
-  .nav-logo img {
-    height: 52px;
-    width: auto;
-    object-fit: contain;
-  }
-
-  .nav-logo-fallback {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 20px;
-    color: #fff;
-  }
-
-  .nav-logo-icon {
-    width: 32px; height: 32px;
-    background: var(--gradient-btn);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-  }
-
-  /* Nav links */
   .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 36px;
+    display: flex; align-items: center; gap: 36px;
   }
-
   .nav-links a {
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 15px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: color 0.2s;
+    color: rgba(255,255,255,0.85);
+    font-size: 15px; font-weight: 500;
+    text-decoration: none; transition: color 0.2s;
   }
-
   .nav-links a:hover { color: #fff; }
 
-  /* Nav CTA button */
   .nav-cta {
     background: var(--gradient-btn);
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    padding: 10px 24px;
-    font-size: 14px;
-    font-weight: 700;
+    color: #fff; border-radius: 50px;
+    padding: 10px 24px; font-size: 14px; font-weight: 700;
     font-family: 'DM Sans', sans-serif;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
   }
-
   .nav-cta:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+    box-shadow: 0 4px 20px rgba(6,182,212,0.4);
   }
 
   /* ════════════════════════════════════════
@@ -185,7 +139,7 @@
   }
 
   /* ════════════════════════════════════════
-     HERO NAV — inside the rounded hero card
+     HERO NAV
   ════════════════════════════════════════ */
   .hero-nav {
     width: 100%;
@@ -196,117 +150,177 @@
     background: rgba(8, 20, 60, 0.30);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(96, 165, 250, 0.15);
+    border-bottom: 1px solid rgba(96,165,250,0.15);
   }
 
-  /* Hero nav logo */
   .hn-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
+    display: flex; align-items: center; gap: 10px; text-decoration: none;
   }
+  .hn-logo img { height: 52px; width: auto; object-fit: contain; }
 
-  .hn-logo img {
-    height: 52px;
-    width: auto;
-    object-fit: contain;
-  }
-
-  .hn-logo-fallback {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 20px;
-    color: #fff;
-  }
-
-  /* Hero nav links */
   .hn-links {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-    list-style: none;
+    display: flex; align-items: center; gap: 36px; list-style: none;
   }
-
   .hn-links a {
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none; font-size: 15px; font-weight: 500;
     transition: color 0.2s;
   }
-
   .hn-links a:hover { color: #fff; }
 
-  /* Hero nav CTA button */
   .hn-cta {
     background: var(--gradient-btn);
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    padding: 10px 24px;
-    font-size: 14px;
-    font-weight: 700;
+    color: #fff; border: none; border-radius: 50px;
+    padding: 10px 24px; font-size: 14px; font-weight: 700;
     font-family: 'DM Sans', sans-serif;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
   }
-
   .hn-cta:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+    box-shadow: 0 4px 20px rgba(6,182,212,0.4);
   }
 
   /* ════════════════════════════════════════
-     HERO SECTION (basic — styled in v4)
+     HERO SECTION — fully styled
   ════════════════════════════════════════ */
   #hero {
-    background: var(--gradient-hero);
-    color: var(--text-white);
-    text-align: center;
-    padding: 120px 48px;
+    min-height: calc(100vh - 32px);
+    background: linear-gradient(155deg,
+      #1A3AFF 0%,
+      #0E6BA8 20%,
+      #06B6D4 48%,
+      #054E6B 72%,
+      #0A0F1E 100%
+    );
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
-  }
-
-  #hero h1 { color: var(--text-white); font-size: 80px; }
-  #hero p  { color: var(--text-muted); font-size: 18px; }
-
-  #hero-pills {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
     justify-content: center;
-    margin-top: 8px;
+    text-align: center;
+    padding: 80px 48px;
+    position: relative;
+    overflow: hidden;
   }
 
-  #hero-pills span {
-    background: rgba(30, 58, 95, 0.7);
-    color: var(--text-white);
-    border-radius: 50px;
-    padding: 8px 18px;
-    font-size: 14px;
-    font-weight: 600;
+  /* Radial glow overlays */
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 70% 30%, rgba(6,182,212,0.25) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,58,255,0.3)  0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* "Coming Soon" badge */
+  .hero-coming-soon {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(37,99,235,0.35);
+    border: 1px solid rgba(96,165,250,0.3);
+    color: #fff; border-radius: 50px;
+    padding: 6px 18px; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero-coming-soon::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #06B6D4; display: block;
+  }
+
+  /* "DISCOVER" label */
+  .hero-discover {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 18px;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: #93C5FD; margin-bottom: 12px;
+  }
+
+  /* Big title */
+  .hero-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(64px, 10vw, 100px);
+    line-height: 1.0;
+    background: linear-gradient(135deg, #ffffff 0%, #BFDBFE 40%, #60A5FA 70%, #06B6D4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    cursor: default;
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease infinite;
+  }
+
+  .hero-title:hover {
+    background: linear-gradient(135deg, #06B6D4 0%, #38BDF8 30%, #ffffff 60%, #BFDBFE 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: none;
+  }
+
+  @keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Subtitle */
+  .hero-sub {
+    color: #BFDBFE;
+    font-size: 20px; font-weight: 400;
+    margin-bottom: 40px;
+  }
+
+  /* Pills row */
+  .hero-pills {
+    display: flex; align-items: center; gap: 16px;
+    flex-wrap: wrap; justify-content: center;
+    margin-bottom: 80px;
+  }
+
+  .hero-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(30,58,95,0.7);
+    border: 1px solid rgba(96,165,250,0.2);
+    border-radius: 50px; padding: 10px 20px;
+    font-size: 14px; font-weight: 600; color: #fff;
+  }
+
+  .hero-pill svg {
+    width: 16px; height: 16px; color: #60A5FA;
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    position: absolute; bottom: 36px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: #93C5FD; font-size: 11px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+  }
+
+  .scroll-chevron {
+    width: 28px; height: 28px; color: #60A5FA;
+    animation: bounce 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes bounce {
+    from { transform: translateY(0); }
+    to   { transform: translateY(8px); }
   }
 
   /* ════════════════════════════════════════
-     REMAINING SECTIONS (basic spacing)
+     REMAINING SECTIONS (basic — styled later)
   ════════════════════════════════════════ */
   #phone-showcase {
     background: var(--light-bg);
     text-align: center;
     padding: 80px 48px;
   }
-
   #phone-showcase p {
-    font-size: 18px;
-    color: var(--text-dark);
-    margin-bottom: 8px;
+    font-size: 18px; color: var(--text-dark); margin-bottom: 8px;
   }
 
   #features {
@@ -318,159 +332,98 @@
     max-width: 1000px;
     margin: 0 auto;
   }
-
-  #features div { padding: 24px; }
-  #features h3  { color: var(--text-white); margin-bottom: 10px; }
-  #features p   { color: var(--text-muted); }
+  #features div  { padding: 24px; }
+  #features h3   { color: var(--text-white); margin-bottom: 10px; }
+  #features p    { color: var(--text-muted); }
 
   #dashboard {
     background: var(--light-bg);
-    text-align: center;
-    padding: 80px 48px;
+    text-align: center; padding: 80px 48px;
   }
-
   #dashboard h2 { color: var(--text-dark); margin-bottom: 12px; }
 
   #laptop-placeholder {
-    background: var(--card-dark);
-    color: var(--text-muted);
-    border-radius: 16px;
-    padding: 60px;
-    margin: 32px auto;
-    max-width: 800px;
-    font-size: 16px;
+    background: var(--card-dark); color: var(--text-muted);
+    border-radius: 16px; padding: 60px;
+    margin: 32px auto; max-width: 800px; font-size: 16px;
   }
 
   #dashboard-cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    max-width: 1100px;
-    margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 20px; max-width: 1100px; margin: 0 auto;
   }
-
   #dashboard-cards div {
-    background: var(--card-light);
-    border-radius: 16px;
-    padding: 24px;
-    text-align: left;
+    background: var(--card-light); border-radius: 16px;
+    padding: 24px; text-align: left;
   }
-
   #dashboard-cards span {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 20px;
-    color: var(--blue-mid);
+    font-weight: 800; font-size: 20px; color: var(--blue-mid);
   }
-
   #dashboard-cards h4 { color: var(--text-dark); margin: 8px 0; }
 
   #team {
-    background: var(--light-bg);
-    text-align: center;
-    padding: 80px 48px;
+    background: var(--light-bg); text-align: center; padding: 80px 48px;
   }
-
   #team h2 { color: var(--text-dark); margin-bottom: 12px; }
 
   #team-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 1000px;
-    margin: 32px auto 0;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; max-width: 1000px; margin: 32px auto 0;
   }
-
   #team-grid div {
-    background: var(--card-light);
-    border-radius: 16px;
-    overflow: hidden;
-    text-align: left;
-    padding-bottom: 20px;
+    background: var(--card-light); border-radius: 16px;
+    overflow: hidden; text-align: left; padding-bottom: 20px;
   }
-
   #team-grid img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    object-position: top center;
+    width: 100%; height: 220px;
+    object-fit: cover; object-position: top center;
   }
-
-  #team-grid h4  { color: var(--blue-mid); padding: 16px 16px 4px; }
-  #team-grid p   { padding: 0 16px; font-size: 13px; }
+  #team-grid h4 { color: var(--blue-mid); padding: 16px 16px 4px; }
+  #team-grid p  { padding: 0 16px; font-size: 13px; }
 
   #cta {
-    background: var(--dark);
-    text-align: center;
-    padding: 100px 48px;
-    color: var(--text-white);
+    background: var(--dark); text-align: center;
+    padding: 100px 48px; color: var(--text-white);
   }
-
   #cta h2 { color: var(--text-white); margin-bottom: 16px; }
   #cta p  { color: var(--text-muted); font-size: 17px; margin-bottom: 12px; }
 
   #cta-features {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 24px 0;
+    display: flex; gap: 16px; justify-content: center;
+    flex-wrap: wrap; margin: 24px 0;
   }
-
   #cta-features div {
-    background: rgba(30, 58, 95, 0.6);
-    border-radius: 12px;
-    padding: 16px 20px;
-    min-width: 160px;
-    text-align: left;
+    background: rgba(30,58,95,0.6); border-radius: 12px;
+    padding: 16px 20px; min-width: 160px; text-align: left;
   }
-
   #cta-features strong {
-    color: var(--text-white);
-    font-size: 14px;
-    display: block;
-    margin-bottom: 4px;
+    color: var(--text-white); font-size: 14px;
+    display: block; margin-bottom: 4px;
   }
-
   #cta-features p { font-size: 12px; color: var(--text-muted); margin: 0; }
 
   #cta-form {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin: 24px 0;
+    display: flex; gap: 8px; justify-content: center; margin: 24px 0;
   }
-
   #cta-form input {
-    padding: 12px 20px;
-    border-radius: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-white);
-    font-size: 15px;
-    width: 300px;
-    outline: none;
+    padding: 12px 20px; border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.1); color: var(--text-white);
+    font-size: 15px; width: 300px; outline: none;
   }
-
-  #cta-form input::placeholder { color: rgba(191, 219, 254, 0.6); }
-
+  #cta-form input::placeholder { color: rgba(191,219,254,0.6); }
   #cta-form button {
-    background: var(--gradient-btn);
-    color: var(--text-white);
-    border-radius: 50px;
-    padding: 12px 28px;
-    font-size: 15px;
-    font-weight: 700;
+    background: var(--gradient-btn); color: var(--text-white);
+    border-radius: 50px; padding: 12px 28px;
+    font-size: 15px; font-weight: 700;
   }
-
   #cta a { color: var(--blue-bright); }
 
   footer {
-    margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(30, 58, 95, 0.5);
-    color: var(--text-muted);
-    font-size: 13px;
+    margin-top: 48px; padding-top: 24px;
+    border-top: 1px solid rgba(30,58,95,0.5);
+    color: var(--text-muted); font-size: 13px;
   }
 
   /* ════════════════════════════════════════
@@ -481,79 +434,87 @@
     .hero-nav  { padding: 16px 24px; }
     .nav-links { display: none; }
     .hn-links  { display: none; }
+    .hero-title { font-size: 52px; }
   }
 
 </style>
 </head>
 <body>
 
-<!-- FIXED NAV (appears after hero scrolls away) -->
+<!-- FIXED NAV -->
 <nav id="fixedNav">
   <a class="nav-logo" href="#">
     <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo"
-         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <span class="nav-logo-fallback" style="display:none;">
-      <span class="nav-logo-icon">
-        <svg viewBox="0 0 32 32" fill="none" width="20" height="20">
-          <path d="M16 7v4M16 21v4M7 16h4M21 16h4" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-          <rect x="12" y="12" width="8" height="8" rx="2" fill="#fff" opacity="0.9"/>
-        </svg>
-      </span>
-      MediFind
-    </span>
+         onerror="this.style.display='none';" />
+    MediFind
   </a>
-
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#team">Team</a></li>
     <li><a href="#cta">Contact</a></li>
   </ul>
-
   <button class="nav-cta">Download the App</button>
 </nav>
 
 <!-- HERO BORDER WRAP -->
 <div class="hero-border-wrap" id="heroBorderWrap">
 
-  <!-- HERO NAV (inside the rounded card) -->
+  <!-- HERO NAV -->
   <nav class="hero-nav">
     <a class="hn-logo" href="#">
       <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-      <span class="hn-logo-fallback" style="display:none;">
-        <span class="nav-logo-icon">
-          <svg viewBox="0 0 32 32" fill="none" width="20" height="20">
-            <path d="M16 7v4M16 21v4M7 16h4M21 16h4" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-            <rect x="12" y="12" width="8" height="8" rx="2" fill="#fff" opacity="0.9"/>
-          </svg>
-        </span>
-        MediFind
-      </span>
+           onerror="this.style.display='none';" />
+      MediFind
     </a>
-
     <ul class="hn-links">
       <li><a href="#about">About</a></li>
       <li><a href="#features">Features</a></li>
       <li><a href="#team">Team</a></li>
       <li><a href="#cta">Contact</a></li>
     </ul>
-
     <button class="hn-cta">Download the App</button>
   </nav>
 
   <!-- HERO SECTION -->
   <section id="hero">
-    <p>Coming Soon</p>
-    <p>Discover</p>
-    <h1>MediFind</h1>
-    <p>The Future of Healthcare Delivery in Sri Lanka</p>
-    <div id="hero-pills">
-      <span>Verified Pharmacies</span>
-      <span>AI-Powered Prescriptions</span>
-      <span>Fast Delivery</span>
+
+    <div class="hero-coming-soon">Coming Soon</div>
+
+    <div class="hero-discover">Discover</div>
+
+    <h1 class="hero-title">MediFind</h1>
+
+    <p class="hero-sub">The Future of Healthcare Delivery in Sri Lanka</p>
+
+    <div class="hero-pills">
+      <div class="hero-pill">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+        Verified Pharmacies
+      </div>
+      <div class="hero-pill">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+        </svg>
+        AI-Powered Prescriptions
+      </div>
+      <div class="hero-pill">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        Fast Delivery
+      </div>
     </div>
-    <p>Scroll to Explore ↓</p>
+
+    <div class="scroll-hint">
+      <span>SCROLL TO EXPLORE</span>
+      <svg class="scroll-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+
   </section>
 
 </div><!-- end hero-border-wrap -->
