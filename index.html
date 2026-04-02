@@ -7,13 +7,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- GSAP added in v5 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
 <style>
 
   /* ---- RESET ---- */
   *, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    box-sizing: border-box; margin: 0; padding: 0;
   }
 
   /* ---- CSS VARIABLES ---- */
@@ -51,8 +54,7 @@
 
   h1, h2, h3, h4 {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    line-height: 1.2;
+    font-weight: 800; line-height: 1.2;
   }
 
   p  { font-size: 15px; color: var(--text-gray); }
@@ -85,11 +87,8 @@
     transform: translateY(-100%);
     transition: opacity 0.35s ease, transform 0.35s ease;
   }
-
   #fixedNav.nav-solid {
-    opacity: 1;
-    pointer-events: all;
-    transform: translateY(0);
+    opacity: 1; pointer-events: all; transform: translateY(0);
   }
 
   .nav-logo {
@@ -111,7 +110,6 @@
     background: var(--gradient-btn);
     color: #fff; border-radius: 50px;
     padding: 10px 24px; font-size: 14px; font-weight: 700;
-    font-family: 'DM Sans', sans-serif;
     cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
   }
   .nav-cta:hover {
@@ -126,12 +124,8 @@
     margin: 16px;
     border-radius: 32px;
     background: linear-gradient(170deg,
-      #1535CC 0%,
-      #0A5A8A 25%,
-      #06B6D4 52%,
-      #7FD8E8 75%,
-      #C5EEF5 88%,
-      var(--light-bg) 100%
+      #1535CC 0%, #0A5A8A 25%, #06B6D4 52%,
+      #7FD8E8 75%, #C5EEF5 88%, var(--light-bg) 100%
     );
     overflow: hidden;
     position: relative;
@@ -172,7 +166,6 @@
     background: var(--gradient-btn);
     color: #fff; border: none; border-radius: 50px;
     padding: 10px 24px; font-size: 14px; font-weight: 700;
-    font-family: 'DM Sans', sans-serif;
     cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
   }
   .hn-cta:hover {
@@ -181,16 +174,13 @@
   }
 
   /* ════════════════════════════════════════
-     HERO SECTION — fully styled
+     HERO SECTION
   ════════════════════════════════════════ */
   #hero {
     min-height: calc(100vh - 32px);
     background: linear-gradient(155deg,
-      #1A3AFF 0%,
-      #0E6BA8 20%,
-      #06B6D4 48%,
-      #054E6B 72%,
-      #0A0F1E 100%
+      #1A3AFF 0%, #0E6BA8 20%, #06B6D4 48%,
+      #054E6B 72%, #0A0F1E 100%
     );
     display: flex;
     flex-direction: column;
@@ -202,18 +192,16 @@
     overflow: hidden;
   }
 
-  /* Radial glow overlays */
   #hero::before {
     content: '';
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background:
       radial-gradient(ellipse 60% 60% at 70% 30%, rgba(6,182,212,0.25) 0%, transparent 70%),
       radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,58,255,0.3)  0%, transparent 60%);
     pointer-events: none;
   }
 
-  /* "Coming Soon" badge */
+  /* "Coming Soon" badge — starts opacity:0, GSAP animates it in */
   .hero-coming-soon {
     display: inline-flex; align-items: center; gap: 8px;
     background: rgba(37,99,235,0.35);
@@ -222,6 +210,7 @@
     padding: 6px 18px; font-size: 13px; font-weight: 700;
     letter-spacing: 0.08em; text-transform: uppercase;
     margin-bottom: 20px;
+    opacity: 0; /* GSAP animates this */
   }
   .hero-coming-soon::before {
     content: '';
@@ -229,15 +218,16 @@
     background: #06B6D4; display: block;
   }
 
-  /* "DISCOVER" label */
+  /* "DISCOVER" label — starts opacity:0 */
   .hero-discover {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700; font-size: 18px;
     letter-spacing: 0.25em; text-transform: uppercase;
     color: #93C5FD; margin-bottom: 12px;
+    opacity: 0; /* GSAP animates this */
   }
 
-  /* Big title */
+  /* Big animated gradient title — starts opacity:0 */
   .hero-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
@@ -251,48 +241,42 @@
     cursor: default;
     background-size: 200% 200%;
     animation: gradientShift 6s ease infinite;
+    opacity: 0; /* GSAP animates this */
   }
-
   .hero-title:hover {
     background: linear-gradient(135deg, #06B6D4 0%, #38BDF8 30%, #ffffff 60%, #BFDBFE 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    animation: none;
+    -webkit-background-clip: text; background-clip: text; animation: none;
   }
-
   @keyframes gradientShift {
     0%   { background-position: 0% 50%; }
     50%  { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
 
-  /* Subtitle */
+  /* Subtitle — starts opacity:0 */
   .hero-sub {
-    color: #BFDBFE;
-    font-size: 20px; font-weight: 400;
+    color: #BFDBFE; font-size: 20px; font-weight: 400;
     margin-bottom: 40px;
+    opacity: 0; /* GSAP animates this */
   }
 
-  /* Pills row */
+  /* Pills row — each pill starts opacity:0, staggered by GSAP */
   .hero-pills {
     display: flex; align-items: center; gap: 16px;
     flex-wrap: wrap; justify-content: center;
     margin-bottom: 80px;
   }
-
   .hero-pill {
     display: flex; align-items: center; gap: 8px;
     background: rgba(30,58,95,0.7);
     border: 1px solid rgba(96,165,250,0.2);
     border-radius: 50px; padding: 10px 20px;
     font-size: 14px; font-weight: 600; color: #fff;
+    opacity: 0; /* GSAP animates this */
   }
+  .hero-pill svg { width: 16px; height: 16px; color: #60A5FA; }
 
-  .hero-pill svg {
-    width: 16px; height: 16px; color: #60A5FA;
-  }
-
-  /* Scroll hint */
+  /* Scroll hint — bounces via GSAP */
   .scroll-hint {
     position: absolute; bottom: 36px; left: 50%;
     transform: translateX(-50%);
@@ -300,47 +284,29 @@
     color: #93C5FD; font-size: 11px;
     letter-spacing: 0.2em; text-transform: uppercase;
   }
-
-  .scroll-chevron {
-    width: 28px; height: 28px; color: #60A5FA;
-    animation: bounce 0.8s ease-in-out infinite alternate;
-  }
-
-  @keyframes bounce {
-    from { transform: translateY(0); }
-    to   { transform: translateY(8px); }
-  }
+  .scroll-chevron { width: 28px; height: 28px; color: #60A5FA; }
 
   /* ════════════════════════════════════════
-     REMAINING SECTIONS (basic — styled later)
+     REMAINING SECTIONS (basic)
   ════════════════════════════════════════ */
   #phone-showcase {
-    background: var(--light-bg);
-    text-align: center;
-    padding: 80px 48px;
+    background: var(--light-bg); text-align: center; padding: 80px 48px;
   }
-  #phone-showcase p {
-    font-size: 18px; color: var(--text-dark); margin-bottom: 8px;
-  }
+  #phone-showcase p { font-size: 18px; color: var(--text-dark); margin-bottom: 8px; }
 
   #features {
-    background: var(--dark);
-    padding: 80px 48px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-    max-width: 1000px;
-    margin: 0 auto;
+    background: var(--dark); padding: 80px 48px;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 40px; max-width: 1000px; margin: 0 auto;
   }
   #features div  { padding: 24px; }
-  #features h3   { color: var(--text-white); margin-bottom: 10px; }
+  #features h3   { color: var(--text-white); margin-bottom: 10px; font-size: 22px; }
   #features p    { color: var(--text-muted); }
 
   #dashboard {
-    background: var(--light-bg);
-    text-align: center; padding: 80px 48px;
+    background: var(--light-bg); text-align: center; padding: 80px 48px;
   }
-  #dashboard h2 { color: var(--text-dark); margin-bottom: 12px; }
+  #dashboard h2 { color: var(--text-dark); margin-bottom: 12px; font-size: 36px; }
 
   #laptop-placeholder {
     background: var(--card-dark); color: var(--text-muted);
@@ -353,19 +319,15 @@
     gap: 20px; max-width: 1100px; margin: 0 auto;
   }
   #dashboard-cards div {
-    background: var(--card-light); border-radius: 16px;
-    padding: 24px; text-align: left;
+    background: var(--card-light); border-radius: 16px; padding: 24px; text-align: left;
   }
   #dashboard-cards span {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800; font-size: 20px; color: var(--blue-mid);
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: var(--blue-mid);
   }
-  #dashboard-cards h4 { color: var(--text-dark); margin: 8px 0; }
+  #dashboard-cards h4 { color: var(--text-dark); margin: 8px 0; font-size: 16px; }
 
-  #team {
-    background: var(--light-bg); text-align: center; padding: 80px 48px;
-  }
-  #team h2 { color: var(--text-dark); margin-bottom: 12px; }
+  #team { background: var(--light-bg); text-align: center; padding: 80px 48px; }
+  #team h2 { color: var(--text-dark); margin-bottom: 12px; font-size: 36px; }
 
   #team-grid {
     display: grid; grid-template-columns: repeat(3, 1fr);
@@ -376,30 +338,27 @@
     overflow: hidden; text-align: left; padding-bottom: 20px;
   }
   #team-grid img {
-    width: 100%; height: 220px;
-    object-fit: cover; object-position: top center;
+    width: 100%; height: 220px; object-fit: cover; object-position: top center;
   }
-  #team-grid h4 { color: var(--blue-mid); padding: 16px 16px 4px; }
-  #team-grid p  { padding: 0 16px; font-size: 13px; }
+  #team-grid h4  { color: var(--blue-mid); padding: 16px 16px 4px; font-size: 16px; }
+  #team-grid p   { padding: 0 16px; font-size: 13px; }
 
   #cta {
     background: var(--dark); text-align: center;
     padding: 100px 48px; color: var(--text-white);
   }
-  #cta h2 { color: var(--text-white); margin-bottom: 16px; }
+  #cta h2 { color: var(--text-white); margin-bottom: 16px; font-size: 36px; }
   #cta p  { color: var(--text-muted); font-size: 17px; margin-bottom: 12px; }
 
   #cta-features {
-    display: flex; gap: 16px; justify-content: center;
-    flex-wrap: wrap; margin: 24px 0;
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin: 24px 0;
   }
   #cta-features div {
     background: rgba(30,58,95,0.6); border-radius: 12px;
     padding: 16px 20px; min-width: 160px; text-align: left;
   }
   #cta-features strong {
-    color: var(--text-white); font-size: 14px;
-    display: block; margin-bottom: 4px;
+    color: var(--text-white); font-size: 14px; display: block; margin-bottom: 4px;
   }
   #cta-features p { font-size: 12px; color: var(--text-muted); margin: 0; }
 
@@ -415,8 +374,7 @@
   #cta-form input::placeholder { color: rgba(191,219,254,0.6); }
   #cta-form button {
     background: var(--gradient-btn); color: var(--text-white);
-    border-radius: 50px; padding: 12px 28px;
-    font-size: 15px; font-weight: 700;
+    border-radius: 50px; padding: 12px 28px; font-size: 15px; font-weight: 700;
   }
   #cta a { color: var(--blue-bright); }
 
@@ -435,6 +393,13 @@
     .nav-links { display: none; }
     .hn-links  { display: none; }
     .hero-title { font-size: 52px; }
+    #features { grid-template-columns: 1fr; }
+    #dashboard-cards { grid-template-columns: 1fr 1fr; }
+    #team-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    #dashboard-cards { grid-template-columns: 1fr; }
+    #team-grid { grid-template-columns: 1fr; }
   }
 
 </style>
@@ -480,11 +445,8 @@
   <section id="hero">
 
     <div class="hero-coming-soon">Coming Soon</div>
-
     <div class="hero-discover">Discover</div>
-
     <h1 class="hero-title">MediFind</h1>
-
     <p class="hero-sub">The Future of Healthcare Delivery in Sri Lanka</p>
 
     <div class="hero-pills">
@@ -519,8 +481,16 @@
 
 </div><!-- end hero-border-wrap -->
 
+<!-- PHONE SHOWCASE (placeholder) -->
+<section id="phone-showcase">
+  <p>[ 3D Phone model will appear here in v7 ]</p>
+  <p>Find Your Medicine. Fast.</p>
+  <p>Search Any Pharmacy.</p>
+  <p>Upload Your Prescription.</p>
+  <p>Order &amp; Track Live.</p>
+</section>
 
-<!-- FEATURES SECTION -->
+<!-- FEATURES -->
 <section id="features">
   <div>
     <h3>The one-stop for all your medicine needs</h3>
@@ -548,75 +518,53 @@
   </div>
 </section>
 
-<!-- DASHBOARD SECTION -->
+<!-- DASHBOARD -->
 <section id="dashboard">
   <p>Smart Dashboard</p>
   <h2>Grow your pharmacy with AI</h2>
   <p>Keep a pulse on inventory, orders, and analytics in one view while AI surfaces the next best actions for your business.</p>
   <div id="laptop-placeholder">[ Laptop / Dashboard mockup will appear here ]</div>
   <div id="dashboard-cards">
-    <div>
-      <span>01</span>
-      <h4>Control Your Medicine Listings</h4>
-      <p>Create, update, and manage your products from pricing and stock to availability — all in one place.</p>
-    </div>
-    <div>
-      <span>02</span>
-      <h4>Stay on Top of Every Order</h4>
-      <p>Monitor incoming orders, track delivery progress, and ensure no order ever slips through the cracks.</p>
-    </div>
-    <div>
-      <span>03</span>
-      <h4>Understand Demand &amp; Patterns</h4>
-      <p>Capture customer purchase patterns and medicine demand to improve your future stock decisions.</p>
-    </div>
-    <div>
-      <span>04</span>
-      <h4>Learn from Customer Feedback</h4>
-      <p>Review feedback to spot recurring issues, refine your service, and reduce unnecessary returns.</p>
-    </div>
+    <div><span>01</span><h4>Control Your Medicine Listings</h4><p>Create, update, and manage your products from pricing and stock to availability — all in one place.</p></div>
+    <div><span>02</span><h4>Stay on Top of Every Order</h4><p>Monitor incoming orders, track delivery progress, and ensure no order ever slips through the cracks.</p></div>
+    <div><span>03</span><h4>Understand Demand &amp; Patterns</h4><p>Capture customer purchase patterns and medicine demand to improve your future stock decisions.</p></div>
+    <div><span>04</span><h4>Learn from Customer Feedback</h4><p>Review feedback to spot recurring issues, refine your service, and reduce unnecessary returns.</p></div>
   </div>
 </section>
 
-<!-- TEAM SECTION -->
+<!-- TEAM -->
 <section id="team">
   <h2>Meet the Team</h2>
   <p>Group G02-SE19 — building MediFind to transform healthcare access across Sri Lanka.</p>
   <div id="team-grid">
     <div>
       <img src="./Assets/Achintha Jayaweera-Team member 01.jpg" alt="Achintha Jayaweera" />
-      <h4>Achintha Jayaweera</h4>
-      <p>Full-Stack Developer</p>
+      <h4>Achintha Jayaweera</h4><p>Full-Stack Developer</p>
       <p>Leading the development of core features and backend architecture.</p>
     </div>
     <div>
       <img src="./Assets/Buddhima.jpg" alt="Buddhima Samaraweera" />
-      <h4>Buddhima Samaraweera</h4>
-      <p>AI/ML Engineer</p>
+      <h4>Buddhima Samaraweera</h4><p>AI/ML Engineer</p>
       <p>Developing prescription reading and verification algorithms.</p>
     </div>
     <div>
       <img src="./Assets/Thisanda Perera - Team member 03.png" alt="Thisanda Perera" />
-      <h4>Thisanda Perera</h4>
-      <p>UI/UX Designer</p>
+      <h4>Thisanda Perera</h4><p>UI/UX Designer</p>
       <p>Designing intuitive and beautiful user interfaces.</p>
     </div>
     <div>
       <img src="./Assets/Adithya - Team member 04.png" alt="A.A.D. Adithya" />
-      <h4>A.A.D. Adithya</h4>
-      <p>Mobile Developer</p>
+      <h4>A.A.D. Adithya</h4><p>Mobile Developer</p>
       <p>Creating seamless mobile experiences for iOS and Android.</p>
     </div>
     <div>
       <img src="./Assets/Senuth.jpg" alt="Senuth Randiya" />
-      <h4>Senuth Randiya</h4>
-      <p>Business Analyst</p>
+      <h4>Senuth Randiya</h4><p>Business Analyst</p>
       <p>Managing partnerships and business development.</p>
     </div>
     <div>
       <img src="./Assets/Nisal Perera - Team member 06.jpg" alt="Nisal Perera" />
-      <h4>Nisal Perera</h4>
-      <p>QA Engineer</p>
+      <h4>Nisal Perera</h4><p>QA Engineer</p>
       <p>Ensuring quality and reliability across all platforms.</p>
     </div>
   </div>
@@ -626,20 +574,11 @@
 <section id="cta">
   <p>MVP Launch</p>
   <h2>Join the Future of Healthcare Commerce</h2>
-  <p>We're handpicking <strong>20 exceptional pharmacies</strong> for our curated MVP launch. Be among the first to reach patients across Sri Lanka.</p>
+  <p>We're handpicking <strong>20 exceptional pharmacies</strong> for our curated MVP launch.</p>
   <div id="cta-features">
-    <div>
-      <strong>Curated Selection</strong>
-      <p>Your pharmacy featured among 20 handpicked partners</p>
-    </div>
-    <div>
-      <strong>100% Free</strong>
-      <p>Zero setup fees, no hidden costs to join</p>
-    </div>
-    <div>
-      <strong>AI-Powered Growth</strong>
-      <p>Smart tools to accelerate your pharmacy business</p>
-    </div>
+    <div><strong>Curated Selection</strong><p>Your pharmacy featured among 20 handpicked partners</p></div>
+    <div><strong>100% Free</strong><p>Zero setup fees, no hidden costs to join</p></div>
+    <div><strong>AI-Powered Growth</strong><p>Smart tools to accelerate your pharmacy business</p></div>
   </div>
   <div id="cta-form">
     <input type="email" placeholder="Enter your pharmacy email" />
@@ -652,21 +591,47 @@
 </section>
 
 <script>
-  /* ── Fixed nav: hide over hero, show everywhere else ── */
-  const fixedNav = document.getElementById('fixedNav');
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ══════════════════════════════════════════
+     FIXED NAV — hide over hero, show after
+  ══════════════════════════════════════════ */
+  const fixedNav    = document.getElementById('fixedNav');
   const heroSection = document.getElementById('hero');
 
   const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        fixedNav.classList.remove('nav-solid');
-      } else {
-        fixedNav.classList.add('nav-solid');
-      }
+      if (entry.isIntersecting) fixedNav.classList.remove('nav-solid');
+      else                      fixedNav.classList.add('nav-solid');
     });
   }, { threshold: 0.05 });
 
   navObserver.observe(heroSection);
+
+  /* ══════════════════════════════════════════
+     HERO ENTRANCE ANIMATIONS — GSAP timeline
+     Each element fades up from opacity:0
+  ══════════════════════════════════════════ */
+  const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  heroTL
+    .to('.hero-coming-soon', { opacity: 1, y: 0, duration: 0.6, delay: 0.2 })
+    .to('.hero-discover',    { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
+    .to('.hero-title',       { opacity: 1, y: 0, duration: 0.8 }, '-=0.4')
+    .to('.hero-sub',         { opacity: 1, y: 0, duration: 0.6 }, '-=0.5')
+    .to('.hero-pill',        { opacity: 1, y: 0, duration: 0.4, stagger: 0.15 }, '-=0.3');
+
+  /* ══════════════════════════════════════════
+     SCROLL CHEVRON — bounces up and down
+  ══════════════════════════════════════════ */
+  gsap.to('.scroll-chevron', {
+    y: 8,
+    duration: 0.8,
+    repeat: -1,
+    yoyo: true,
+    ease: 'power1.inOut'
+  });
+
 </script>
 
 </body>
