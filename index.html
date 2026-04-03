@@ -9,6 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- model-viewer added in v7 -->
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 <style>
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -62,22 +64,17 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     padding: 16px 64px;
-    background: rgba(7, 11, 24, 0.92);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(7,11,24,0.92);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(37,99,235,0.2);
     box-shadow: 0 2px 24px rgba(0,0,0,0.3);
     opacity: 0; pointer-events: none;
     transform: translateY(-100%);
     transition: opacity 0.35s ease, transform 0.35s ease;
   }
-  #fixedNav.nav-solid {
-    opacity: 1; pointer-events: all; transform: translateY(0);
-  }
+  #fixedNav.nav-solid { opacity: 1; pointer-events: all; transform: translateY(0); }
   .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .nav-logo img { height: 52px; width: auto; object-fit: contain; }
   .nav-links { display: flex; align-items: center; gap: 36px; }
@@ -204,35 +201,28 @@
   .scroll-chevron { width: 28px; height: 28px; color: #60A5FA; }
 
   /* ════════════════════════════════════════
-     PHONE SHOWCASE — v6: sticky section
-     with styled placeholder (no 3D yet)
+     PHONE SHOWCASE — v7
+     model-viewer now loads the real 3D phone
+     Scroll animation added in v8+
   ════════════════════════════════════════ */
   #phone-showcase {
     position: relative;
-    height: 400vh; /* will be 900vh in v7+ */
+    height: 400vh;
     background: var(--light-bg);
   }
 
-  /* Sticky container */
   #showcase-phone-wrap {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: sticky; top: 0; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
     overflow: hidden;
   }
 
-  /* Background scrolling text track (hidden for now) */
+  /* Background text (hidden — activated in v9+) */
   #horiz-text-track {
-    position: absolute;
-    top: 50%; left: 0; right: 0;
-    transform: translateY(-50%);
-    height: 160px;
+    position: absolute; top: 50%; left: 0; right: 0;
+    transform: translateY(-50%); height: 160px;
     display: flex; align-items: center;
-    z-index: 1; pointer-events: none;
-    overflow: hidden; opacity: 0;
+    z-index: 1; pointer-events: none; overflow: hidden; opacity: 0;
   }
   #horiz-text-inner {
     display: flex; white-space: nowrap;
@@ -241,73 +231,40 @@
     color: var(--text-dark); letter-spacing: -0.02em;
   }
 
-  /* Phrase reveal layer (hidden for now) */
+  /* Phrase reveal layer (hidden — activated in v9+) */
   #phrase-reveal-layer {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
     z-index: 1; pointer-events: none;
   }
 
-  /* CSS Phone placeholder — replaced by model-viewer in v7 */
+  /* Phone wrapper — model-viewer lives here */
   #showcase-phone-inner {
     position: relative;
     z-index: 10;
+    filter: drop-shadow(0 30px 50px rgba(37,99,235,0.18));
   }
 
-  .phone-placeholder {
-    width: 280px; height: 560px;
-    background: #fff; border-radius: 48px;
-    border: 8px solid #1a1a2e;
-    box-shadow:
-      0 40px 80px rgba(26,58,255,0.18),
-      0 0 0 1px rgba(96,165,250,0.1);
-    overflow: hidden;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 16px;
-    position: relative;
+  /* Hide model-viewer default loading UI */
+  model-viewer::part(default-progress-bar),
+  model-viewer::part(default-progress-mask),
+  model-viewer::part(progress-bar) {
+    display: none !important; opacity: 0 !important;
+  }
+  model-viewer {
+    --progress-bar-color: transparent;
+    --progress-mask: transparent;
   }
 
-  /* Notch */
-  .phone-placeholder::before {
-    content: '';
-    position: absolute; top: 16px; left: 50%;
-    transform: translateX(-50%);
-    width: 100px; height: 24px;
-    background: #1a1a2e; border-radius: 12px;
-    z-index: 10;
-  }
-
-  .phone-placeholder-icon {
-    width: 64px; height: 64px;
-    background: linear-gradient(135deg, #2563EB, #06B6D4);
-    border-radius: 16px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .phone-placeholder-icon svg { width: 32px; height: 32px; color: #fff; }
-
-  .phone-placeholder-text {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800; font-size: 22px; color: #1e40af;
-  }
-
-  .phone-placeholder-sub {
-    font-size: 12px; color: #6B7280; text-align: center; padding: 0 32px;
-    line-height: 1.5;
-  }
-
-  /* Showcase labels — the scrolling phrases shown as static list */
+  /* Static phrase list on the right */
   .showcase-phrases {
-    position: absolute;
-    right: 80px; top: 50%; transform: translateY(-50%);
-    display: flex; flex-direction: column; gap: 20px;
-    z-index: 5;
+    position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 20px; z-index: 5;
   }
   .showcase-phrase {
     font-family: 'Montserrat', sans-serif; font-weight: 800;
     font-size: clamp(18px, 2vw, 28px); color: var(--text-dark);
-    opacity: 0.25; transition: opacity 0.3s;
-    display: flex; align-items: center; gap: 12px;
+    opacity: 0.25; display: flex; align-items: center; gap: 12px;
   }
   .showcase-phrase.active { opacity: 1; color: var(--blue-mid); }
   .showcase-phrase::before {
@@ -404,7 +361,6 @@
     #dashboard-cards { grid-template-columns: 1fr 1fr; }
     #team-grid { grid-template-columns: 1fr 1fr; }
     .showcase-phrases { right: 24px; }
-    .phone-placeholder { width: 220px; height: 440px; }
   }
   @media (max-width: 600px) {
     #dashboard-cards { grid-template-columns: 1fr; }
@@ -484,14 +440,14 @@
 </div>
 
 <!-- ════════════════════════════════════════
-     PHONE SHOWCASE — v6
-     Sticky section, CSS phone placeholder
-     3D model-viewer comes in v7
+     PHONE SHOWCASE — v7
+     Real 3D model-viewer phone loaded here
+     Sits statically — scroll animation in v8
 ════════════════════════════════════════ -->
 <section id="phone-showcase">
   <div id="showcase-phone-wrap">
 
-    <!-- Background text track (hidden, activated in v9+) -->
+    <!-- Background text (hidden) -->
     <div id="horiz-text-track">
       <div id="horiz-text-inner">
         <span>Find Your Medicine. Fast.&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;</span>
@@ -503,23 +459,27 @@
       </div>
     </div>
 
-    <!-- Phrase reveal layer (activated in v9+) -->
+    <!-- Phrase reveal layer (hidden) -->
     <div id="phrase-reveal-layer"></div>
 
-    <!-- CSS Phone Placeholder (replaced by model-viewer in v7) -->
+    <!-- ✅ REAL 3D MODEL — replaces CSS placeholder from v6 -->
     <div id="showcase-phone-inner">
-      <div class="phone-placeholder">
-        <div class="phone-placeholder-icon">
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-          </svg>
-        </div>
-        <div class="phone-placeholder-text">MediFind</div>
-        <div class="phone-placeholder-sub">3D iPhone model coming in v7</div>
-      </div>
+      <model-viewer
+        id="showcaseModelViewer"
+        src="./17 pro max phone model 01/scene.gltf"
+        alt="MediFind App on iPhone"
+        camera-orbit="-90deg 90deg 105%"
+        field-of-view="30deg"
+        shadow-intensity="1.2"
+        exposure="1.1"
+        environment-image="neutral"
+        disable-zoom
+        interaction-prompt="none"
+        style="width: 320px; height: 640px; background: transparent; pointer-events: none;"
+      ></model-viewer>
     </div>
 
-    <!-- Static phrase list on the right -->
+    <!-- Static phrase list -->
     <div class="showcase-phrases">
       <div class="showcase-phrase active">Find Your Medicine.</div>
       <div class="showcase-phrase">Search Any Pharmacy.</div>
@@ -531,29 +491,29 @@
 </section>
 
 <!-- FEATURES -->
-<section id="features" style="background: var(--dark);">
+<section id="features" style="background:var(--dark);">
   <div>
-    <h3 style="color:#fff; margin-bottom:10px;">The one-stop for all your medicine needs</h3>
+    <h3 style="color:#fff;margin-bottom:10px;">The one-stop for all your medicine needs</h3>
     <p style="color:#93C5FD;">Discover and order medicines from verified local pharmacies through a single, unified platform experience.</p>
   </div>
   <div>
-    <h3 style="color:#fff; margin-bottom:10px;">Verified pharmacies, trusted healthcare</h3>
+    <h3 style="color:#fff;margin-bottom:10px;">Verified pharmacies, trusted healthcare</h3>
     <p style="color:#93C5FD;">Shop with confidence knowing every pharmacy partner is licensed, verified, and rated for authenticity.</p>
   </div>
   <div>
-    <h3 style="color:#fff; margin-bottom:10px;">Manage your prescriptions digitally</h3>
+    <h3 style="color:#fff;margin-bottom:10px;">Manage your prescriptions digitally</h3>
     <p style="color:#93C5FD;">Upload your prescription, our AI reads and verifies it instantly — no more manual pharmacy visits or lost papers.</p>
   </div>
   <div>
-    <h3 style="color:#fff; margin-bottom:10px;">Your AI health partner</h3>
+    <h3 style="color:#fff;margin-bottom:10px;">Your AI health partner</h3>
     <p style="color:#93C5FD;">Receive smart medicine suggestions, check drug interactions, and explore healthcare options curated just for you.</p>
   </div>
   <div>
-    <h3 style="color:#fff; margin-bottom:10px;">Fast delivery to your doorstep</h3>
+    <h3 style="color:#fff;margin-bottom:10px;">Fast delivery to your doorstep</h3>
     <p style="color:#93C5FD;">Order medicines online and get them delivered within hours — track your order live every step of the way.</p>
   </div>
   <div>
-    <h3 style="color:#fff; margin-bottom:10px;">Real-time order tracking</h3>
+    <h3 style="color:#fff;margin-bottom:10px;">Real-time order tracking</h3>
     <p style="color:#93C5FD;">Stay informed with live updates from the moment you order to the second it arrives at your door.</p>
   </div>
 </section>
@@ -656,11 +616,8 @@
   /* ── Scroll chevron bounce ── */
   gsap.to('.scroll-chevron', { y: 8, duration: 0.8, repeat: -1, yoyo: true, ease: 'power1.inOut' });
 
-  /* ── Phone showcase — simple scroll-driven phrase highlight ──
-     As user scrolls through the 400vh section,
-     highlight each phrase one by one (activates in v8+)        */
+  /* ── Phrase highlight on scroll ── */
   const phrases = document.querySelectorAll('.showcase-phrase');
-
   ScrollTrigger.create({
     trigger: '#phone-showcase',
     start: 'top top',
@@ -668,12 +625,31 @@
     scrub: true,
     onUpdate(self) {
       const idx = Math.min(Math.floor(self.progress * phrases.length), phrases.length - 1);
-      phrases.forEach((p, i) => {
-        p.classList.toggle('active', i === idx);
-      });
+      phrases.forEach((p, i) => p.classList.toggle('active', i === idx));
     }
   });
 
+  /* ── Model viewer load/error handling ── */
+  const showcaseMV = document.getElementById('showcaseModelViewer');
+  if (showcaseMV) {
+    showcaseMV.addEventListener('load', () => {
+      console.log('✅ 3D phone model loaded successfully!');
+    });
+    showcaseMV.addEventListener('error', () => {
+      console.warn('⚠️ GLTF not found — check folder path');
+      document.getElementById('showcase-phone-inner').innerHTML = `
+        <div style="width:280px;height:560px;background:#fff;border-radius:48px;
+          border:8px solid #1a1a2e;box-shadow:0 40px 80px rgba(26,58,255,0.18);
+          display:flex;align-items:center;justify-content:center;
+          flex-direction:column;gap:12px;">
+          <span style="font-family:Montserrat,sans-serif;font-weight:800;
+            font-size:22px;color:#1e40af;">MediFind</span>
+          <span style="font-size:12px;color:#6B7280;">Model not found</span>
+        </div>`;
+    });
+  }
+
+  window.addEventListener('load', () => { ScrollTrigger.refresh(); });
 </script>
 
 </body>
