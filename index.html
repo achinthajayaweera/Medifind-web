@@ -41,11 +41,7 @@
     line-height: 1.6;
   }
 
-  h1, h2, h3, h4 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800; line-height: 1.2;
-  }
-
+  h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; line-height: 1.2; }
   p  { font-size: 15px; color: var(--text-gray); }
   a  { color: var(--blue-mid); text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -73,53 +69,31 @@
   .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .nav-logo img { height: 52px; width: auto; object-fit: contain; }
   .nav-links { display: flex; align-items: center; gap: 36px; }
-  .nav-links a {
-    color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 500;
-    text-decoration: none; transition: color 0.2s;
-  }
+  .nav-links a { color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 500; text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: #fff; }
-  .nav-cta {
-    background: var(--gradient-btn); color: #fff; border-radius: 50px;
-    padding: 10px 24px; font-size: 14px; font-weight: 700;
-    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-  }
+  .nav-cta { background: var(--gradient-btn); color: #fff; border-radius: 50px; padding: 10px 24px; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
   .nav-cta:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(6,182,212,0.4); }
 
   /* ════════════════════════════════════════
-     HERO BORDER WRAP
+     HERO BORDER WRAP + HERO NAV
   ════════════════════════════════════════ */
   .hero-border-wrap {
     margin: 16px; border-radius: 32px;
-    background: linear-gradient(170deg,
-      #1535CC 0%, #0A5A8A 25%, #06B6D4 52%,
-      #7FD8E8 75%, #C5EEF5 88%, var(--light-bg) 100%
-    );
+    background: linear-gradient(170deg, #1535CC 0%, #0A5A8A 25%, #06B6D4 52%, #7FD8E8 75%, #C5EEF5 88%, var(--light-bg) 100%);
     overflow: hidden; position: relative; z-index: 1;
   }
-
-  /* ════════════════════════════════════════
-     HERO NAV
-  ════════════════════════════════════════ */
   .hero-nav {
-    width: 100%; display: flex; align-items: center;
-    justify-content: space-between; padding: 20px 64px;
-    background: rgba(8,20,60,0.30); backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 64px; background: rgba(8,20,60,0.30);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
     border-bottom: 1px solid rgba(96,165,250,0.15);
   }
   .hn-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .hn-logo img { height: 52px; width: auto; object-fit: contain; }
   .hn-links { display: flex; align-items: center; gap: 36px; list-style: none; }
-  .hn-links a {
-    color: rgba(255,255,255,0.85); text-decoration: none;
-    font-size: 15px; font-weight: 500; transition: color 0.2s;
-  }
+  .hn-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
   .hn-links a:hover { color: #fff; }
-  .hn-cta {
-    background: var(--gradient-btn); color: #fff; border: none;
-    border-radius: 50px; padding: 10px 24px; font-size: 14px; font-weight: 700;
-    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-  }
+  .hn-cta { background: var(--gradient-btn); color: #fff; border: none; border-radius: 50px; padding: 10px 24px; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
   .hn-cta:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(6,182,212,0.4); }
 
   /* ════════════════════════════════════════
@@ -127,18 +101,15 @@
   ════════════════════════════════════════ */
   #hero {
     min-height: calc(100vh - 32px);
-    background: linear-gradient(155deg,
-      #1A3AFF 0%, #0E6BA8 20%, #06B6D4 48%, #054E6B 72%, #0A0F1E 100%
-    );
+    background: linear-gradient(155deg, #1A3AFF 0%, #0E6BA8 20%, #06B6D4 48%, #054E6B 72%, #0A0F1E 100%);
     display: flex; flex-direction: column; align-items: center;
     justify-content: center; text-align: center;
     padding: 80px 48px; position: relative; overflow: hidden;
   }
   #hero::before {
     content: ''; position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 60% 60% at 70% 30%, rgba(6,182,212,0.25) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,58,255,0.3)  0%, transparent 60%);
+    background: radial-gradient(ellipse 60% 60% at 70% 30%, rgba(6,182,212,0.25) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,58,255,0.3) 0%, transparent 60%);
     pointer-events: none;
   }
   .hero-coming-soon {
@@ -148,15 +119,8 @@
     font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
     text-transform: uppercase; margin-bottom: 20px; opacity: 0;
   }
-  .hero-coming-soon::before {
-    content: ''; width: 6px; height: 6px; border-radius: 50%;
-    background: #06B6D4; display: block;
-  }
-  .hero-discover {
-    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px;
-    letter-spacing: 0.25em; text-transform: uppercase;
-    color: #93C5FD; margin-bottom: 12px; opacity: 0;
-  }
+  .hero-coming-soon::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #06B6D4; display: block; }
+  .hero-discover { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.25em; text-transform: uppercase; color: #93C5FD; margin-bottom: 12px; opacity: 0; }
   .hero-title {
     font-family: 'Montserrat', sans-serif; font-weight: 900;
     font-size: clamp(64px, 10vw, 100px); line-height: 1.0;
@@ -167,20 +131,10 @@
     animation: gradientShift 6s ease infinite;
     text-shadow: 0 0 40px rgba(255,255,255,0.15);
   }
-  .hero-title:hover {
-    background: linear-gradient(135deg, #06B6D4 0%, #38BDF8 30%, #ffffff 60%, #BFDBFE 100%);
-    -webkit-background-clip: text; background-clip: text; animation: none;
-  }
-  @keyframes gradientShift {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
+  .hero-title:hover { background: linear-gradient(135deg, #06B6D4 0%, #38BDF8 30%, #ffffff 60%, #BFDBFE 100%); -webkit-background-clip: text; background-clip: text; animation: none; }
+  @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
   .hero-sub { color: #BFDBFE; font-size: 20px; font-weight: 400; margin-bottom: 40px; opacity: 0; }
-  .hero-pills {
-    display: flex; align-items: center; gap: 16px;
-    flex-wrap: wrap; justify-content: center; margin-bottom: 80px;
-  }
+  .hero-pills { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: center; margin-bottom: 80px; }
   .hero-pill {
     display: flex; align-items: center; gap: 8px;
     background: rgba(30,58,95,0.7); border: 1px solid rgba(96,165,250,0.2);
@@ -196,13 +150,12 @@
   .scroll-chevron { width: 28px; height: 28px; color: #60A5FA; }
 
   /* ════════════════════════════════════════
-     PHONE SHOWCASE — v8
-     Phase 1: phone spins in from side on scroll
-     Height increased to 600vh for more scroll room
+     PHONE SHOWCASE — v9
+     Height: 700vh (more room for Phase 2)
   ════════════════════════════════════════ */
   #phone-showcase {
     position: relative;
-    height: 600vh; /* increased from 400vh */
+    height: 700vh;
     background: var(--light-bg);
   }
 
@@ -212,7 +165,7 @@
     overflow: hidden; isolation: isolate;
   }
 
-  /* Background text (hidden — activated in v9+) */
+  /* Background text (hidden — v10+) */
   #horiz-text-track {
     position: absolute; top: 50%; left: 0; right: 0;
     transform: translateY(-50%); height: 160px;
@@ -224,34 +177,48 @@
     font-family: 'Montserrat', sans-serif; font-weight: 900;
     font-size: clamp(64px, 9vw, 120px); line-height: 1;
     color: var(--text-dark); letter-spacing: -0.02em;
+    will-change: transform;
   }
 
-  /* Phrase reveal layer (hidden — activated in v9+) */
+  /* ── PHRASE REVEAL LAYER — NEW IN v9 ── */
   #phrase-reveal-layer {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
     z-index: 1; pointer-events: none;
   }
 
-  /* Phone wrapper — starts invisible, GSAP controls scale + opacity */
+  /* Each phrase sits absolutely centered, hidden by default */
+  .reveal-phrase {
+    position: absolute;
+    font-family: 'Montserrat', sans-serif; font-weight: 900;
+    font-size: clamp(48px, 7vw, 96px); line-height: 1.05;
+    text-align: center; color: var(--text-dark);
+    letter-spacing: -0.02em;
+    opacity: 0; transform: translateY(40px);
+    max-width: 80vw; z-index: 1;
+  }
+
+  /* Each word inside a phrase animates individually */
+  .reveal-phrase span {
+    display: inline-block;
+    opacity: 0; transform: translateY(30px);
+  }
+
+  /* Phone — on top of phrases */
   #showcase-phone-inner {
     position: relative; z-index: 10;
     filter: drop-shadow(0 30px 50px rgba(37,99,235,0.18));
     transform-origin: center center;
-    /* starts hidden — JS sets these */
-    opacity: 0;
-    transform: scale(0);
+    opacity: 0; transform: scale(0);
   }
 
   /* Hide model-viewer loading UI */
   model-viewer::part(default-progress-bar),
   model-viewer::part(default-progress-mask),
-  model-viewer::part(progress-bar) {
-    display: none !important; opacity: 0 !important;
-  }
+  model-viewer::part(progress-bar) { display: none !important; opacity: 0 !important; }
   model-viewer { --progress-bar-color: transparent; --progress-mask: transparent; }
 
-  /* Scroll hint below phone */
+  /* Scroll hint */
   #scroll-phase-hint {
     position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
     display: flex; flex-direction: column; align-items: center; gap: 6px;
@@ -262,99 +229,54 @@
   #scroll-phase-hint.visible { opacity: 1; }
   #scroll-phase-hint svg { width: 20px; height: 20px; }
 
-  /* Float animation — plays after spin-in completes */
+  /* Float animation */
   @keyframes phoneFloat {
     0%, 100% { transform: translateY(0px); }
     50%       { transform: translateY(-18px); }
-  }
-  .phone-floating {
-    animation: phoneFloat 2.4s ease-in-out infinite;
   }
 
   /* ════════════════════════════════════════
      REMAINING SECTIONS
   ════════════════════════════════════════ */
-  #features {
-    background: var(--dark); padding: 80px 48px;
-    display: grid; grid-template-columns: repeat(2, 1fr);
-    gap: 40px; max-width: 1000px; margin: 0 auto;
-  }
-  #features div  { padding: 24px; }
-  #features h3   { color: var(--text-white); margin-bottom: 10px; font-size: 22px; }
-  #features p    { color: var(--text-muted); }
+  #features { background: var(--dark); padding: 80px 48px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 1000px; margin: 0 auto; }
+  #features div { padding: 24px; }
+  #features h3 { color: var(--text-white); margin-bottom: 10px; font-size: 22px; }
+  #features p  { color: var(--text-muted); }
 
   #dashboard { background: var(--light-bg); text-align: center; padding: 80px 48px; }
   #dashboard h2 { color: var(--text-dark); margin-bottom: 12px; font-size: 36px; }
-  #laptop-placeholder {
-    background: var(--card-dark); color: var(--text-muted);
-    border-radius: 16px; padding: 60px;
-    margin: 32px auto; max-width: 800px; font-size: 16px;
-  }
-  #dashboard-cards {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 20px; max-width: 1100px; margin: 0 auto;
-  }
-  #dashboard-cards div {
-    background: var(--card-light); border-radius: 16px; padding: 24px; text-align: left;
-  }
-  #dashboard-cards span {
-    font-family: 'Montserrat', sans-serif; font-weight: 800;
-    font-size: 20px; color: var(--blue-mid);
-  }
+  #laptop-placeholder { background: var(--card-dark); color: var(--text-muted); border-radius: 16px; padding: 60px; margin: 32px auto; max-width: 800px; font-size: 16px; }
+  #dashboard-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+  #dashboard-cards div { background: var(--card-light); border-radius: 16px; padding: 24px; text-align: left; }
+  #dashboard-cards span { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: var(--blue-mid); }
   #dashboard-cards h4 { color: var(--text-dark); margin: 8px 0; font-size: 16px; }
 
   #team { background: var(--light-bg); text-align: center; padding: 80px 48px; }
   #team h2 { color: var(--text-dark); margin-bottom: 12px; font-size: 36px; }
-  #team-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 24px; max-width: 1000px; margin: 32px auto 0;
-  }
-  #team-grid div {
-    background: var(--card-light); border-radius: 16px;
-    overflow: hidden; text-align: left; padding-bottom: 20px;
-  }
+  #team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1000px; margin: 32px auto 0; }
+  #team-grid div { background: var(--card-light); border-radius: 16px; overflow: hidden; text-align: left; padding-bottom: 20px; }
   #team-grid img { width: 100%; height: 220px; object-fit: cover; object-position: top center; }
-  #team-grid h4  { color: var(--blue-mid); padding: 16px 16px 4px; font-size: 16px; }
-  #team-grid p   { padding: 0 16px; font-size: 13px; }
+  #team-grid h4 { color: var(--blue-mid); padding: 16px 16px 4px; font-size: 16px; }
+  #team-grid p  { padding: 0 16px; font-size: 13px; }
 
   #cta { background: var(--dark); text-align: center; padding: 100px 48px; color: var(--text-white); }
   #cta h2 { color: var(--text-white); margin-bottom: 16px; font-size: 36px; }
   #cta p  { color: var(--text-muted); font-size: 17px; margin-bottom: 12px; }
   #cta-features { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin: 24px 0; }
-  #cta-features div {
-    background: rgba(30,58,95,0.6); border-radius: 12px;
-    padding: 16px 20px; min-width: 160px; text-align: left;
-  }
+  #cta-features div { background: rgba(30,58,95,0.6); border-radius: 12px; padding: 16px 20px; min-width: 160px; text-align: left; }
   #cta-features strong { color: var(--text-white); font-size: 14px; display: block; margin-bottom: 4px; }
   #cta-features p { font-size: 12px; color: var(--text-muted); margin: 0; }
   #cta-form { display: flex; gap: 8px; justify-content: center; margin: 24px 0; }
-  #cta-form input {
-    padding: 12px 20px; border-radius: 50px;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.1); color: var(--text-white);
-    font-size: 15px; width: 300px; outline: none; font-family: 'DM Sans', sans-serif;
-  }
+  #cta-form input { padding: 12px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: var(--text-white); font-size: 15px; width: 300px; outline: none; font-family: 'DM Sans', sans-serif; }
   #cta-form input::placeholder { color: rgba(191,219,254,0.6); }
-  #cta-form button {
-    background: var(--gradient-btn); color: var(--text-white);
-    border-radius: 50px; padding: 12px 28px; font-size: 15px; font-weight: 700;
-  }
+  #cta-form button { background: var(--gradient-btn); color: var(--text-white); border-radius: 50px; padding: 12px 28px; font-size: 15px; font-weight: 700; }
   #cta a { color: #60A5FA; }
+  footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(30,58,95,0.5); color: var(--text-muted); font-size: 13px; }
 
-  footer {
-    margin-top: 48px; padding-top: 24px;
-    border-top: 1px solid rgba(30,58,95,0.5);
-    color: var(--text-muted); font-size: 13px;
-  }
-
-  /* ════════════════════════════════════════
-     RESPONSIVE
-  ════════════════════════════════════════ */
+  /* RESPONSIVE */
   @media (max-width: 900px) {
-    #fixedNav { padding: 14px 24px; }
-    .hero-nav  { padding: 16px 24px; }
-    .nav-links { display: none; }
-    .hn-links  { display: none; }
+    #fixedNav { padding: 14px 24px; } .hero-nav { padding: 16px 24px; }
+    .nav-links { display: none; } .hn-links { display: none; }
     .hero-title { font-size: 52px; }
     #features { grid-template-columns: 1fr; }
     #dashboard-cards { grid-template-columns: 1fr 1fr; }
@@ -372,8 +294,7 @@
 <!-- FIXED NAV -->
 <nav id="fixedNav">
   <a class="nav-logo" href="#">
-    <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo"
-         onerror="this.style.display='none';" />
+    <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo" onerror="this.style.display='none';" />
     MediFind
   </a>
   <ul class="nav-links">
@@ -389,8 +310,7 @@
 <div class="hero-border-wrap" id="heroBorderWrap">
   <nav class="hero-nav">
     <a class="hn-logo" href="#">
-      <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo"
-           onerror="this.style.display='none';" />
+      <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo" onerror="this.style.display='none';" />
       MediFind
     </a>
     <ul class="hn-links">
@@ -409,21 +329,15 @@
     <p class="hero-sub">The Future of Healthcare Delivery in Sri Lanka</p>
     <div class="hero-pills">
       <div class="hero-pill">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-        </svg>
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
         Verified Pharmacies
       </div>
       <div class="hero-pill">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-        </svg>
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
         AI-Powered Prescriptions
       </div>
       <div class="hero-pill">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         Fast Delivery
       </div>
     </div>
@@ -437,14 +351,14 @@
 </div>
 
 <!-- ════════════════════════════════════════
-     PHONE SHOWCASE — v8
-     Phase 1: scroll-driven spin-in animation
-     Phone starts at scale(0), spins to face forward
+     PHONE SHOWCASE — v9
+     Phase 1 (0–15%):  phone spin-in
+     Phase 2 (15–60%): phrase reveals word by word
 ════════════════════════════════════════ -->
 <section id="phone-showcase">
   <div id="showcase-phone-wrap">
 
-    <!-- Background text (hidden) -->
+    <!-- Background text (hidden — v10+) -->
     <div id="horiz-text-track">
       <div id="horiz-text-inner">
         <span>Find Your Medicine. Fast.&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;</span>
@@ -456,7 +370,7 @@
       </div>
     </div>
 
-    <!-- Phrase reveal layer (hidden) -->
+    <!-- Phrase reveal layer — phrases injected by JS -->
     <div id="phrase-reveal-layer"></div>
 
     <!-- 3D Phone -->
@@ -488,37 +402,19 @@
 
 <!-- FEATURES -->
 <section id="features" style="background:var(--dark);">
-  <div>
-    <h3 style="color:#fff;margin-bottom:10px;">The one-stop for all your medicine needs</h3>
-    <p style="color:#93C5FD;">Discover and order medicines from verified local pharmacies through a single, unified platform experience.</p>
-  </div>
-  <div>
-    <h3 style="color:#fff;margin-bottom:10px;">Verified pharmacies, trusted healthcare</h3>
-    <p style="color:#93C5FD;">Shop with confidence knowing every pharmacy partner is licensed, verified, and rated for authenticity.</p>
-  </div>
-  <div>
-    <h3 style="color:#fff;margin-bottom:10px;">Manage your prescriptions digitally</h3>
-    <p style="color:#93C5FD;">Upload your prescription, our AI reads and verifies it instantly — no more manual pharmacy visits or lost papers.</p>
-  </div>
-  <div>
-    <h3 style="color:#fff;margin-bottom:10px;">Your AI health partner</h3>
-    <p style="color:#93C5FD;">Receive smart medicine suggestions, check drug interactions, and explore healthcare options curated just for you.</p>
-  </div>
-  <div>
-    <h3 style="color:#fff;margin-bottom:10px;">Fast delivery to your doorstep</h3>
-    <p style="color:#93C5FD;">Order medicines online and get them delivered within hours — track your order live every step of the way.</p>
-  </div>
-  <div>
-    <h3 style="color:#fff;margin-bottom:10px;">Real-time order tracking</h3>
-    <p style="color:#93C5FD;">Stay informed with live updates from the moment you order to the second it arrives at your door.</p>
-  </div>
+  <div><h3 style="color:#fff;margin-bottom:10px;">The one-stop for all your medicine needs</h3><p style="color:#93C5FD;">Discover and order medicines from verified local pharmacies through a single, unified platform experience.</p></div>
+  <div><h3 style="color:#fff;margin-bottom:10px;">Verified pharmacies, trusted healthcare</h3><p style="color:#93C5FD;">Shop with confidence knowing every pharmacy partner is licensed, verified, and rated for authenticity.</p></div>
+  <div><h3 style="color:#fff;margin-bottom:10px;">Manage your prescriptions digitally</h3><p style="color:#93C5FD;">Upload your prescription, our AI reads and verifies it instantly — no more manual pharmacy visits or lost papers.</p></div>
+  <div><h3 style="color:#fff;margin-bottom:10px;">Your AI health partner</h3><p style="color:#93C5FD;">Receive smart medicine suggestions, check drug interactions, and explore healthcare options curated just for you.</p></div>
+  <div><h3 style="color:#fff;margin-bottom:10px;">Fast delivery to your doorstep</h3><p style="color:#93C5FD;">Order medicines online and get them delivered within hours — track your order live every step of the way.</p></div>
+  <div><h3 style="color:#fff;margin-bottom:10px;">Real-time order tracking</h3><p style="color:#93C5FD;">Stay informed with live updates from the moment you order to the second it arrives at your door.</p></div>
 </section>
 
 <!-- DASHBOARD -->
 <section id="dashboard">
   <p>Smart Dashboard</p>
   <h2>Grow your pharmacy with AI</h2>
-  <p>Keep a pulse on inventory, orders, and analytics in one view while AI surfaces the next best actions for your business.</p>
+  <p>Keep a pulse on inventory, orders, and analytics in one view while AI surfaces the next best actions.</p>
   <div id="laptop-placeholder">[ Laptop / Dashboard mockup will appear here ]</div>
   <div id="dashboard-cards">
     <div><span>01</span><h4>Control Your Medicine Listings</h4><p>Create, update, and manage your products from pricing and stock to availability — all in one place.</p></div>
@@ -533,36 +429,12 @@
   <h2>Meet the Team</h2>
   <p>Group G02-SE19 — building MediFind to transform healthcare access across Sri Lanka.</p>
   <div id="team-grid">
-    <div>
-      <img src="./Assets/Achintha Jayaweera-Team member 01.jpg" alt="Achintha Jayaweera" />
-      <h4>Achintha Jayaweera</h4><p>Full-Stack Developer</p>
-      <p>Leading the development of core features and backend architecture.</p>
-    </div>
-    <div>
-      <img src="./Assets/Buddhima.jpg" alt="Buddhima Samaraweera" />
-      <h4>Buddhima Samaraweera</h4><p>AI/ML Engineer</p>
-      <p>Developing prescription reading and verification algorithms.</p>
-    </div>
-    <div>
-      <img src="./Assets/Thisanda Perera - Team member 03.png" alt="Thisanda Perera" />
-      <h4>Thisanda Perera</h4><p>UI/UX Designer</p>
-      <p>Designing intuitive and beautiful user interfaces.</p>
-    </div>
-    <div>
-      <img src="./Assets/Adithya - Team member 04.png" alt="A.A.D. Adithya" />
-      <h4>A.A.D. Adithya</h4><p>Mobile Developer</p>
-      <p>Creating seamless mobile experiences for iOS and Android.</p>
-    </div>
-    <div>
-      <img src="./Assets/Senuth.jpg" alt="Senuth Randiya" />
-      <h4>Senuth Randiya</h4><p>Business Analyst</p>
-      <p>Managing partnerships and business development.</p>
-    </div>
-    <div>
-      <img src="./Assets/Nisal Perera - Team member 06.jpg" alt="Nisal Perera" />
-      <h4>Nisal Perera</h4><p>QA Engineer</p>
-      <p>Ensuring quality and reliability across all platforms.</p>
-    </div>
+    <div><img src="./Assets/Achintha Jayaweera-Team member 01.jpg" alt="Achintha Jayaweera" /><h4>Achintha Jayaweera</h4><p>Full-Stack Developer</p><p>Leading the development of core features and backend architecture.</p></div>
+    <div><img src="./Assets/Buddhima.jpg" alt="Buddhima Samaraweera" /><h4>Buddhima Samaraweera</h4><p>AI/ML Engineer</p><p>Developing prescription reading and verification algorithms.</p></div>
+    <div><img src="./Assets/Thisanda Perera - Team member 03.png" alt="Thisanda Perera" /><h4>Thisanda Perera</h4><p>UI/UX Designer</p><p>Designing intuitive and beautiful user interfaces.</p></div>
+    <div><img src="./Assets/Adithya - Team member 04.png" alt="A.A.D. Adithya" /><h4>A.A.D. Adithya</h4><p>Mobile Developer</p><p>Creating seamless mobile experiences for iOS and Android.</p></div>
+    <div><img src="./Assets/Senuth.jpg" alt="Senuth Randiya" /><h4>Senuth Randiya</h4><p>Business Analyst</p><p>Managing partnerships and business development.</p></div>
+    <div><img src="./Assets/Nisal Perera - Team member 06.jpg" alt="Nisal Perera" /><h4>Nisal Perera</h4><p>QA Engineer</p><p>Ensuring quality and reliability across all platforms.</p></div>
   </div>
 </section>
 
@@ -581,9 +453,7 @@
     <button>Get Started →</button>
   </div>
   <p>Have questions? <a href="https://wa.me/94761490417" target="_blank">Contact Support</a></p>
-  <footer>
-    <p>© 2025–2026 MediFind. All rights reserved. · Designed by Achintha Jayaweera for Group G02-SE19</p>
-  </footer>
+  <footer><p>© 2025–2026 MediFind. All rights reserved. · Designed by Achintha Jayaweera for Group G02-SE19</p></footer>
 </section>
 
 <script>
@@ -609,82 +479,146 @@
     .to('.hero-sub',         { opacity: 1, y: 0, duration: 0.6 }, '-=0.5')
     .to('.hero-pill',        { opacity: 1, y: 0, duration: 0.4, stagger: 0.15 }, '-=0.3');
 
-  /* ── Scroll chevron bounce ── */
   gsap.to('.scroll-chevron', { y: 8, duration: 0.8, repeat: -1, yoyo: true, ease: 'power1.inOut' });
 
   /* ════════════════════════════════════════
-     PHASE 1 — SCROLL-DRIVEN SPIN-IN
-     Trigger: hero bottom exits viewport
-     End:     first 15% of phone-showcase
+     BUILD PHRASE ELEMENTS
+     4 phrases, each word is a <span>
+     injected into #phrase-reveal-layer
+  ════════════════════════════════════════ */
+  const phrases = [
+    'Find Your Medicine.',
+    'Search Any Pharmacy.',
+    'Upload Your Prescription.',
+    'Order & Track Live.',
+  ];
 
-     Progress 0 → 1:
-       scale:        0 → 1
-       opacity:      0 → 1
-       camera-orbit: 270deg → -90deg (full rotation)
+  const revealLayer = document.getElementById('phrase-reveal-layer');
+  const phraseEls   = phrases.map((text) => {
+    const el    = document.createElement('div');
+    el.className = 'reveal-phrase';
+    const words  = text.split(' ');
+    el.innerHTML = words.map(w => `<span>${w}</span>`).join(' ');
+    revealLayer.appendChild(el);
+    return el;
+  });
 
-     After spin completes → phone floats
+  const allSpans = phraseEls.map(el => [...el.querySelectorAll('span')]);
+
+  /* Initial hidden state */
+  gsap.set(phraseEls, { opacity: 0, y: 40 });
+  phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
+
+  /* ════════════════════════════════════════
+     REFS
   ════════════════════════════════════════ */
   const showcaseMV    = document.getElementById('showcaseModelViewer');
   const showcaseInner = document.getElementById('showcase-phone-inner');
   const phaseHint     = document.getElementById('scroll-phase-hint');
 
-  /* Set initial state — hidden */
   gsap.set(showcaseInner, { opacity: 0, scale: 0 });
   if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '270deg 90deg 105%');
 
-  let spinComplete = false;
-  let floatTween   = null;
-
+  let floatTween = null;
   function startFloat() {
     if (floatTween) return;
-    floatTween = gsap.to(showcaseInner, {
-      y: -18, duration: 2.4, repeat: -1, yoyo: true, ease: 'sine.inOut'
-    });
+    floatTween = gsap.to(showcaseInner, { y: -18, duration: 2.4, repeat: -1, yoyo: true, ease: 'sine.inOut' });
     phaseHint.classList.add('visible');
   }
-
   function stopFloat() {
     if (floatTween) { floatTween.kill(); floatTween = null; }
     gsap.set(showcaseInner, { y: 0 });
     phaseHint.classList.remove('visible');
   }
 
-  /* ScrollTrigger — hero exits → phone spins in */
+  /* ════════════════════════════════════════
+     PHASE BOUNDARIES (progress 0 → 1)
+     P1: 0.00 → 0.15  spin-in
+     P2: 0.15 → 0.60  phrase reveals
+     rest: idle float (horizontal text in v10)
+  ════════════════════════════════════════ */
+  const P1_END   = 0.15;
+  const P2_START = 0.15;
+  const P2_END   = 0.60;
+
   ScrollTrigger.create({
     trigger: '#heroBorderWrap',
-    start: 'bottom 95%',        /* fires when hero bottom nears viewport bottom */
+    start: 'bottom 95%',
     endTrigger: '#phone-showcase',
-    end: '15% bottom',          /* spin completes in first 15% of showcase */
+    end: 'bottom bottom',
     scrub: true,
     onUpdate(self) {
-      const t = self.progress;  /* 0 → 1 */
+      const p = self.progress;
 
-      if (t < 1) {
+      /* ── PHASE 1: Spin-in ── */
+      if (p <= P1_END) {
         stopFloat();
-        spinComplete = false;
-
-        /* scale: 0 → 1 (slightly overshoot then settle) */
+        const t  = p / P1_END;
         const sc = Math.min(t * 1.18, 1);
         gsap.set(showcaseInner, { scale: sc, opacity: Math.min(t * 5, 1), y: 0 });
+        if (showcaseMV) showcaseMV.setAttribute('camera-orbit', `${270 - 360 * t}deg 90deg 105%`);
+        /* hide all phrases */
+        gsap.set(phraseEls, { opacity: 0, y: 40 });
+        phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
+      }
 
-        /* camera spins from side (270deg) to front (-90deg) */
-        const deg = 270 - 360 * t;
-        if (showcaseMV) showcaseMV.setAttribute('camera-orbit', `${deg}deg 90deg 105%`);
-      } else {
-        /* Spin done — lock to front and start float */
-        if (!spinComplete) {
-          spinComplete = true;
-          gsap.set(showcaseInner, { scale: 1, opacity: 1, y: 0 });
-          if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
-          startFloat();
-        }
+      /* ── PHASE 2: Phrase reveals ── */
+      else if (p <= P2_END) {
+        gsap.set(showcaseInner, { scale: 1, opacity: 1 });
+        if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
+        startFloat();
+
+        /* t = 0→1 within phase 2 */
+        const t = (p - P2_START) / (P2_END - P2_START);
+
+        phraseEls.forEach((el, i) => {
+          const spans = allSpans[i];
+          /* each phrase gets equal slice of t */
+          const tIn  = i / phrases.length;
+          const tOut = (i + 1) / phrases.length;
+          const tMid = (tIn + tOut) / 2;
+
+          if (t < tIn) {
+            /* not yet — hide below */
+            gsap.set(el, { opacity: 0, y: 40 });
+            spans.forEach(s => gsap.set(s, { opacity: 0, y: 24 }));
+          }
+          else if (t < tMid) {
+            /* entering — words animate in one by one */
+            const sub = (t - tIn) / (tMid - tIn); /* 0→1 */
+            gsap.set(el, { opacity: 1, y: 0 });
+            spans.forEach((s, si) => {
+              const w = Math.max(0, Math.min(1, sub * spans.length - si * 0.6));
+              gsap.set(s, { opacity: w, y: 24 * (1 - w) });
+            });
+          }
+          else if (t < tOut) {
+            /* exiting — phrase fades up */
+            const sub = (t - tMid) / (tOut - tMid); /* 0→1 */
+            gsap.set(el, { opacity: 1 - sub, y: -30 * sub });
+            spans.forEach(s => gsap.set(s, { opacity: 1 - sub, y: 0 }));
+          }
+          else {
+            /* done — hide above */
+            gsap.set(el, { opacity: 0, y: -30 });
+            spans.forEach(s => gsap.set(s, { opacity: 0, y: 0 }));
+          }
+        });
+      }
+
+      /* ── After Phase 2: phone floats, phrases hidden ── */
+      else {
+        gsap.set(showcaseInner, { scale: 1, opacity: 1 });
+        if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
+        startFloat();
+        gsap.set(phraseEls, { opacity: 0 });
       }
     },
     onLeaveBack() {
-      /* Scrolled back above hero — hide phone again */
       stopFloat();
-      spinComplete = false;
       gsap.set(showcaseInner, { scale: 0, opacity: 0, y: 0 });
+      gsap.set(phraseEls, { opacity: 0, y: 40 });
+      phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
       if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '270deg 90deg 105%');
     }
   });
