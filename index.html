@@ -150,12 +150,15 @@
   .scroll-chevron { width: 28px; height: 28px; color: #60A5FA; }
 
   /* ════════════════════════════════════════
-     PHONE SHOWCASE — v9
-     Height: 700vh (more room for Phase 2)
+     PHONE SHOWCASE — v10
+     Height: 900vh
+     Phase 1 (0–12%):  spin-in
+     Phase 2 (12–30%): phrase reveals
+     Phase 3 (30–100%): horizontal text scroll ← NEW
   ════════════════════════════════════════ */
   #phone-showcase {
     position: relative;
-    height: 700vh;
+    height: 900vh;
     background: var(--light-bg);
   }
 
@@ -165,12 +168,13 @@
     overflow: hidden; isolation: isolate;
   }
 
-  /* Background text (hidden — v10+) */
+  /* ── HORIZONTAL TEXT TRACK — NEW IN v10 ── */
   #horiz-text-track {
     position: absolute; top: 50%; left: 0; right: 0;
     transform: translateY(-50%); height: 160px;
     display: flex; align-items: center;
-    z-index: 1; pointer-events: none; overflow: hidden; opacity: 0;
+    z-index: 1; pointer-events: none; overflow: hidden;
+    opacity: 0; /* JS reveals this in Phase 3 */
   }
   #horiz-text-inner {
     display: flex; white-space: nowrap;
@@ -180,14 +184,12 @@
     will-change: transform;
   }
 
-  /* ── PHRASE REVEAL LAYER — NEW IN v9 ── */
+  /* Phrase reveal layer */
   #phrase-reveal-layer {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
     z-index: 1; pointer-events: none;
   }
-
-  /* Each phrase sits absolutely centered, hidden by default */
   .reveal-phrase {
     position: absolute;
     font-family: 'Montserrat', sans-serif; font-weight: 900;
@@ -197,14 +199,9 @@
     opacity: 0; transform: translateY(40px);
     max-width: 80vw; z-index: 1;
   }
+  .reveal-phrase span { display: inline-block; opacity: 0; transform: translateY(30px); }
 
-  /* Each word inside a phrase animates individually */
-  .reveal-phrase span {
-    display: inline-block;
-    opacity: 0; transform: translateY(30px);
-  }
-
-  /* Phone — on top of phrases */
+  /* Phone on top */
   #showcase-phone-inner {
     position: relative; z-index: 10;
     filter: drop-shadow(0 30px 50px rgba(37,99,235,0.18));
@@ -212,13 +209,11 @@
     opacity: 0; transform: scale(0);
   }
 
-  /* Hide model-viewer loading UI */
   model-viewer::part(default-progress-bar),
   model-viewer::part(default-progress-mask),
   model-viewer::part(progress-bar) { display: none !important; opacity: 0 !important; }
   model-viewer { --progress-bar-color: transparent; --progress-mask: transparent; }
 
-  /* Scroll hint */
   #scroll-phase-hint {
     position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
     display: flex; flex-direction: column; align-items: center; gap: 6px;
@@ -229,7 +224,6 @@
   #scroll-phase-hint.visible { opacity: 1; }
   #scroll-phase-hint svg { width: 20px; height: 20px; }
 
-  /* Float animation */
   @keyframes phoneFloat {
     0%, 100% { transform: translateY(0px); }
     50%       { transform: translateY(-18px); }
@@ -351,14 +345,15 @@
 </div>
 
 <!-- ════════════════════════════════════════
-     PHONE SHOWCASE — v9
-     Phase 1 (0–15%):  phone spin-in
-     Phase 2 (15–60%): phrase reveals word by word
+     PHONE SHOWCASE — v10
+     Phase 1 (0–12%):   spin-in
+     Phase 2 (12–30%):  phrase reveals
+     Phase 3 (30–100%): horizontal text scrolls behind phone ← NEW
 ════════════════════════════════════════ -->
 <section id="phone-showcase">
   <div id="showcase-phone-wrap">
 
-    <!-- Background text (hidden — v10+) -->
+    <!-- ── HORIZONTAL TEXT TRACK — NEW IN v10 ── -->
     <div id="horiz-text-track">
       <div id="horiz-text-inner">
         <span>Find Your Medicine. Fast.&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;</span>
@@ -370,7 +365,7 @@
       </div>
     </div>
 
-    <!-- Phrase reveal layer — phrases injected by JS -->
+    <!-- Phrase reveal layer -->
     <div id="phrase-reveal-layer"></div>
 
     <!-- 3D Phone -->
@@ -390,7 +385,6 @@
       ></model-viewer>
     </div>
 
-    <!-- Scroll hint -->
     <div id="scroll-phase-hint">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
@@ -481,42 +475,35 @@
 
   gsap.to('.scroll-chevron', { y: 8, duration: 0.8, repeat: -1, yoyo: true, ease: 'power1.inOut' });
 
-  /* ════════════════════════════════════════
-     BUILD PHRASE ELEMENTS
-     4 phrases, each word is a <span>
-     injected into #phrase-reveal-layer
-  ════════════════════════════════════════ */
+  /* ── Build phrase elements ── */
   const phrases = [
     'Find Your Medicine.',
     'Search Any Pharmacy.',
     'Upload Your Prescription.',
     'Order & Track Live.',
   ];
-
   const revealLayer = document.getElementById('phrase-reveal-layer');
   const phraseEls   = phrases.map((text) => {
-    const el    = document.createElement('div');
+    const el = document.createElement('div');
     el.className = 'reveal-phrase';
-    const words  = text.split(' ');
-    el.innerHTML = words.map(w => `<span>${w}</span>`).join(' ');
+    el.innerHTML = text.split(' ').map(w => `<span>${w}</span>`).join(' ');
     revealLayer.appendChild(el);
     return el;
   });
-
   const allSpans = phraseEls.map(el => [...el.querySelectorAll('span')]);
 
-  /* Initial hidden state */
   gsap.set(phraseEls, { opacity: 0, y: 40 });
   phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
 
-  /* ════════════════════════════════════════
-     REFS
-  ════════════════════════════════════════ */
-  const showcaseMV    = document.getElementById('showcaseModelViewer');
-  const showcaseInner = document.getElementById('showcase-phone-inner');
-  const phaseHint     = document.getElementById('scroll-phase-hint');
+  /* ── Refs ── */
+  const showcaseMV     = document.getElementById('showcaseModelViewer');
+  const showcaseInner  = document.getElementById('showcase-phone-inner');
+  const horizTrack     = document.getElementById('horiz-text-track');
+  const horizTextInner = document.getElementById('horiz-text-inner');
+  const phaseHint      = document.getElementById('scroll-phase-hint');
 
   gsap.set(showcaseInner, { opacity: 0, scale: 0 });
+  gsap.set(horizTrack, { opacity: 0 });
   if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '270deg 90deg 105%');
 
   let floatTween = null;
@@ -532,14 +519,15 @@
   }
 
   /* ════════════════════════════════════════
-     PHASE BOUNDARIES (progress 0 → 1)
-     P1: 0.00 → 0.15  spin-in
-     P2: 0.15 → 0.60  phrase reveals
-     rest: idle float (horizontal text in v10)
+     PHASE BOUNDARIES
+     P1: 0.00 → 0.12  spin-in
+     P2: 0.12 → 0.30  phrase reveals
+     P3: 0.30 → 1.00  horizontal text scroll ← NEW
   ════════════════════════════════════════ */
-  const P1_END   = 0.15;
-  const P2_START = 0.15;
-  const P2_END   = 0.60;
+  const P1_END   = 0.12;
+  const P2_START = 0.12;
+  const P2_END   = 0.30;
+  const P3_START = 0.30;
 
   ScrollTrigger.create({
     trigger: '#heroBorderWrap',
@@ -554,12 +542,11 @@
       if (p <= P1_END) {
         stopFloat();
         const t  = p / P1_END;
-        const sc = Math.min(t * 1.18, 1);
-        gsap.set(showcaseInner, { scale: sc, opacity: Math.min(t * 5, 1), y: 0 });
+        gsap.set(showcaseInner, { scale: Math.min(t * 1.18, 1), opacity: Math.min(t * 5, 1), y: 0 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', `${270 - 360 * t}deg 90deg 105%`);
-        /* hide all phrases */
         gsap.set(phraseEls, { opacity: 0, y: 40 });
         phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
+        gsap.set(horizTrack, { opacity: 0 });
       }
 
       /* ── PHASE 2: Phrase reveals ── */
@@ -567,51 +554,52 @@
         gsap.set(showcaseInner, { scale: 1, opacity: 1 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
         startFloat();
+        gsap.set(horizTrack, { opacity: 0 });
 
-        /* t = 0→1 within phase 2 */
         const t = (p - P2_START) / (P2_END - P2_START);
-
         phraseEls.forEach((el, i) => {
           const spans = allSpans[i];
-          /* each phrase gets equal slice of t */
           const tIn  = i / phrases.length;
           const tOut = (i + 1) / phrases.length;
           const tMid = (tIn + tOut) / 2;
-
           if (t < tIn) {
-            /* not yet — hide below */
             gsap.set(el, { opacity: 0, y: 40 });
             spans.forEach(s => gsap.set(s, { opacity: 0, y: 24 }));
-          }
-          else if (t < tMid) {
-            /* entering — words animate in one by one */
-            const sub = (t - tIn) / (tMid - tIn); /* 0→1 */
+          } else if (t < tMid) {
+            const sub = (t - tIn) / (tMid - tIn);
             gsap.set(el, { opacity: 1, y: 0 });
             spans.forEach((s, si) => {
               const w = Math.max(0, Math.min(1, sub * spans.length - si * 0.6));
               gsap.set(s, { opacity: w, y: 24 * (1 - w) });
             });
-          }
-          else if (t < tOut) {
-            /* exiting — phrase fades up */
-            const sub = (t - tMid) / (tOut - tMid); /* 0→1 */
+          } else if (t < tOut) {
+            const sub = (t - tMid) / (tOut - tMid);
             gsap.set(el, { opacity: 1 - sub, y: -30 * sub });
             spans.forEach(s => gsap.set(s, { opacity: 1 - sub, y: 0 }));
-          }
-          else {
-            /* done — hide above */
+          } else {
             gsap.set(el, { opacity: 0, y: -30 });
             spans.forEach(s => gsap.set(s, { opacity: 0, y: 0 }));
           }
         });
       }
 
-      /* ── After Phase 2: phone floats, phrases hidden ── */
+      /* ── PHASE 3: Horizontal text scroll ── NEW IN v10 */
       else {
         gsap.set(showcaseInner, { scale: 1, opacity: 1 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
         startFloat();
         gsap.set(phraseEls, { opacity: 0 });
+
+        /* Reveal the text track */
+        gsap.set(horizTrack, { opacity: 1 });
+
+        /* t = 0→1 within phase 3 */
+        const t = (p - P3_START) / (1 - P3_START);
+
+        /* Scroll the text left as user scrolls down */
+        if (horizTextInner) {
+          horizTextInner.style.transform = `translateX(${-t * window.innerWidth * 5.5}px)`;
+        }
       }
     },
     onLeaveBack() {
@@ -619,6 +607,8 @@
       gsap.set(showcaseInner, { scale: 0, opacity: 0, y: 0 });
       gsap.set(phraseEls, { opacity: 0, y: 40 });
       phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
+      gsap.set(horizTrack, { opacity: 0 });
+      if (horizTextInner) horizTextInner.style.transform = 'translateX(0)';
       if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '270deg 90deg 105%');
     }
   });
