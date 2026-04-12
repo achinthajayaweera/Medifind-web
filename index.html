@@ -150,8 +150,8 @@
   .scroll-chevron { width: 28px; height: 28px; color: #60A5FA; }
 
   /* ════════════════════════════════════════
-     PHONE SHOWCASE — v11
-     Phase 3 now swaps through 6 models
+     PHONE SHOWCASE — v12
+     Phase 4: phone shrinks + blob grows
   ════════════════════════════════════════ */
   #phone-showcase {
     position: relative;
@@ -217,24 +217,33 @@
   #scroll-phase-hint.visible { opacity: 1; }
   #scroll-phase-hint svg { width: 20px; height: 20px; }
 
-  /* Model swap indicator dots — NEW IN v11 */
+  /* ── DARK BLOB — NEW IN v12 ── */
+  /* Fixed to viewport center, expands to fill screen */
+  #phone-blob {
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+    width: 150vmax;
+    height: 150vmax;
+    border-radius: 50%;
+    background: #0A0F1E;
+    margin-top: -75vmax;
+    margin-left: -75vmax;
+    transform: scale(0);
+    opacity: 0;
+    z-index: 500;
+    pointer-events: none;
+    /* no transition — GSAP controls this */
+  }
+
   #model-dots {
-    position: absolute;
-    bottom: 80px; left: 50%;
-    transform: translateX(-50%);
+    position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
     display: flex; gap: 8px; z-index: 20;
     opacity: 0; transition: opacity 0.4s;
   }
   #model-dots.visible { opacity: 1; }
-  .model-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: rgba(107,114,128,0.3);
-    transition: background 0.3s, transform 0.3s;
-  }
-  .model-dot.active {
-    background: var(--blue-mid);
-    transform: scale(1.4);
-  }
+  .model-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(107,114,128,0.3); transition: background 0.3s, transform 0.3s; }
+  .model-dot.active { background: var(--blue-mid); transform: scale(1.4); }
 
   @keyframes phoneFloat {
     0%, 100% { transform: translateY(0px); }
@@ -395,7 +404,6 @@
       </svg>
     </div>
 
-    <!-- Model swap dots — NEW IN v11 -->
     <div id="model-dots">
       <div class="model-dot active"></div>
       <div class="model-dot"></div>
@@ -407,6 +415,9 @@
 
   </div>
 </section>
+
+<!-- DARK BLOB — fixed, lives at body level — NEW IN v12 -->
+<div id="phone-blob"></div>
 
 <!-- FEATURES -->
 <section id="features" style="background:var(--dark);">
@@ -489,7 +500,7 @@
 
   gsap.to('.scroll-chevron', { y: 8, duration: 0.8, repeat: -1, yoyo: true, ease: 'power1.inOut' });
 
-  /* ── 6 model sources — NEW IN v11 ── */
+  /* ── Model sources ── */
   const modelSources = [
     './17 pro max phone model 01/scene.gltf',
     './17 pro max phone model 02/scene.gltf',
@@ -499,20 +510,16 @@
     './17 pro max phone model 06/scene.gltf',
   ];
   let currentModelIdx = 0;
-
-  /* Model dots */
-  const modelDots     = document.getElementById('model-dots');
-  const dotEls        = [...document.querySelectorAll('.model-dot')];
+  const modelDots = document.getElementById('model-dots');
+  const dotEls    = [...document.querySelectorAll('.model-dot')];
 
   function updateDots(idx) {
     dotEls.forEach((d, i) => d.classList.toggle('active', i === idx));
   }
-
   function swapModel(newIdx) {
     if (!showcaseMV || newIdx === currentModelIdx) return;
     currentModelIdx = newIdx;
     updateDots(newIdx);
-    /* Quick flash transition */
     gsap.to(showcaseInner, {
       opacity: 0.2, duration: 0.15,
       onComplete() {
@@ -548,9 +555,11 @@
   const horizTrack     = document.getElementById('horiz-text-track');
   const horizTextInner = document.getElementById('horiz-text-inner');
   const phaseHint      = document.getElementById('scroll-phase-hint');
+  const phoneBlob      = document.getElementById('phone-blob');
 
   gsap.set(showcaseInner, { opacity: 0, scale: 0 });
   gsap.set(horizTrack, { opacity: 0 });
+  gsap.set(phoneBlob, { scale: 0, opacity: 0, transformOrigin: '50% 50%' });
   if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '270deg 90deg 105%');
 
   let floatTween = null;
@@ -569,12 +578,15 @@
      PHASE BOUNDARIES
      P1: 0.00 → 0.12  spin-in
      P2: 0.12 → 0.30  phrase reveals
-     P3: 0.30 → 1.00  horiz scroll + model swaps ← v11
+     P3: 0.30 → 0.88  horiz scroll + model swaps
+     P4: 0.88 → 1.00  phone shrinks + blob grows ← NEW
   ════════════════════════════════════════ */
   const P1_END   = 0.12;
   const P2_START = 0.12;
   const P2_END   = 0.30;
   const P3_START = 0.30;
+  const P3_END   = 0.88;
+  const P4_START = 0.88;
 
   ScrollTrigger.create({
     trigger: '#heroBorderWrap',
@@ -594,6 +606,8 @@
         gsap.set(phraseEls, { opacity: 0, y: 40 });
         phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
         gsap.set(horizTrack, { opacity: 0 });
+        phoneBlob.style.transform = 'scale(0)';
+        phoneBlob.style.opacity   = '0';
         modelDots.classList.remove('visible');
       }
 
@@ -603,6 +617,8 @@
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
         startFloat();
         gsap.set(horizTrack, { opacity: 0 });
+        phoneBlob.style.transform = 'scale(0)';
+        phoneBlob.style.opacity   = '0';
         modelDots.classList.remove('visible');
 
         const t = (p - P2_START) / (P2_END - P2_START);
@@ -633,30 +649,56 @@
       }
 
       /* ── PHASE 3: Horiz scroll + model swaps ── */
-      else {
+      else if (p <= P3_END) {
         gsap.set(showcaseInner, { scale: 1, opacity: 1 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
         startFloat();
         gsap.set(phraseEls, { opacity: 0 });
         gsap.set(horizTrack, { opacity: 1 });
+        phoneBlob.style.transform = 'scale(0)';
+        phoneBlob.style.opacity   = '0';
         modelDots.classList.add('visible');
 
-        /* t = 0→1 within phase 3 */
-        const t = (p - P3_START) / (1 - P3_START);
-
-        /* Scroll text left */
+        const t = (p - P3_START) / (P3_END - P3_START);
         if (horizTextInner) {
           horizTextInner.style.transform = `translateX(${-t * window.innerWidth * 5.5}px)`;
         }
-
-        /* ── MODEL SWAP — NEW IN v11 ──
-           Divide phase 3 into 6 equal slices.
-           Each slice = one model.                */
         const newIdx = Math.min(Math.floor(t * 6), 5);
-        if (newIdx !== currentModelIdx) {
-          swapModel(newIdx);
-        }
+        if (newIdx !== currentModelIdx) swapModel(newIdx);
       }
+
+      /* ── PHASE 4: Phone shrinks + blob grows ── NEW IN v12 */
+      else {
+        stopFloat();
+        modelDots.classList.remove('visible');
+        gsap.set(phraseEls, { opacity: 0 });
+
+        /* t = 0→1 within phase 4 */
+        const t = (p - P4_START) / (1 - P4_START);
+
+        /* Phone scales down from 1 → 0 */
+        const phoneScale = Math.max(1 - t * 1.18, 0);
+        gsap.set(showcaseInner, { scale: phoneScale, opacity: 1, y: 0 });
+
+        /* Camera slowly spins back as phone shrinks */
+        if (showcaseMV) {
+          showcaseMV.setAttribute('camera-orbit', `${-90 + 360 * t}deg 90deg 105%`);
+        }
+
+        /* Text track fades out */
+        gsap.set(horizTrack, { opacity: Math.max(1 - t * 4, 0) });
+
+        /* Blob grows from 0 → 1 */
+        const blobScale = Math.max(0, Math.min(1, t / 0.9));
+        phoneBlob.style.transform = `scale(${blobScale})`;
+        phoneBlob.style.opacity   = blobScale > 0.01 ? '1' : '0';
+      }
+    },
+    onLeave() {
+      /* Showcase done — blob stays full, phone hidden */
+      phoneBlob.style.transform = 'scale(1)';
+      phoneBlob.style.opacity   = '1';
+      gsap.set(showcaseInner, { scale: 0, opacity: 0 });
     },
     onLeaveBack() {
       stopFloat();
@@ -666,6 +708,8 @@
       gsap.set(horizTrack, { opacity: 0 });
       if (horizTextInner) horizTextInner.style.transform = 'translateX(0)';
       if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '270deg 90deg 105%');
+      phoneBlob.style.transform = 'scale(0)';
+      phoneBlob.style.opacity   = '0';
       modelDots.classList.remove('visible');
       currentModelIdx = 0;
       updateDots(0);
