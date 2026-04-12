@@ -150,11 +150,8 @@
   .scroll-chevron { width: 28px; height: 28px; color: #60A5FA; }
 
   /* ════════════════════════════════════════
-     PHONE SHOWCASE — v10
-     Height: 900vh
-     Phase 1 (0–12%):  spin-in
-     Phase 2 (12–30%): phrase reveals
-     Phase 3 (30–100%): horizontal text scroll ← NEW
+     PHONE SHOWCASE — v11
+     Phase 3 now swaps through 6 models
   ════════════════════════════════════════ */
   #phone-showcase {
     position: relative;
@@ -168,13 +165,11 @@
     overflow: hidden; isolation: isolate;
   }
 
-  /* ── HORIZONTAL TEXT TRACK — NEW IN v10 ── */
   #horiz-text-track {
     position: absolute; top: 50%; left: 0; right: 0;
     transform: translateY(-50%); height: 160px;
     display: flex; align-items: center;
-    z-index: 1; pointer-events: none; overflow: hidden;
-    opacity: 0; /* JS reveals this in Phase 3 */
+    z-index: 1; pointer-events: none; overflow: hidden; opacity: 0;
   }
   #horiz-text-inner {
     display: flex; white-space: nowrap;
@@ -184,7 +179,6 @@
     will-change: transform;
   }
 
-  /* Phrase reveal layer */
   #phrase-reveal-layer {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
@@ -201,7 +195,6 @@
   }
   .reveal-phrase span { display: inline-block; opacity: 0; transform: translateY(30px); }
 
-  /* Phone on top */
   #showcase-phone-inner {
     position: relative; z-index: 10;
     filter: drop-shadow(0 30px 50px rgba(37,99,235,0.18));
@@ -223,6 +216,25 @@
   }
   #scroll-phase-hint.visible { opacity: 1; }
   #scroll-phase-hint svg { width: 20px; height: 20px; }
+
+  /* Model swap indicator dots — NEW IN v11 */
+  #model-dots {
+    position: absolute;
+    bottom: 80px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 8px; z-index: 20;
+    opacity: 0; transition: opacity 0.4s;
+  }
+  #model-dots.visible { opacity: 1; }
+  .model-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(107,114,128,0.3);
+    transition: background 0.3s, transform 0.3s;
+  }
+  .model-dot.active {
+    background: var(--blue-mid);
+    transform: scale(1.4);
+  }
 
   @keyframes phoneFloat {
     0%, 100% { transform: translateY(0px); }
@@ -344,16 +356,10 @@
   </section>
 </div>
 
-<!-- ════════════════════════════════════════
-     PHONE SHOWCASE — v10
-     Phase 1 (0–12%):   spin-in
-     Phase 2 (12–30%):  phrase reveals
-     Phase 3 (30–100%): horizontal text scrolls behind phone ← NEW
-════════════════════════════════════════ -->
+<!-- PHONE SHOWCASE -->
 <section id="phone-showcase">
   <div id="showcase-phone-wrap">
 
-    <!-- ── HORIZONTAL TEXT TRACK — NEW IN v10 ── -->
     <div id="horiz-text-track">
       <div id="horiz-text-inner">
         <span>Find Your Medicine. Fast.&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;</span>
@@ -365,10 +371,8 @@
       </div>
     </div>
 
-    <!-- Phrase reveal layer -->
     <div id="phrase-reveal-layer"></div>
 
-    <!-- 3D Phone -->
     <div id="showcase-phone-inner">
       <model-viewer
         id="showcaseModelViewer"
@@ -389,6 +393,16 @@
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
       </svg>
+    </div>
+
+    <!-- Model swap dots — NEW IN v11 -->
+    <div id="model-dots">
+      <div class="model-dot active"></div>
+      <div class="model-dot"></div>
+      <div class="model-dot"></div>
+      <div class="model-dot"></div>
+      <div class="model-dot"></div>
+      <div class="model-dot"></div>
     </div>
 
   </div>
@@ -475,6 +489,39 @@
 
   gsap.to('.scroll-chevron', { y: 8, duration: 0.8, repeat: -1, yoyo: true, ease: 'power1.inOut' });
 
+  /* ── 6 model sources — NEW IN v11 ── */
+  const modelSources = [
+    './17 pro max phone model 01/scene.gltf',
+    './17 pro max phone model 02/scene.gltf',
+    './17 pro max phone model 03/scene.gltf',
+    './17 pro max phone model 04/scene.gltf',
+    './17 pro max phone model 05/scene.gltf',
+    './17 pro max phone model 06/scene.gltf',
+  ];
+  let currentModelIdx = 0;
+
+  /* Model dots */
+  const modelDots     = document.getElementById('model-dots');
+  const dotEls        = [...document.querySelectorAll('.model-dot')];
+
+  function updateDots(idx) {
+    dotEls.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+
+  function swapModel(newIdx) {
+    if (!showcaseMV || newIdx === currentModelIdx) return;
+    currentModelIdx = newIdx;
+    updateDots(newIdx);
+    /* Quick flash transition */
+    gsap.to(showcaseInner, {
+      opacity: 0.2, duration: 0.15,
+      onComplete() {
+        showcaseMV.setAttribute('src', modelSources[newIdx]);
+        gsap.to(showcaseInner, { opacity: 1, duration: 0.3 });
+      }
+    });
+  }
+
   /* ── Build phrase elements ── */
   const phrases = [
     'Find Your Medicine.',
@@ -522,7 +569,7 @@
      PHASE BOUNDARIES
      P1: 0.00 → 0.12  spin-in
      P2: 0.12 → 0.30  phrase reveals
-     P3: 0.30 → 1.00  horizontal text scroll ← NEW
+     P3: 0.30 → 1.00  horiz scroll + model swaps ← v11
   ════════════════════════════════════════ */
   const P1_END   = 0.12;
   const P2_START = 0.12;
@@ -541,12 +588,13 @@
       /* ── PHASE 1: Spin-in ── */
       if (p <= P1_END) {
         stopFloat();
-        const t  = p / P1_END;
+        const t = p / P1_END;
         gsap.set(showcaseInner, { scale: Math.min(t * 1.18, 1), opacity: Math.min(t * 5, 1), y: 0 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', `${270 - 360 * t}deg 90deg 105%`);
         gsap.set(phraseEls, { opacity: 0, y: 40 });
         phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
         gsap.set(horizTrack, { opacity: 0 });
+        modelDots.classList.remove('visible');
       }
 
       /* ── PHASE 2: Phrase reveals ── */
@@ -555,6 +603,7 @@
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
         startFloat();
         gsap.set(horizTrack, { opacity: 0 });
+        modelDots.classList.remove('visible');
 
         const t = (p - P2_START) / (P2_END - P2_START);
         phraseEls.forEach((el, i) => {
@@ -583,22 +632,29 @@
         });
       }
 
-      /* ── PHASE 3: Horizontal text scroll ── NEW IN v10 */
+      /* ── PHASE 3: Horiz scroll + model swaps ── */
       else {
         gsap.set(showcaseInner, { scale: 1, opacity: 1 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
         startFloat();
         gsap.set(phraseEls, { opacity: 0 });
-
-        /* Reveal the text track */
         gsap.set(horizTrack, { opacity: 1 });
+        modelDots.classList.add('visible');
 
         /* t = 0→1 within phase 3 */
         const t = (p - P3_START) / (1 - P3_START);
 
-        /* Scroll the text left as user scrolls down */
+        /* Scroll text left */
         if (horizTextInner) {
           horizTextInner.style.transform = `translateX(${-t * window.innerWidth * 5.5}px)`;
+        }
+
+        /* ── MODEL SWAP — NEW IN v11 ──
+           Divide phase 3 into 6 equal slices.
+           Each slice = one model.                */
+        const newIdx = Math.min(Math.floor(t * 6), 5);
+        if (newIdx !== currentModelIdx) {
+          swapModel(newIdx);
         }
       }
     },
@@ -610,6 +666,9 @@
       gsap.set(horizTrack, { opacity: 0 });
       if (horizTextInner) horizTextInner.style.transform = 'translateX(0)';
       if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '270deg 90deg 105%');
+      modelDots.classList.remove('visible');
+      currentModelIdx = 0;
+      updateDots(0);
     }
   });
 
