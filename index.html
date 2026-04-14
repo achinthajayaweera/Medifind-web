@@ -28,6 +28,7 @@
     --text-muted: #93C5FD;
     --text-dark: #070B18;
     --text-gray: #6B7280;
+    --divider: #1E3A5F;
     --gradient-btn: linear-gradient(90deg, #2563EB, #06B6D4);
   }
 
@@ -150,8 +151,8 @@
   .scroll-chevron { width: 28px; height: 28px; color: #60A5FA; }
 
   /* ════════════════════════════════════════
-     PHONE SHOWCASE — v12
-     Phase 4: phone shrinks + blob grows
+     PHONE SHOWCASE — v13
+     900vh — last 200vh used for panels
   ════════════════════════════════════════ */
   #phone-showcase {
     position: relative;
@@ -217,24 +218,92 @@
   #scroll-phase-hint.visible { opacity: 1; }
   #scroll-phase-hint svg { width: 20px; height: 20px; }
 
-  /* ── DARK BLOB — NEW IN v12 ── */
-  /* Fixed to viewport center, expands to fill screen */
+  /* Dark blob */
   #phone-blob {
     position: fixed;
-    top: 50vh;
-    left: 50vw;
-    width: 150vmax;
-    height: 150vmax;
+    top: 50vh; left: 50vw;
+    width: 150vmax; height: 150vmax;
     border-radius: 50%;
     background: #0A0F1E;
-    margin-top: -75vmax;
-    margin-left: -75vmax;
-    transform: scale(0);
-    opacity: 0;
-    z-index: 500;
-    pointer-events: none;
-    /* no transition — GSAP controls this */
+    margin-top: -75vmax; margin-left: -75vmax;
+    transform: scale(0); opacity: 0;
+    z-index: 500; pointer-events: none;
   }
+
+  /* ── FEATURES OVERLAY — NEW IN v13 ── */
+  /* Fixed on top of blob, panels appear here */
+  #features-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 502;
+    pointer-events: none;
+  }
+
+  .fo-panel {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: translateY(40px);
+  }
+
+  .fo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 60px; align-items: center;
+    max-width: 1100px; width: 100%; padding: 0 80px;
+  }
+
+  .fo-col { display: flex; flex-direction: column; }
+  .fo-col.right { align-items: flex-end; text-align: right; }
+  .fo-icon { width: 40px; height: 40px; color: #60A5FA; margin-bottom: 16px; }
+  .fo-divider { width: 48px; height: 2px; background: #1E3A5F; margin-bottom: 20px; }
+  .fo-col.right .fo-divider { margin-left: auto; }
+  .fo-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: clamp(20px, 2.2vw, 30px);
+    color: #fff; line-height: 1.2; margin-bottom: 12px;
+  }
+  .fo-body { color: #93C5FD; font-size: 15px; line-height: 1.6; }
+  .fo-phone-center { display: flex; justify-content: center; align-items: center; }
+
+  /* CSS phone mockup inside panels */
+  .fo-iphone {
+    width: 200px; height: 400px;
+    background: #fff; border-radius: 36px;
+    border: 6px solid #2a2a4a;
+    box-shadow: 0 20px 60px rgba(6,182,212,0.25), 0 0 0 1px #3a3a5a;
+    overflow: hidden; position: relative;
+    display: flex; flex-direction: column;
+  }
+  .fo-iphone-notch {
+    position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+    width: 80px; height: 18px;
+    background: #1a1a2e; border-radius: 10px; z-index: 10;
+  }
+  .fo-screen {
+    width: 100%; height: 100%;
+    background: linear-gradient(160deg, #EFF6FF 0%, #DBEAFE 100%);
+    padding: 36px 8px 8px;
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .fo-screen-title {
+    font-size: 10px; font-weight: 800; color: #1e40af;
+    font-family: 'Montserrat', sans-serif;
+    padding: 0 4px 4px; display: flex; align-items: center; gap: 4px;
+  }
+  .fo-row {
+    background: #fff; border-radius: 10px; padding: 8px;
+    display: flex; gap: 6px; align-items: center;
+    box-shadow: 0 2px 6px rgba(37,99,235,0.07);
+  }
+  .fo-row-icon {
+    width: 30px; height: 30px;
+    background: linear-gradient(135deg, #DBEAFE, #BFDBFE);
+    border-radius: 7px; display: flex; align-items: center;
+    justify-content: center; font-size: 14px; flex-shrink: 0;
+  }
+  .fo-row-name { font-size: 8px; font-weight: 700; color: #111; }
+  .fo-row-meta { font-size: 7px; color: #2563EB; font-weight: 600; }
+  .fo-row-price { font-size: 8px; color: #059669; font-weight: 700; margin-left: auto; }
 
   #model-dots {
     position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
@@ -245,19 +314,11 @@
   .model-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(107,114,128,0.3); transition: background 0.3s, transform 0.3s; }
   .model-dot.active { background: var(--blue-mid); transform: scale(1.4); }
 
-  @keyframes phoneFloat {
-    0%, 100% { transform: translateY(0px); }
-    50%       { transform: translateY(-18px); }
-  }
+  @keyframes phoneFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-18px); } }
 
   /* ════════════════════════════════════════
      REMAINING SECTIONS
   ════════════════════════════════════════ */
-  #features { background: var(--dark); padding: 80px 48px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 1000px; margin: 0 auto; }
-  #features div { padding: 24px; }
-  #features h3 { color: var(--text-white); margin-bottom: 10px; font-size: 22px; }
-  #features p  { color: var(--text-muted); }
-
   #dashboard { background: var(--light-bg); text-align: center; padding: 80px 48px; }
   #dashboard h2 { color: var(--text-dark); margin-bottom: 12px; font-size: 36px; }
   #laptop-placeholder { background: var(--card-dark); color: var(--text-muted); border-radius: 16px; padding: 60px; margin: 32px auto; max-width: 800px; font-size: 16px; }
@@ -293,7 +354,9 @@
     #fixedNav { padding: 14px 24px; } .hero-nav { padding: 16px 24px; }
     .nav-links { display: none; } .hn-links { display: none; }
     .hero-title { font-size: 52px; }
-    #features { grid-template-columns: 1fr; }
+    .fo-grid { grid-template-columns: 1fr; padding: 0 24px; }
+    .fo-col.right { align-items: flex-start; text-align: left; }
+    .fo-phone-center { order: -1; }
     #dashboard-cards { grid-template-columns: 1fr 1fr; }
     #team-grid { grid-template-columns: 1fr 1fr; }
   }
@@ -314,7 +377,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#features">Features</a></li>
+    <li><a href="#features-overlay">Features</a></li>
     <li><a href="#team">Team</a></li>
     <li><a href="#cta">Contact</a></li>
   </ul>
@@ -330,7 +393,7 @@
     </a>
     <ul class="hn-links">
       <li><a href="#about">About</a></li>
-      <li><a href="#features">Features</a></li>
+      <li><a href="#features-overlay">Features</a></li>
       <li><a href="#team">Team</a></li>
       <li><a href="#cta">Contact</a></li>
     </ul>
@@ -368,7 +431,6 @@
 <!-- PHONE SHOWCASE -->
 <section id="phone-showcase">
   <div id="showcase-phone-wrap">
-
     <div id="horiz-text-track">
       <div id="horiz-text-inner">
         <span>Find Your Medicine. Fast.&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;</span>
@@ -379,9 +441,7 @@
         <span>Healthcare With MediFind.&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;</span>
       </div>
     </div>
-
     <div id="phrase-reveal-layer"></div>
-
     <div id="showcase-phone-inner">
       <model-viewer
         id="showcaseModelViewer"
@@ -397,13 +457,11 @@
         style="width: 320px; height: 640px; background: transparent; pointer-events: none;"
       ></model-viewer>
     </div>
-
     <div id="scroll-phase-hint">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
       </svg>
     </div>
-
     <div id="model-dots">
       <div class="model-dot active"></div>
       <div class="model-dot"></div>
@@ -412,22 +470,108 @@
       <div class="model-dot"></div>
       <div class="model-dot"></div>
     </div>
-
   </div>
 </section>
 
-<!-- DARK BLOB — fixed, lives at body level — NEW IN v12 -->
+<!-- DARK BLOB -->
 <div id="phone-blob"></div>
 
-<!-- FEATURES -->
-<section id="features" style="background:var(--dark);">
-  <div><h3 style="color:#fff;margin-bottom:10px;">The one-stop for all your medicine needs</h3><p style="color:#93C5FD;">Discover and order medicines from verified local pharmacies through a single, unified platform experience.</p></div>
-  <div><h3 style="color:#fff;margin-bottom:10px;">Verified pharmacies, trusted healthcare</h3><p style="color:#93C5FD;">Shop with confidence knowing every pharmacy partner is licensed, verified, and rated for authenticity.</p></div>
-  <div><h3 style="color:#fff;margin-bottom:10px;">Manage your prescriptions digitally</h3><p style="color:#93C5FD;">Upload your prescription, our AI reads and verifies it instantly — no more manual pharmacy visits or lost papers.</p></div>
-  <div><h3 style="color:#fff;margin-bottom:10px;">Your AI health partner</h3><p style="color:#93C5FD;">Receive smart medicine suggestions, check drug interactions, and explore healthcare options curated just for you.</p></div>
-  <div><h3 style="color:#fff;margin-bottom:10px;">Fast delivery to your doorstep</h3><p style="color:#93C5FD;">Order medicines online and get them delivered within hours — track your order live every step of the way.</p></div>
-  <div><h3 style="color:#fff;margin-bottom:10px;">Real-time order tracking</h3><p style="color:#93C5FD;">Stay informed with live updates from the moment you order to the second it arrives at your door.</p></div>
-</section>
+<!-- ════════════════════════════════════════
+     FEATURES OVERLAY — NEW IN v13
+     3 panels appear one by one on the blob
+════════════════════════════════════════ -->
+<div id="features-overlay">
+
+  <!-- PANEL 1: Medicine needs -->
+  <div class="fo-panel" id="fo-panel-1">
+    <div class="fo-grid">
+      <div class="fo-col">
+        <svg class="fo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+        <div class="fo-divider"></div>
+        <h3 class="fo-heading">The one-stop for all your medicine needs</h3>
+        <p class="fo-body">Discover and order medicines from verified local pharmacies through a single, unified platform experience.</p>
+      </div>
+      <div class="fo-phone-center">
+        <div class="fo-iphone">
+          <div class="fo-iphone-notch"></div>
+          <div class="fo-screen">
+            <div class="fo-screen-title">💊 MediFind — Pharmacy</div>
+            <div class="fo-row"><div class="fo-row-icon">🩹</div><div><div class="fo-row-name">Bandage Roll</div><div class="fo-row-meta">Available — 3 stores</div></div><div class="fo-row-price">LKR 120</div></div>
+            <div class="fo-row"><div class="fo-row-icon">💊</div><div><div class="fo-row-name">Panadol 500mg</div><div class="fo-row-meta">Available — 8 stores</div></div><div class="fo-row-price">LKR 45</div></div>
+            <div class="fo-row"><div class="fo-row-icon">🌡️</div><div><div class="fo-row-name">Thermometer</div><div class="fo-row-meta">Available — 5 stores</div></div><div class="fo-row-price">LKR 850</div></div>
+            <div class="fo-row"><div class="fo-row-icon">💉</div><div><div class="fo-row-name">Insulin Pen</div><div class="fo-row-meta">Available — 2 stores</div></div><div class="fo-row-price">LKR 2,400</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="fo-col right">
+        <svg class="fo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="align-self:flex-end"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+        <div class="fo-divider"></div>
+        <h3 class="fo-heading">Verified pharmacies, trusted healthcare</h3>
+        <p class="fo-body">Shop with confidence knowing every pharmacy partner is licensed, verified, and rated for authenticity.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 2: Prescriptions -->
+  <div class="fo-panel" id="fo-panel-2">
+    <div class="fo-grid">
+      <div class="fo-col">
+        <svg class="fo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+        <div class="fo-divider"></div>
+        <h3 class="fo-heading">Manage your prescriptions digitally</h3>
+        <p class="fo-body">Upload your prescription, our AI reads and verifies it instantly — no more manual pharmacy visits or lost papers.</p>
+      </div>
+      <div class="fo-phone-center">
+        <div class="fo-iphone">
+          <div class="fo-iphone-notch"></div>
+          <div class="fo-screen">
+            <div class="fo-screen-title">✦ For You</div>
+            <div class="fo-row"><div class="fo-row-icon">💊</div><div><div class="fo-row-name">Amoxicillin 500mg</div><div class="fo-row-meta">Prescribed · 3 nearby</div></div><div class="fo-row-price">LKR 280</div></div>
+            <div class="fo-row"><div class="fo-row-icon">🧴</div><div><div class="fo-row-name">Vitamin D3</div><div class="fo-row-meta">Recommended</div></div><div class="fo-row-price">LKR 650</div></div>
+            <div class="fo-row"><div class="fo-row-icon">❤️</div><div><div class="fo-row-name">Aspirin 100mg</div><div class="fo-row-meta">Since you ordered...</div></div><div class="fo-row-price">LKR 120</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="fo-col right">
+        <svg class="fo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="align-self:flex-end"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+        <div class="fo-divider"></div>
+        <h3 class="fo-heading">Your AI health partner</h3>
+        <p class="fo-body">Receive smart medicine suggestions, check drug interactions, and explore healthcare options curated just for you.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 3: Delivery -->
+  <div class="fo-panel" id="fo-panel-3">
+    <div class="fo-grid">
+      <div class="fo-col">
+        <svg class="fo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+        <div class="fo-divider"></div>
+        <h3 class="fo-heading">Fast delivery to your doorstep</h3>
+        <p class="fo-body">Order medicines online and get them delivered within hours — track your order live every step of the way.</p>
+      </div>
+      <div class="fo-phone-center">
+        <div class="fo-iphone">
+          <div class="fo-iphone-notch"></div>
+          <div class="fo-screen">
+            <div class="fo-screen-title">🚚 Live Tracking</div>
+            <div class="fo-row"><div class="fo-row-icon">📦</div><div><div class="fo-row-name">Order #MF-2041</div><div class="fo-row-meta">Out for delivery</div></div><div class="fo-row-price" style="color:#10b981">Live</div></div>
+            <div class="fo-row"><div class="fo-row-icon">🏪</div><div><div class="fo-row-name">Picked from pharmacy</div><div class="fo-row-meta">2 min ago</div></div><div class="fo-row-price">✓</div></div>
+            <div class="fo-row"><div class="fo-row-icon">🛵</div><div><div class="fo-row-name">Rider on the way</div><div class="fo-row-meta">~12 min away</div></div><div class="fo-row-price">🔵</div></div>
+            <div class="fo-row"><div class="fo-row-icon">🏠</div><div><div class="fo-row-name">Your location</div><div class="fo-row-meta">Colombo 7</div></div><div class="fo-row-price">—</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="fo-col right">
+        <svg class="fo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="align-self:flex-end"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <div class="fo-divider"></div>
+        <h3 class="fo-heading">Real-time order tracking</h3>
+        <p class="fo-body">Stay informed with live updates from the moment you order to the second it arrives at your door.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 <!-- DASHBOARD -->
 <section id="dashboard">
@@ -512,30 +656,15 @@
   let currentModelIdx = 0;
   const modelDots = document.getElementById('model-dots');
   const dotEls    = [...document.querySelectorAll('.model-dot')];
-
-  function updateDots(idx) {
-    dotEls.forEach((d, i) => d.classList.toggle('active', i === idx));
-  }
+  function updateDots(idx) { dotEls.forEach((d, i) => d.classList.toggle('active', i === idx)); }
   function swapModel(newIdx) {
     if (!showcaseMV || newIdx === currentModelIdx) return;
-    currentModelIdx = newIdx;
-    updateDots(newIdx);
-    gsap.to(showcaseInner, {
-      opacity: 0.2, duration: 0.15,
-      onComplete() {
-        showcaseMV.setAttribute('src', modelSources[newIdx]);
-        gsap.to(showcaseInner, { opacity: 1, duration: 0.3 });
-      }
-    });
+    currentModelIdx = newIdx; updateDots(newIdx);
+    gsap.to(showcaseInner, { opacity: 0.2, duration: 0.15, onComplete() { showcaseMV.setAttribute('src', modelSources[newIdx]); gsap.to(showcaseInner, { opacity: 1, duration: 0.3 }); } });
   }
 
   /* ── Build phrase elements ── */
-  const phrases = [
-    'Find Your Medicine.',
-    'Search Any Pharmacy.',
-    'Upload Your Prescription.',
-    'Order & Track Live.',
-  ];
+  const phrases = ['Find Your Medicine.', 'Search Any Pharmacy.', 'Upload Your Prescription.', 'Order & Track Live.'];
   const revealLayer = document.getElementById('phrase-reveal-layer');
   const phraseEls   = phrases.map((text) => {
     const el = document.createElement('div');
@@ -545,21 +674,28 @@
     return el;
   });
   const allSpans = phraseEls.map(el => [...el.querySelectorAll('span')]);
-
   gsap.set(phraseEls, { opacity: 0, y: 40 });
   phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
 
   /* ── Refs ── */
-  const showcaseMV     = document.getElementById('showcaseModelViewer');
-  const showcaseInner  = document.getElementById('showcase-phone-inner');
-  const horizTrack     = document.getElementById('horiz-text-track');
-  const horizTextInner = document.getElementById('horiz-text-inner');
-  const phaseHint      = document.getElementById('scroll-phase-hint');
-  const phoneBlob      = document.getElementById('phone-blob');
+  const showcaseMV      = document.getElementById('showcaseModelViewer');
+  const showcaseInner   = document.getElementById('showcase-phone-inner');
+  const horizTrack      = document.getElementById('horiz-text-track');
+  const horizTextInner  = document.getElementById('horiz-text-inner');
+  const phaseHint       = document.getElementById('scroll-phase-hint');
+  const phoneBlob       = document.getElementById('phone-blob');
+  const featuresOverlay = document.getElementById('features-overlay');
+  const foPanels        = [
+    document.getElementById('fo-panel-1'),
+    document.getElementById('fo-panel-2'),
+    document.getElementById('fo-panel-3'),
+  ];
 
   gsap.set(showcaseInner, { opacity: 0, scale: 0 });
   gsap.set(horizTrack, { opacity: 0 });
-  gsap.set(phoneBlob, { scale: 0, opacity: 0, transformOrigin: '50% 50%' });
+  gsap.set(phoneBlob, { scale: 0, opacity: 0 });
+  gsap.set(foPanels, { opacity: 0, y: 40 });
+  featuresOverlay.style.opacity = '0';
   if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '270deg 90deg 105%');
 
   let floatTween = null;
@@ -579,14 +715,19 @@
      P1: 0.00 → 0.12  spin-in
      P2: 0.12 → 0.30  phrase reveals
      P3: 0.30 → 0.88  horiz scroll + model swaps
-     P4: 0.88 → 1.00  phone shrinks + blob grows ← NEW
+     P4: 0.88 → 1.00  phone shrinks + blob grows
+     ─────────────────────────────────────────
+     900vh breakdown:
+       700vh = phases 1-4  (progress 0 → 0.778)
+       200vh = panels       (progress 0.778 → 1.0)
   ════════════════════════════════════════ */
-  const P1_END   = 0.12;
-  const P2_START = 0.12;
-  const P2_END   = 0.30;
-  const P3_START = 0.30;
-  const P3_END   = 0.88;
-  const P4_START = 0.88;
+  const P1_END    = 0.12;
+  const P2_START  = 0.12;
+  const P2_END    = 0.30;
+  const P3_START  = 0.30;
+  const P3_END    = 0.88;
+  const P4_START  = 0.88;
+  const PHASE_END = 700 / 900; /* 0.778 — phases end here */
 
   ScrollTrigger.create({
     trigger: '#heroBorderWrap',
@@ -595,110 +736,137 @@
     end: 'bottom bottom',
     scrub: true,
     onUpdate(self) {
-      const p = self.progress;
+      const p  = self.progress;
+      const pp = Math.min(p / PHASE_END, 1); /* remapped 0→1 for phases 1-4 */
 
       /* ── PHASE 1: Spin-in ── */
-      if (p <= P1_END) {
+      if (pp <= P1_END) {
         stopFloat();
-        const t = p / P1_END;
+        const t = pp / P1_END;
         gsap.set(showcaseInner, { scale: Math.min(t * 1.18, 1), opacity: Math.min(t * 5, 1), y: 0 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', `${270 - 360 * t}deg 90deg 105%`);
         gsap.set(phraseEls, { opacity: 0, y: 40 });
         phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
         gsap.set(horizTrack, { opacity: 0 });
-        phoneBlob.style.transform = 'scale(0)';
-        phoneBlob.style.opacity   = '0';
+        phoneBlob.style.transform = 'scale(0)'; phoneBlob.style.opacity = '0';
+        featuresOverlay.style.opacity = '0';
+        gsap.set(foPanels, { opacity: 0, y: 40 });
         modelDots.classList.remove('visible');
       }
 
       /* ── PHASE 2: Phrase reveals ── */
-      else if (p <= P2_END) {
+      else if (pp <= P2_END) {
         gsap.set(showcaseInner, { scale: 1, opacity: 1 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
         startFloat();
         gsap.set(horizTrack, { opacity: 0 });
-        phoneBlob.style.transform = 'scale(0)';
-        phoneBlob.style.opacity   = '0';
+        phoneBlob.style.transform = 'scale(0)'; phoneBlob.style.opacity = '0';
+        featuresOverlay.style.opacity = '0';
+        gsap.set(foPanels, { opacity: 0, y: 40 });
         modelDots.classList.remove('visible');
 
-        const t = (p - P2_START) / (P2_END - P2_START);
+        const t = (pp - P2_START) / (P2_END - P2_START);
         phraseEls.forEach((el, i) => {
           const spans = allSpans[i];
-          const tIn  = i / phrases.length;
-          const tOut = (i + 1) / phrases.length;
-          const tMid = (tIn + tOut) / 2;
-          if (t < tIn) {
-            gsap.set(el, { opacity: 0, y: 40 });
-            spans.forEach(s => gsap.set(s, { opacity: 0, y: 24 }));
-          } else if (t < tMid) {
-            const sub = (t - tIn) / (tMid - tIn);
-            gsap.set(el, { opacity: 1, y: 0 });
-            spans.forEach((s, si) => {
-              const w = Math.max(0, Math.min(1, sub * spans.length - si * 0.6));
-              gsap.set(s, { opacity: w, y: 24 * (1 - w) });
-            });
-          } else if (t < tOut) {
-            const sub = (t - tMid) / (tOut - tMid);
-            gsap.set(el, { opacity: 1 - sub, y: -30 * sub });
-            spans.forEach(s => gsap.set(s, { opacity: 1 - sub, y: 0 }));
-          } else {
-            gsap.set(el, { opacity: 0, y: -30 });
-            spans.forEach(s => gsap.set(s, { opacity: 0, y: 0 }));
-          }
+          const tIn = i / phrases.length, tOut = (i + 1) / phrases.length, tMid = (tIn + tOut) / 2;
+          if (t < tIn) { gsap.set(el, { opacity: 0, y: 40 }); spans.forEach(s => gsap.set(s, { opacity: 0, y: 24 })); }
+          else if (t < tMid) { const sub = (t - tIn) / (tMid - tIn); gsap.set(el, { opacity: 1, y: 0 }); spans.forEach((s, si) => { const w = Math.max(0, Math.min(1, sub * spans.length - si * 0.6)); gsap.set(s, { opacity: w, y: 24 * (1 - w) }); }); }
+          else if (t < tOut) { const sub = (t - tMid) / (tOut - tMid); gsap.set(el, { opacity: 1 - sub, y: -30 * sub }); spans.forEach(s => gsap.set(s, { opacity: 1 - sub, y: 0 })); }
+          else { gsap.set(el, { opacity: 0, y: -30 }); spans.forEach(s => gsap.set(s, { opacity: 0, y: 0 })); }
         });
       }
 
       /* ── PHASE 3: Horiz scroll + model swaps ── */
-      else if (p <= P3_END) {
+      else if (pp <= P3_END) {
         gsap.set(showcaseInner, { scale: 1, opacity: 1 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
         startFloat();
         gsap.set(phraseEls, { opacity: 0 });
         gsap.set(horizTrack, { opacity: 1 });
-        phoneBlob.style.transform = 'scale(0)';
-        phoneBlob.style.opacity   = '0';
+        phoneBlob.style.transform = 'scale(0)'; phoneBlob.style.opacity = '0';
+        featuresOverlay.style.opacity = '0';
+        gsap.set(foPanels, { opacity: 0, y: 40 });
         modelDots.classList.add('visible');
 
-        const t = (p - P3_START) / (P3_END - P3_START);
-        if (horizTextInner) {
-          horizTextInner.style.transform = `translateX(${-t * window.innerWidth * 5.5}px)`;
-        }
+        const t = (pp - P3_START) / (P3_END - P3_START);
+        if (horizTextInner) horizTextInner.style.transform = `translateX(${-t * window.innerWidth * 5.5}px)`;
         const newIdx = Math.min(Math.floor(t * 6), 5);
         if (newIdx !== currentModelIdx) swapModel(newIdx);
       }
 
-      /* ── PHASE 4: Phone shrinks + blob grows ── NEW IN v12 */
-      else {
+      /* ── PHASE 4: Phone shrinks + blob grows ── */
+      else if (p <= PHASE_END) {
         stopFloat();
         modelDots.classList.remove('visible');
         gsap.set(phraseEls, { opacity: 0 });
+        featuresOverlay.style.opacity = '0';
+        gsap.set(foPanels, { opacity: 0, y: 40 });
 
-        /* t = 0→1 within phase 4 */
-        const t = (p - P4_START) / (1 - P4_START);
-
-        /* Phone scales down from 1 → 0 */
-        const phoneScale = Math.max(1 - t * 1.18, 0);
-        gsap.set(showcaseInner, { scale: phoneScale, opacity: 1, y: 0 });
-
-        /* Camera slowly spins back as phone shrinks */
-        if (showcaseMV) {
-          showcaseMV.setAttribute('camera-orbit', `${-90 + 360 * t}deg 90deg 105%`);
-        }
-
-        /* Text track fades out */
+        const t = (pp - P4_START) / (1 - P4_START);
+        gsap.set(showcaseInner, { scale: Math.max(1 - t * 1.18, 0), opacity: 1, y: 0 });
+        if (showcaseMV) showcaseMV.setAttribute('camera-orbit', `${-90 + 360 * t}deg 90deg 105%`);
         gsap.set(horizTrack, { opacity: Math.max(1 - t * 4, 0) });
 
-        /* Blob grows from 0 → 1 */
-        const blobScale = Math.max(0, Math.min(1, t / 0.9));
-        phoneBlob.style.transform = `scale(${blobScale})`;
-        phoneBlob.style.opacity   = blobScale > 0.01 ? '1' : '0';
+        const blobT = Math.max(0, Math.min(1, t / 0.9));
+        phoneBlob.style.transform = `scale(${blobT})`;
+        phoneBlob.style.opacity   = blobT > 0.01 ? '1' : '0';
+      }
+
+      /* ── PHASE 5: Panels on blob ── NEW IN v13 */
+      else {
+        stopFloat();
+        gsap.set(showcaseInner, { scale: 0, opacity: 0 });
+        gsap.set(phraseEls, { opacity: 0 });
+        gsap.set(horizTrack, { opacity: 0 });
+        modelDots.classList.remove('visible');
+
+        /* Blob stays full */
+        phoneBlob.style.transform = 'scale(1)';
+        phoneBlob.style.opacity   = '1';
+        featuresOverlay.style.opacity = '1';
+
+        /* t = 0→1 across the last 200vh panel section */
+        const t = (p - PHASE_END) / (1 - PHASE_END);
+
+        /* Exit: blob shrinks in last 25% */
+        const exitAt = 0.75;
+        if (t > exitAt) {
+          const bs = (1 - t) / (1 - exitAt);
+          phoneBlob.style.transform = `scale(${Math.max(bs, 0)})`;
+          phoneBlob.style.opacity   = bs > 0.01 ? '1' : '0';
+          featuresOverlay.style.opacity = bs > 0.05 ? '1' : '0';
+        }
+
+        /* Panels cycle in/out */
+        const panelT = Math.min(t / exitAt, 1);
+        foPanels.forEach((panel, i) => {
+          /* Each panel gets 1/3 of panelT */
+          const pIn  = i / 3;
+          const pMid = (i + 0.4) / 3;
+          const pOut = (i + 0.85) / 3;
+          const pEnd = (i + 1) / 3;
+          let op = 0, y = 40;
+
+          if (panelT >= pIn && panelT < pMid) {
+            const s = (panelT - pIn) / (pMid - pIn);
+            op = s; y = 40 * (1 - s);
+          } else if (panelT >= pMid && panelT < pOut) {
+            op = 1; y = 0;
+          } else if (panelT >= pOut && panelT < pEnd) {
+            const s = (panelT - pOut) / (pEnd - pOut);
+            op = 1 - s; y = -40 * s;
+          } else {
+            op = 0; y = panelT < pIn ? 40 : -40;
+          }
+          gsap.set(panel, { opacity: op, y });
+        });
       }
     },
     onLeave() {
-      /* Showcase done — blob stays full, phone hidden */
-      phoneBlob.style.transform = 'scale(1)';
-      phoneBlob.style.opacity   = '1';
-      gsap.set(showcaseInner, { scale: 0, opacity: 0 });
+      phoneBlob.style.transform = 'scale(0)';
+      phoneBlob.style.opacity   = '0';
+      featuresOverlay.style.opacity = '0';
+      gsap.set(foPanels, { opacity: 0 });
     },
     onLeaveBack() {
       stopFloat();
@@ -710,13 +878,13 @@
       if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '270deg 90deg 105%');
       phoneBlob.style.transform = 'scale(0)';
       phoneBlob.style.opacity   = '0';
+      featuresOverlay.style.opacity = '0';
+      gsap.set(foPanels, { opacity: 0, y: 40 });
       modelDots.classList.remove('visible');
-      currentModelIdx = 0;
-      updateDots(0);
+      currentModelIdx = 0; updateDots(0);
     }
   });
 
-  /* ── Model error fallback ── */
   if (showcaseMV) {
     showcaseMV.addEventListener('error', () => {
       showcaseInner.innerHTML = `
@@ -724,7 +892,6 @@
           border:8px solid #1a1a2e;box-shadow:0 40px 80px rgba(26,58,255,0.18);
           display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
           <span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:22px;color:#1e40af;">MediFind</span>
-          <span style="font-size:12px;color:#6B7280;">Model not found</span>
         </div>`;
     });
   }
