@@ -152,7 +152,7 @@
 
   /* ════════════════════════════════════════
      PHONE SHOWCASE — v13
-     900vh — last 200vh used for panels
+     900vh total
   ════════════════════════════════════════ */
   #phone-showcase {
     position: relative;
@@ -231,7 +231,7 @@
   }
 
   /* ── FEATURES OVERLAY — NEW IN v13 ── */
-  /* Fixed on top of blob, panels appear here */
+  /* Fixed on top of the blob, panels appear here */
   #features-overlay {
     position: fixed;
     inset: 0;
@@ -265,45 +265,56 @@
   .fo-body { color: #93C5FD; font-size: 15px; line-height: 1.6; }
   .fo-phone-center { display: flex; justify-content: center; align-items: center; }
 
-  /* CSS phone mockup inside panels */
-  .fo-iphone {
-    width: 200px; height: 400px;
-    background: #fff; border-radius: 36px;
-    border: 6px solid #2a2a4a;
-    box-shadow: 0 20px 60px rgba(6,182,212,0.25), 0 0 0 1px #3a3a5a;
+  /* CSS iPhone inside each panel */
+  .features-iphone {
+    width: 220px; height: 440px; background: #fff;
+    border-radius: 40px; border: 6px solid #2a2a4a;
+    box-shadow: 0 20px 60px rgba(6,182,212,0.2), 0 0 0 1px #3a3a5a;
     overflow: hidden; position: relative;
-    display: flex; flex-direction: column;
   }
-  .fo-iphone-notch {
-    position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
-    width: 80px; height: 18px;
-    background: #1a1a2e; border-radius: 10px; z-index: 10;
+  .features-iphone .iphone-notch {
+    position: absolute; top: 10px; left: 50%;
+    transform: translateX(-50%); width: 80px; height: 18px;
+    background: #1a1a2e; border-radius: 11px; z-index: 10;
   }
-  .fo-screen {
+  .features-screen {
+    width: 100%; height: 100%; background: #fff;
+    padding: 36px 10px 10px; display: flex; flex-direction: column; gap: 5px;
+  }
+  .fs-header {
+    display: flex; align-items: center; gap: 6px;
+    padding: 0 4px 4px; border-bottom: 1px solid #f0f0f0;
+  }
+  .fs-header-icon {
+    width: 26px; height: 26px;
+    background: linear-gradient(135deg, #2563EB, #06B6D4);
+    border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 13px;
+  }
+  .fs-header-text { font-size: 9px; font-weight: 700; color: #1a1a2e; font-family: 'Montserrat', sans-serif; }
+  .fs-product-row {
+    display: flex; align-items: center; gap: 7px;
+    padding: 5px 4px; border-bottom: 1px solid #f5f5f5;
+  }
+  .fs-product-icon {
+    width: 32px; height: 32px; background: #EFF6FF;
+    border-radius: 7px; display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0;
+  }
+  .fs-product-info { flex: 1; }
+  .fs-product-name { font-size: 8px; font-weight: 600; color: #111; }
+  .fs-product-desc { font-size: 7px; color: #888; }
+  .fs-product-price { font-size: 8px; font-weight: 700; color: #2563EB; }
+  .ai-screen {
     width: 100%; height: 100%;
     background: linear-gradient(160deg, #EFF6FF 0%, #DBEAFE 100%);
-    padding: 36px 8px 8px;
-    display: flex; flex-direction: column; gap: 5px;
+    padding: 36px 10px 10px; display: flex; flex-direction: column; gap: 5px;
   }
-  .fo-screen-title {
-    font-size: 10px; font-weight: 800; color: #1e40af;
-    font-family: 'Montserrat', sans-serif;
-    padding: 0 4px 4px; display: flex; align-items: center; gap: 4px;
-  }
-  .fo-row {
-    background: #fff; border-radius: 10px; padding: 8px;
-    display: flex; gap: 6px; align-items: center;
-    box-shadow: 0 2px 6px rgba(37,99,235,0.07);
-  }
-  .fo-row-icon {
-    width: 30px; height: 30px;
-    background: linear-gradient(135deg, #DBEAFE, #BFDBFE);
-    border-radius: 7px; display: flex; align-items: center;
-    justify-content: center; font-size: 14px; flex-shrink: 0;
-  }
-  .fo-row-name { font-size: 8px; font-weight: 700; color: #111; }
-  .fo-row-meta { font-size: 7px; color: #2563EB; font-weight: 600; }
-  .fo-row-price { font-size: 8px; color: #059669; font-weight: 700; margin-left: auto; }
+  .ai-screen-title { font-size: 11px; font-weight: 800; color: #1e40af; font-family: 'Montserrat', sans-serif; padding: 0 4px 5px; display: flex; align-items: center; gap: 4px; }
+  .ai-rec-card { background: #fff; border-radius: 10px; padding: 8px; display: flex; gap: 7px; align-items: center; box-shadow: 0 2px 8px rgba(37,99,235,0.08); }
+  .ai-rec-img { width: 36px; height: 36px; background: linear-gradient(135deg, #DBEAFE, #BFDBFE); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .ai-rec-name { font-size: 8px; font-weight: 700; color: #111; }
+  .ai-rec-meta { font-size: 7px; color: #2563EB; font-weight: 600; }
+  .ai-rec-price { font-size: 8px; color: #059669; font-weight: 700; margin-left: auto; }
 
   #model-dots {
     position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
@@ -314,7 +325,10 @@
   .model-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(107,114,128,0.3); transition: background 0.3s, transform 0.3s; }
   .model-dot.active { background: var(--blue-mid); transform: scale(1.4); }
 
-  @keyframes phoneFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-18px); } }
+  @keyframes phoneFloat {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-18px); }
+  }
 
   /* ════════════════════════════════════════
      REMAINING SECTIONS
@@ -476,13 +490,10 @@
 <!-- DARK BLOB -->
 <div id="phone-blob"></div>
 
-<!-- ════════════════════════════════════════
-     FEATURES OVERLAY — NEW IN v13
-     3 panels appear one by one on the blob
-════════════════════════════════════════ -->
+<!-- ── FEATURES OVERLAY — NEW IN v13 ── -->
 <div id="features-overlay">
 
-  <!-- PANEL 1: Medicine needs -->
+  <!-- Panel 1: Pharmacy / Verified -->
   <div class="fo-panel" id="fo-panel-1">
     <div class="fo-grid">
       <div class="fo-col">
@@ -492,14 +503,14 @@
         <p class="fo-body">Discover and order medicines from verified local pharmacies through a single, unified platform experience.</p>
       </div>
       <div class="fo-phone-center">
-        <div class="fo-iphone">
-          <div class="fo-iphone-notch"></div>
-          <div class="fo-screen">
-            <div class="fo-screen-title">💊 MediFind — Pharmacy</div>
-            <div class="fo-row"><div class="fo-row-icon">🩹</div><div><div class="fo-row-name">Bandage Roll</div><div class="fo-row-meta">Available — 3 stores</div></div><div class="fo-row-price">LKR 120</div></div>
-            <div class="fo-row"><div class="fo-row-icon">💊</div><div><div class="fo-row-name">Panadol 500mg</div><div class="fo-row-meta">Available — 8 stores</div></div><div class="fo-row-price">LKR 45</div></div>
-            <div class="fo-row"><div class="fo-row-icon">🌡️</div><div><div class="fo-row-name">Thermometer</div><div class="fo-row-meta">Available — 5 stores</div></div><div class="fo-row-price">LKR 850</div></div>
-            <div class="fo-row"><div class="fo-row-icon">💉</div><div><div class="fo-row-name">Insulin Pen</div><div class="fo-row-meta">Available — 2 stores</div></div><div class="fo-row-price">LKR 2,400</div></div>
+        <div class="features-iphone">
+          <div class="iphone-notch"></div>
+          <div class="features-screen">
+            <div class="fs-header"><div class="fs-header-icon">💊</div><div class="fs-header-text">MediFind — Pharmacy</div></div>
+            <div class="fs-product-row"><div class="fs-product-icon">🩹</div><div class="fs-product-info"><div class="fs-product-name">Bandage Roll</div><div class="fs-product-desc">Available — 3 stores</div></div><div class="fs-product-price">LKR 120</div></div>
+            <div class="fs-product-row"><div class="fs-product-icon">💊</div><div class="fs-product-info"><div class="fs-product-name">Panadol 500mg</div><div class="fs-product-desc">Available — 8 stores</div></div><div class="fs-product-price">LKR 45</div></div>
+            <div class="fs-product-row"><div class="fs-product-icon">🌡️</div><div class="fs-product-info"><div class="fs-product-name">Thermometer</div><div class="fs-product-desc">Available — 5 stores</div></div><div class="fs-product-price">LKR 850</div></div>
+            <div class="fs-product-row"><div class="fs-product-icon">💉</div><div class="fs-product-info"><div class="fs-product-name">Insulin Pen</div><div class="fs-product-desc">Available — 2 stores</div></div><div class="fs-product-price">LKR 2,400</div></div>
           </div>
         </div>
       </div>
@@ -512,7 +523,7 @@
     </div>
   </div>
 
-  <!-- PANEL 2: Prescriptions -->
+  <!-- Panel 2: AI / Prescription -->
   <div class="fo-panel" id="fo-panel-2">
     <div class="fo-grid">
       <div class="fo-col">
@@ -522,13 +533,13 @@
         <p class="fo-body">Upload your prescription, our AI reads and verifies it instantly — no more manual pharmacy visits or lost papers.</p>
       </div>
       <div class="fo-phone-center">
-        <div class="fo-iphone">
-          <div class="fo-iphone-notch"></div>
-          <div class="fo-screen">
-            <div class="fo-screen-title">✦ For You</div>
-            <div class="fo-row"><div class="fo-row-icon">💊</div><div><div class="fo-row-name">Amoxicillin 500mg</div><div class="fo-row-meta">Prescribed · 3 nearby</div></div><div class="fo-row-price">LKR 280</div></div>
-            <div class="fo-row"><div class="fo-row-icon">🧴</div><div><div class="fo-row-name">Vitamin D3</div><div class="fo-row-meta">Recommended</div></div><div class="fo-row-price">LKR 650</div></div>
-            <div class="fo-row"><div class="fo-row-icon">❤️</div><div><div class="fo-row-name">Aspirin 100mg</div><div class="fo-row-meta">Since you ordered...</div></div><div class="fo-row-price">LKR 120</div></div>
+        <div class="features-iphone">
+          <div class="iphone-notch"></div>
+          <div class="ai-screen">
+            <div class="ai-screen-title">✦ For You</div>
+            <div class="ai-rec-card"><div class="ai-rec-img">💊</div><div><div class="ai-rec-name">Amoxicillin 500mg</div><div class="ai-rec-meta">Prescribed · 3 nearby</div></div><div class="ai-rec-price">LKR 280</div></div>
+            <div class="ai-rec-card"><div class="ai-rec-img">🧴</div><div><div class="ai-rec-name">Vitamin D3</div><div class="ai-rec-meta">Recommended</div></div><div class="ai-rec-price">LKR 650</div></div>
+            <div class="ai-rec-card"><div class="ai-rec-img">❤️</div><div><div class="ai-rec-name">Aspirin 100mg</div><div class="ai-rec-meta">Since you ordered...</div></div><div class="ai-rec-price">LKR 120</div></div>
           </div>
         </div>
       </div>
@@ -541,7 +552,7 @@
     </div>
   </div>
 
-  <!-- PANEL 3: Delivery -->
+  <!-- Panel 3: Delivery / Tracking -->
   <div class="fo-panel" id="fo-panel-3">
     <div class="fo-grid">
       <div class="fo-col">
@@ -551,14 +562,14 @@
         <p class="fo-body">Order medicines online and get them delivered within hours — track your order live every step of the way.</p>
       </div>
       <div class="fo-phone-center">
-        <div class="fo-iphone">
-          <div class="fo-iphone-notch"></div>
-          <div class="fo-screen">
-            <div class="fo-screen-title">🚚 Live Tracking</div>
-            <div class="fo-row"><div class="fo-row-icon">📦</div><div><div class="fo-row-name">Order #MF-2041</div><div class="fo-row-meta">Out for delivery</div></div><div class="fo-row-price" style="color:#10b981">Live</div></div>
-            <div class="fo-row"><div class="fo-row-icon">🏪</div><div><div class="fo-row-name">Picked from pharmacy</div><div class="fo-row-meta">2 min ago</div></div><div class="fo-row-price">✓</div></div>
-            <div class="fo-row"><div class="fo-row-icon">🛵</div><div><div class="fo-row-name">Rider on the way</div><div class="fo-row-meta">~12 min away</div></div><div class="fo-row-price">🔵</div></div>
-            <div class="fo-row"><div class="fo-row-icon">🏠</div><div><div class="fo-row-name">Your location</div><div class="fo-row-meta">Colombo 7</div></div><div class="fo-row-price">—</div></div>
+        <div class="features-iphone">
+          <div class="iphone-notch"></div>
+          <div class="features-screen">
+            <div class="fs-header"><div class="fs-header-icon">🚚</div><div class="fs-header-text">Live Tracking</div></div>
+            <div class="fs-product-row"><div class="fs-product-icon">📦</div><div class="fs-product-info"><div class="fs-product-name">Order #MF-2041</div><div class="fs-product-desc">Out for delivery</div></div><div class="fs-product-price" style="color:#10b981">Live</div></div>
+            <div class="fs-product-row"><div class="fs-product-icon">🏪</div><div class="fs-product-info"><div class="fs-product-name">Picked from pharmacy</div><div class="fs-product-desc">2 min ago</div></div><div class="fs-product-price">✓</div></div>
+            <div class="fs-product-row"><div class="fs-product-icon">🛵</div><div class="fs-product-info"><div class="fs-product-name">Rider on the way</div><div class="fs-product-desc">~12 min away</div></div><div class="fs-product-price">🔵</div></div>
+            <div class="fs-product-row"><div class="fs-product-icon">🏠</div><div class="fs-product-info"><div class="fs-product-name">Your location</div><div class="fs-product-desc">Colombo 7</div></div><div class="fs-product-price">—</div></div>
           </div>
         </div>
       </div>
@@ -678,14 +689,14 @@
   phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
 
   /* ── Refs ── */
-  const showcaseMV      = document.getElementById('showcaseModelViewer');
-  const showcaseInner   = document.getElementById('showcase-phone-inner');
-  const horizTrack      = document.getElementById('horiz-text-track');
-  const horizTextInner  = document.getElementById('horiz-text-inner');
-  const phaseHint       = document.getElementById('scroll-phase-hint');
-  const phoneBlob       = document.getElementById('phone-blob');
+  const showcaseMV     = document.getElementById('showcaseModelViewer');
+  const showcaseInner  = document.getElementById('showcase-phone-inner');
+  const horizTrack     = document.getElementById('horiz-text-track');
+  const horizTextInner = document.getElementById('horiz-text-inner');
+  const phaseHint      = document.getElementById('scroll-phase-hint');
+  const phoneBlob      = document.getElementById('phone-blob');
   const featuresOverlay = document.getElementById('features-overlay');
-  const foPanels        = [
+  const foPanels = [
     document.getElementById('fo-panel-1'),
     document.getElementById('fo-panel-2'),
     document.getElementById('fo-panel-3'),
@@ -714,20 +725,18 @@
      PHASE BOUNDARIES
      P1: 0.00 → 0.12  spin-in
      P2: 0.12 → 0.30  phrase reveals
-     P3: 0.30 → 0.88  horiz scroll + model swaps
-     P4: 0.88 → 1.00  phone shrinks + blob grows
-     ─────────────────────────────────────────
-     900vh breakdown:
-       700vh = phases 1-4  (progress 0 → 0.778)
-       200vh = panels       (progress 0.778 → 1.0)
+     P3: 0.30 → 0.75  horiz scroll + model swaps
+     P4: 0.75 → 0.88  phone shrinks + blob grows
+     P5: 0.88 → 1.00  feature panels on blob ← NEW
   ════════════════════════════════════════ */
-  const P1_END    = 0.12;
-  const P2_START  = 0.12;
-  const P2_END    = 0.30;
-  const P3_START  = 0.30;
-  const P3_END    = 0.88;
-  const P4_START  = 0.88;
-  const PHASE_END = 700 / 900; /* 0.778 — phases end here */
+  const P1_END   = 0.12;
+  const P2_START = 0.12;
+  const P2_END   = 0.30;
+  const P3_START = 0.30;
+  const P3_END   = 0.75;
+  const P4_START = 0.75;
+  const P4_END   = 0.88;
+  const P5_START = 0.88;
 
   ScrollTrigger.create({
     trigger: '#heroBorderWrap',
@@ -736,13 +745,12 @@
     end: 'bottom bottom',
     scrub: true,
     onUpdate(self) {
-      const p  = self.progress;
-      const pp = Math.min(p / PHASE_END, 1); /* remapped 0→1 for phases 1-4 */
+      const p = self.progress;
 
-      /* ── PHASE 1: Spin-in ── */
-      if (pp <= P1_END) {
+      /* ── PHASE 1 ── */
+      if (p <= P1_END) {
         stopFloat();
-        const t = pp / P1_END;
+        const t = p / P1_END;
         gsap.set(showcaseInner, { scale: Math.min(t * 1.18, 1), opacity: Math.min(t * 5, 1), y: 0 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', `${270 - 360 * t}deg 90deg 105%`);
         gsap.set(phraseEls, { opacity: 0, y: 40 });
@@ -754,8 +762,8 @@
         modelDots.classList.remove('visible');
       }
 
-      /* ── PHASE 2: Phrase reveals ── */
-      else if (pp <= P2_END) {
+      /* ── PHASE 2 ── */
+      else if (p <= P2_END) {
         gsap.set(showcaseInner, { scale: 1, opacity: 1 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
         startFloat();
@@ -765,7 +773,7 @@
         gsap.set(foPanels, { opacity: 0, y: 40 });
         modelDots.classList.remove('visible');
 
-        const t = (pp - P2_START) / (P2_END - P2_START);
+        const t = (p - P2_START) / (P2_END - P2_START);
         phraseEls.forEach((el, i) => {
           const spans = allSpans[i];
           const tIn = i / phrases.length, tOut = (i + 1) / phrases.length, tMid = (tIn + tOut) / 2;
@@ -776,8 +784,8 @@
         });
       }
 
-      /* ── PHASE 3: Horiz scroll + model swaps ── */
-      else if (pp <= P3_END) {
+      /* ── PHASE 3 ── */
+      else if (p <= P3_END) {
         gsap.set(showcaseInner, { scale: 1, opacity: 1 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
         startFloat();
@@ -788,31 +796,32 @@
         gsap.set(foPanels, { opacity: 0, y: 40 });
         modelDots.classList.add('visible');
 
-        const t = (pp - P3_START) / (P3_END - P3_START);
+        const t = (p - P3_START) / (P3_END - P3_START);
         if (horizTextInner) horizTextInner.style.transform = `translateX(${-t * window.innerWidth * 5.5}px)`;
         const newIdx = Math.min(Math.floor(t * 6), 5);
         if (newIdx !== currentModelIdx) swapModel(newIdx);
       }
 
       /* ── PHASE 4: Phone shrinks + blob grows ── */
-      else if (p <= PHASE_END) {
+      else if (p <= P4_END) {
         stopFloat();
         modelDots.classList.remove('visible');
         gsap.set(phraseEls, { opacity: 0 });
         featuresOverlay.style.opacity = '0';
         gsap.set(foPanels, { opacity: 0, y: 40 });
 
-        const t = (pp - P4_START) / (1 - P4_START);
-        gsap.set(showcaseInner, { scale: Math.max(1 - t * 1.18, 0), opacity: 1, y: 0 });
+        const t = (p - P4_START) / (P4_END - P4_START);
+        const phoneScale = Math.max(1 - t * 1.18, 0);
+        gsap.set(showcaseInner, { scale: phoneScale, opacity: 1, y: 0 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', `${-90 + 360 * t}deg 90deg 105%`);
         gsap.set(horizTrack, { opacity: Math.max(1 - t * 4, 0) });
 
-        const blobT = Math.max(0, Math.min(1, t / 0.9));
-        phoneBlob.style.transform = `scale(${blobT})`;
-        phoneBlob.style.opacity   = blobT > 0.01 ? '1' : '0';
+        const blobScale = Math.max(0, Math.min(1, t / 0.9));
+        phoneBlob.style.transform = `scale(${blobScale})`;
+        phoneBlob.style.opacity   = blobScale > 0.01 ? '1' : '0';
       }
 
-      /* ── PHASE 5: Panels on blob ── NEW IN v13 */
+      /* ── PHASE 5: Feature panels on blob ── NEW IN v13 */
       else {
         stopFloat();
         gsap.set(showcaseInner, { scale: 0, opacity: 0 });
@@ -825,39 +834,30 @@
         phoneBlob.style.opacity   = '1';
         featuresOverlay.style.opacity = '1';
 
-        /* t = 0→1 across the last 200vh panel section */
-        const t = (p - PHASE_END) / (1 - PHASE_END);
+        /* t = 0→1 within phase 5 */
+        const t = (p - P5_START) / (1 - P5_START);
 
-        /* Exit: blob shrinks in last 25% */
-        const exitAt = 0.75;
-        if (t > exitAt) {
-          const bs = (1 - t) / (1 - exitAt);
-          phoneBlob.style.transform = `scale(${Math.max(bs, 0)})`;
-          phoneBlob.style.opacity   = bs > 0.01 ? '1' : '0';
-          featuresOverlay.style.opacity = bs > 0.05 ? '1' : '0';
-        }
-
-        /* Panels cycle in/out */
-        const panelT = Math.min(t / exitAt, 1);
+        /* 3 panels, each gets 1/3 of t */
         foPanels.forEach((panel, i) => {
-          /* Each panel gets 1/3 of panelT */
           const pIn  = i / 3;
           const pMid = (i + 0.4) / 3;
           const pOut = (i + 0.85) / 3;
           const pEnd = (i + 1) / 3;
+
           let op = 0, y = 40;
 
-          if (panelT >= pIn && panelT < pMid) {
-            const s = (panelT - pIn) / (pMid - pIn);
+          if (t >= pIn && t < pMid) {
+            const s = (t - pIn) / (pMid - pIn);
             op = s; y = 40 * (1 - s);
-          } else if (panelT >= pMid && panelT < pOut) {
+          } else if (t >= pMid && t < pOut) {
             op = 1; y = 0;
-          } else if (panelT >= pOut && panelT < pEnd) {
-            const s = (panelT - pOut) / (pEnd - pOut);
+          } else if (t >= pOut && t < pEnd) {
+            const s = (t - pOut) / (pEnd - pOut);
             op = 1 - s; y = -40 * s;
           } else {
-            op = 0; y = panelT < pIn ? 40 : -40;
+            op = 0; y = t < pIn ? 40 : -40;
           }
+
           gsap.set(panel, { opacity: op, y });
         });
       }
