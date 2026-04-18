@@ -151,196 +151,140 @@
   .scroll-chevron { width: 28px; height: 28px; color: #60A5FA; }
 
   /* ════════════════════════════════════════
-     PHONE SHOWCASE — v13
-     900vh total
+     PHONE SHOWCASE
   ════════════════════════════════════════ */
-  #phone-showcase {
-    position: relative;
-    height: 900vh;
-    background: var(--light-bg);
-  }
-
-  #showcase-phone-wrap {
-    position: sticky; top: 0; height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden; isolation: isolate;
-  }
-
-  #horiz-text-track {
-    position: absolute; top: 50%; left: 0; right: 0;
-    transform: translateY(-50%); height: 160px;
-    display: flex; align-items: center;
-    z-index: 1; pointer-events: none; overflow: hidden; opacity: 0;
-  }
-  #horiz-text-inner {
-    display: flex; white-space: nowrap;
-    font-family: 'Montserrat', sans-serif; font-weight: 900;
-    font-size: clamp(64px, 9vw, 120px); line-height: 1;
-    color: var(--text-dark); letter-spacing: -0.02em;
-    will-change: transform;
-  }
-
-  #phrase-reveal-layer {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    z-index: 1; pointer-events: none;
-  }
-  .reveal-phrase {
-    position: absolute;
-    font-family: 'Montserrat', sans-serif; font-weight: 900;
-    font-size: clamp(48px, 7vw, 96px); line-height: 1.05;
-    text-align: center; color: var(--text-dark);
-    letter-spacing: -0.02em;
-    opacity: 0; transform: translateY(40px);
-    max-width: 80vw; z-index: 1;
-  }
+  #phone-showcase { position: relative; height: 900vh; background: var(--light-bg); }
+  #showcase-phone-wrap { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; isolation: isolate; }
+  #horiz-text-track { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); height: 160px; display: flex; align-items: center; z-index: 1; pointer-events: none; overflow: hidden; opacity: 0; }
+  #horiz-text-inner { display: flex; white-space: nowrap; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(64px, 9vw, 120px); line-height: 1; color: var(--text-dark); letter-spacing: -0.02em; will-change: transform; }
+  #phrase-reveal-layer { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 1; pointer-events: none; }
+  .reveal-phrase { position: absolute; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(48px, 7vw, 96px); line-height: 1.05; text-align: center; color: var(--text-dark); letter-spacing: -0.02em; opacity: 0; transform: translateY(40px); max-width: 80vw; z-index: 1; }
   .reveal-phrase span { display: inline-block; opacity: 0; transform: translateY(30px); }
-
-  #showcase-phone-inner {
-    position: relative; z-index: 10;
-    filter: drop-shadow(0 30px 50px rgba(37,99,235,0.18));
-    transform-origin: center center;
-    opacity: 0; transform: scale(0);
-  }
-
-  model-viewer::part(default-progress-bar),
-  model-viewer::part(default-progress-mask),
-  model-viewer::part(progress-bar) { display: none !important; opacity: 0 !important; }
+  #showcase-phone-inner { position: relative; z-index: 10; filter: drop-shadow(0 30px 50px rgba(37,99,235,0.18)); transform-origin: center center; opacity: 0; transform: scale(0); }
+  model-viewer::part(default-progress-bar), model-viewer::part(default-progress-mask), model-viewer::part(progress-bar) { display: none !important; opacity: 0 !important; }
   model-viewer { --progress-bar-color: transparent; --progress-mask: transparent; }
-
-  #scroll-phase-hint {
-    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-    color: rgba(107,114,128,0.6); font-size: 11px;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    opacity: 0; z-index: 20; transition: opacity 0.5s;
-  }
+  #scroll-phase-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: rgba(107,114,128,0.6); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0; z-index: 20; transition: opacity 0.5s; }
   #scroll-phase-hint.visible { opacity: 1; }
   #scroll-phase-hint svg { width: 20px; height: 20px; }
-
-  /* Dark blob */
-  #phone-blob {
-    position: fixed;
-    top: 50vh; left: 50vw;
-    width: 150vmax; height: 150vmax;
-    border-radius: 50%;
-    background: #0A0F1E;
-    margin-top: -75vmax; margin-left: -75vmax;
-    transform: scale(0); opacity: 0;
-    z-index: 500; pointer-events: none;
-  }
-
-  /* ── FEATURES OVERLAY — NEW IN v13 ── */
-  /* Fixed on top of the blob, panels appear here */
-  #features-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 502;
-    pointer-events: none;
-  }
-
-  .fo-panel {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transform: translateY(40px);
-  }
-
-  .fo-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 60px; align-items: center;
-    max-width: 1100px; width: 100%; padding: 0 80px;
-  }
-
+  #phone-blob { position: fixed; top: 50vh; left: 50vw; width: 150vmax; height: 150vmax; border-radius: 50%; background: #0A0F1E; margin-top: -75vmax; margin-left: -75vmax; transform: scale(0); opacity: 0; z-index: 500; pointer-events: none; }
+  #features-overlay { position: fixed; inset: 0; z-index: 502; pointer-events: none; }
+  .fo-panel { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(40px); }
+  .fo-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; width: 100%; padding: 0 80px; }
   .fo-col { display: flex; flex-direction: column; }
   .fo-col.right { align-items: flex-end; text-align: right; }
   .fo-icon { width: 40px; height: 40px; color: #60A5FA; margin-bottom: 16px; }
   .fo-divider { width: 48px; height: 2px; background: #1E3A5F; margin-bottom: 20px; }
   .fo-col.right .fo-divider { margin-left: auto; }
-  .fo-heading {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700; font-size: clamp(20px, 2.2vw, 30px);
-    color: #fff; line-height: 1.2; margin-bottom: 12px;
-  }
+  .fo-heading { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(20px, 2.2vw, 30px); color: #fff; line-height: 1.2; margin-bottom: 12px; }
   .fo-body { color: #93C5FD; font-size: 15px; line-height: 1.6; }
   .fo-phone-center { display: flex; justify-content: center; align-items: center; }
-
-  /* CSS iPhone inside each panel */
-  .features-iphone {
-    width: 220px; height: 440px; background: #fff;
-    border-radius: 40px; border: 6px solid #2a2a4a;
-    box-shadow: 0 20px 60px rgba(6,182,212,0.2), 0 0 0 1px #3a3a5a;
-    overflow: hidden; position: relative;
-  }
-  .features-iphone .iphone-notch {
-    position: absolute; top: 10px; left: 50%;
-    transform: translateX(-50%); width: 80px; height: 18px;
-    background: #1a1a2e; border-radius: 11px; z-index: 10;
-  }
-  .features-screen {
-    width: 100%; height: 100%; background: #fff;
-    padding: 36px 10px 10px; display: flex; flex-direction: column; gap: 5px;
-  }
-  .fs-header {
-    display: flex; align-items: center; gap: 6px;
-    padding: 0 4px 4px; border-bottom: 1px solid #f0f0f0;
-  }
-  .fs-header-icon {
-    width: 26px; height: 26px;
-    background: linear-gradient(135deg, #2563EB, #06B6D4);
-    border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 13px;
-  }
+  .features-iphone { width: 220px; height: 440px; background: #fff; border-radius: 40px; border: 6px solid #2a2a4a; box-shadow: 0 20px 60px rgba(6,182,212,0.2), 0 0 0 1px #3a3a5a; overflow: hidden; position: relative; }
+  .features-iphone .iphone-notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 80px; height: 18px; background: #1a1a2e; border-radius: 11px; z-index: 10; }
+  .features-screen { width: 100%; height: 100%; background: #fff; padding: 36px 10px 10px; display: flex; flex-direction: column; gap: 5px; }
+  .fs-header { display: flex; align-items: center; gap: 6px; padding: 0 4px 4px; border-bottom: 1px solid #f0f0f0; }
+  .fs-header-icon { width: 26px; height: 26px; background: linear-gradient(135deg, #2563EB, #06B6D4); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
   .fs-header-text { font-size: 9px; font-weight: 700; color: #1a1a2e; font-family: 'Montserrat', sans-serif; }
-  .fs-product-row {
-    display: flex; align-items: center; gap: 7px;
-    padding: 5px 4px; border-bottom: 1px solid #f5f5f5;
-  }
-  .fs-product-icon {
-    width: 32px; height: 32px; background: #EFF6FF;
-    border-radius: 7px; display: flex; align-items: center; justify-content: center;
-    font-size: 14px; flex-shrink: 0;
-  }
+  .fs-product-row { display: flex; align-items: center; gap: 7px; padding: 5px 4px; border-bottom: 1px solid #f5f5f5; }
+  .fs-product-icon { width: 32px; height: 32px; background: #EFF6FF; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
   .fs-product-info { flex: 1; }
   .fs-product-name { font-size: 8px; font-weight: 600; color: #111; }
   .fs-product-desc { font-size: 7px; color: #888; }
   .fs-product-price { font-size: 8px; font-weight: 700; color: #2563EB; }
-  .ai-screen {
-    width: 100%; height: 100%;
-    background: linear-gradient(160deg, #EFF6FF 0%, #DBEAFE 100%);
-    padding: 36px 10px 10px; display: flex; flex-direction: column; gap: 5px;
-  }
+  .ai-screen { width: 100%; height: 100%; background: linear-gradient(160deg, #EFF6FF 0%, #DBEAFE 100%); padding: 36px 10px 10px; display: flex; flex-direction: column; gap: 5px; }
   .ai-screen-title { font-size: 11px; font-weight: 800; color: #1e40af; font-family: 'Montserrat', sans-serif; padding: 0 4px 5px; display: flex; align-items: center; gap: 4px; }
   .ai-rec-card { background: #fff; border-radius: 10px; padding: 8px; display: flex; gap: 7px; align-items: center; box-shadow: 0 2px 8px rgba(37,99,235,0.08); }
   .ai-rec-img { width: 36px; height: 36px; background: linear-gradient(135deg, #DBEAFE, #BFDBFE); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
   .ai-rec-name { font-size: 8px; font-weight: 700; color: #111; }
   .ai-rec-meta { font-size: 7px; color: #2563EB; font-weight: 600; }
   .ai-rec-price { font-size: 8px; color: #059669; font-weight: 700; margin-left: auto; }
-
-  #model-dots {
-    position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 8px; z-index: 20;
-    opacity: 0; transition: opacity 0.4s;
-  }
+  #model-dots { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 20; opacity: 0; transition: opacity 0.4s; }
   #model-dots.visible { opacity: 1; }
   .model-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(107,114,128,0.3); transition: background 0.3s, transform 0.3s; }
   .model-dot.active { background: var(--blue-mid); transform: scale(1.4); }
-
-  @keyframes phoneFloat {
-    0%, 100% { transform: translateY(0px); }
-    50%       { transform: translateY(-18px); }
-  }
+  @keyframes phoneFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-18px); } }
 
   /* ════════════════════════════════════════
-     REMAINING SECTIONS
+     DASHBOARD — fully styled in v14
   ════════════════════════════════════════ */
-  #dashboard { background: var(--light-bg); text-align: center; padding: 80px 48px; }
-  #dashboard h2 { color: var(--text-dark); margin-bottom: 12px; font-size: 36px; }
-  #laptop-placeholder { background: var(--card-dark); color: var(--text-muted); border-radius: 16px; padding: 60px; margin: 32px auto; max-width: 800px; font-size: 16px; }
-  #dashboard-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
-  #dashboard-cards div { background: var(--card-light); border-radius: 16px; padding: 24px; text-align: left; }
-  #dashboard-cards span { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: var(--blue-mid); }
-  #dashboard-cards h4 { color: var(--text-dark); margin: 8px 0; font-size: 16px; }
+  #dashboard {
+    background: var(--light-bg);
+    padding: 60px 48px 40px;
+    text-align: center;
+  }
 
+  .dashboard-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.25);
+    color: #2563EB; border-radius: 50px; padding: 6px 18px;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+
+  .dashboard-title {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: clamp(32px, 4vw, 48px); color: var(--text-dark); margin-bottom: 10px;
+  }
+
+  .dashboard-sub {
+    color: var(--text-gray); font-size: 18px; max-width: 600px;
+    margin: 0 auto 16px; line-height: 1.6;
+  }
+
+  /* Macbook model-viewer wrapper */
+  .laptop-mockup {
+    max-width: 1200px;
+    margin: -40px auto -120px;
+    position: relative;
+  }
+
+  /* Dashboard cards */
+  .dash-cards {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 24px; max-width: 1100px; margin: 0 auto; padding-top: 24px;
+  }
+
+  .dash-card {
+    background: #fff; border-radius: 24px; padding: 32px 24px; text-align: left;
+    box-shadow: 0 4px 20px rgba(26,58,255,0.07);
+    opacity: 0; transform: translateY(30px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+  }
+  .dash-card:hover {
+    background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
+    box-shadow: 0 8px 40px rgba(37,99,235,0.5), 0 0 0 1px rgba(96,165,250,0.3);
+    transform: translateY(-4px);
+  }
+
+  .dash-card-num {
+    display: inline-flex; width: 36px; height: 36px;
+    background: linear-gradient(135deg, #2563EB, #06B6D4);
+    border-radius: 50%; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; color: #fff;
+    font-family: 'Montserrat', sans-serif; margin-bottom: 16px;
+    transition: background 0.3s ease;
+  }
+  .dash-card:hover .dash-card-num { background: #fff; background-image: none; color: #2563EB; }
+
+  .dash-card-tag {
+    font-size: 10px; font-weight: 700; color: #2563EB;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;
+    transition: color 0.3s ease;
+  }
+  .dash-card:hover .dash-card-tag { color: rgba(255,255,255,0.85); }
+
+  .dash-card-heading {
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px;
+    color: var(--text-dark); margin-bottom: 8px; transition: color 0.3s ease;
+  }
+  .dash-card:hover .dash-card-heading { color: #fff; }
+
+  .dash-card-body { color: #6B7280; font-size: 14px; line-height: 1.6; transition: color 0.3s ease; }
+  .dash-card:hover .dash-card-body { color: rgba(255,255,255,0.85); }
+
+  /* ════════════════════════════════════════
+     TEAM SECTION
+  ════════════════════════════════════════ */
   #team { background: var(--light-bg); text-align: center; padding: 80px 48px; }
   #team h2 { color: var(--text-dark); margin-bottom: 12px; font-size: 36px; }
   #team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1000px; margin: 32px auto 0; }
@@ -349,6 +293,9 @@
   #team-grid h4 { color: var(--blue-mid); padding: 16px 16px 4px; font-size: 16px; }
   #team-grid p  { padding: 0 16px; font-size: 13px; }
 
+  /* ════════════════════════════════════════
+     CTA / FOOTER
+  ════════════════════════════════════════ */
   #cta { background: var(--dark); text-align: center; padding: 100px 48px; color: var(--text-white); }
   #cta h2 { color: var(--text-white); margin-bottom: 16px; font-size: 36px; }
   #cta p  { color: var(--text-muted); font-size: 17px; margin-bottom: 12px; }
@@ -371,12 +318,14 @@
     .fo-grid { grid-template-columns: 1fr; padding: 0 24px; }
     .fo-col.right { align-items: flex-start; text-align: left; }
     .fo-phone-center { order: -1; }
-    #dashboard-cards { grid-template-columns: 1fr 1fr; }
+    .dash-cards { grid-template-columns: 1fr 1fr; }
+    #dashboard { padding: 60px 24px; }
     #team-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
-    #dashboard-cards { grid-template-columns: 1fr; }
+    .dash-cards { grid-template-columns: 1fr; }
     #team-grid { grid-template-columns: 1fr; }
+    .hero-title { font-size: 52px; }
   }
 
 </style>
@@ -386,12 +335,12 @@
 <!-- FIXED NAV -->
 <nav id="fixedNav">
   <a class="nav-logo" href="#">
-    <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo" onerror="this.style.display='none';" />
-    MediFind
+    <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <span style="display:none; align-items:center; gap:8px; font-family:Montserrat,sans-serif; font-weight:800; font-size:20px; color:#fff;">MediFind</span>
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#features-overlay">Features</a></li>
+    <li><a href="#dashboard">Features</a></li>
     <li><a href="#team">Team</a></li>
     <li><a href="#cta">Contact</a></li>
   </ul>
@@ -402,12 +351,12 @@
 <div class="hero-border-wrap" id="heroBorderWrap">
   <nav class="hero-nav">
     <a class="hn-logo" href="#">
-      <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo" onerror="this.style.display='none';" />
-      MediFind
+      <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+      <span style="display:none; align-items:center; gap:8px; font-family:Montserrat,sans-serif; font-weight:800; font-size:20px; color:#fff;">MediFind</span>
     </a>
     <ul class="hn-links">
       <li><a href="#about">About</a></li>
-      <li><a href="#features-overlay">Features</a></li>
+      <li><a href="#dashboard">Features</a></li>
       <li><a href="#team">Team</a></li>
       <li><a href="#cta">Contact</a></li>
     </ul>
@@ -457,43 +406,22 @@
     </div>
     <div id="phrase-reveal-layer"></div>
     <div id="showcase-phone-inner">
-      <model-viewer
-        id="showcaseModelViewer"
-        src="./17 pro max phone model 01/scene.gltf"
-        alt="MediFind App"
-        camera-orbit="270deg 90deg 105%"
-        field-of-view="30deg"
-        shadow-intensity="1.2"
-        exposure="1.1"
-        environment-image="neutral"
-        disable-zoom
-        interaction-prompt="none"
-        style="width: 320px; height: 640px; background: transparent; pointer-events: none;"
-      ></model-viewer>
+      <model-viewer id="showcaseModelViewer" src="./17 pro max phone model 01/scene.gltf" alt="MediFind App" camera-orbit="270deg 90deg 105%" field-of-view="30deg" shadow-intensity="1.2" exposure="1.1" environment-image="neutral" disable-zoom interaction-prompt="none" style="width: 320px; height: 640px; background: transparent; pointer-events: none;"></model-viewer>
     </div>
     <div id="scroll-phase-hint">
-      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-      </svg>
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
     </div>
     <div id="model-dots">
-      <div class="model-dot active"></div>
-      <div class="model-dot"></div>
-      <div class="model-dot"></div>
-      <div class="model-dot"></div>
-      <div class="model-dot"></div>
-      <div class="model-dot"></div>
+      <div class="model-dot active"></div><div class="model-dot"></div><div class="model-dot"></div>
+      <div class="model-dot"></div><div class="model-dot"></div><div class="model-dot"></div>
     </div>
   </div>
 </section>
 
-<!-- DARK BLOB -->
 <div id="phone-blob"></div>
 
-<!-- ── FEATURES OVERLAY — NEW IN v13 ── -->
+<!-- FEATURES OVERLAY -->
 <div id="features-overlay">
-
-  <!-- Panel 1: Pharmacy / Verified -->
   <div class="fo-panel" id="fo-panel-1">
     <div class="fo-grid">
       <div class="fo-col">
@@ -503,16 +431,13 @@
         <p class="fo-body">Discover and order medicines from verified local pharmacies through a single, unified platform experience.</p>
       </div>
       <div class="fo-phone-center">
-        <div class="features-iphone">
-          <div class="iphone-notch"></div>
-          <div class="features-screen">
-            <div class="fs-header"><div class="fs-header-icon">💊</div><div class="fs-header-text">MediFind — Pharmacy</div></div>
-            <div class="fs-product-row"><div class="fs-product-icon">🩹</div><div class="fs-product-info"><div class="fs-product-name">Bandage Roll</div><div class="fs-product-desc">Available — 3 stores</div></div><div class="fs-product-price">LKR 120</div></div>
-            <div class="fs-product-row"><div class="fs-product-icon">💊</div><div class="fs-product-info"><div class="fs-product-name">Panadol 500mg</div><div class="fs-product-desc">Available — 8 stores</div></div><div class="fs-product-price">LKR 45</div></div>
-            <div class="fs-product-row"><div class="fs-product-icon">🌡️</div><div class="fs-product-info"><div class="fs-product-name">Thermometer</div><div class="fs-product-desc">Available — 5 stores</div></div><div class="fs-product-price">LKR 850</div></div>
-            <div class="fs-product-row"><div class="fs-product-icon">💉</div><div class="fs-product-info"><div class="fs-product-name">Insulin Pen</div><div class="fs-product-desc">Available — 2 stores</div></div><div class="fs-product-price">LKR 2,400</div></div>
-          </div>
-        </div>
+        <div class="features-iphone"><div class="iphone-notch"></div><div class="features-screen">
+          <div class="fs-header"><div class="fs-header-icon">💊</div><div class="fs-header-text">MediFind — Pharmacy</div></div>
+          <div class="fs-product-row"><div class="fs-product-icon">🩹</div><div class="fs-product-info"><div class="fs-product-name">Bandage Roll</div><div class="fs-product-desc">Available — 3 stores</div></div><div class="fs-product-price">LKR 120</div></div>
+          <div class="fs-product-row"><div class="fs-product-icon">💊</div><div class="fs-product-info"><div class="fs-product-name">Panadol 500mg</div><div class="fs-product-desc">Available — 8 stores</div></div><div class="fs-product-price">LKR 45</div></div>
+          <div class="fs-product-row"><div class="fs-product-icon">🌡️</div><div class="fs-product-info"><div class="fs-product-name">Thermometer</div><div class="fs-product-desc">Available — 5 stores</div></div><div class="fs-product-price">LKR 850</div></div>
+          <div class="fs-product-row"><div class="fs-product-icon">💉</div><div class="fs-product-info"><div class="fs-product-name">Insulin Pen</div><div class="fs-product-desc">Available — 2 stores</div></div><div class="fs-product-price">LKR 2,400</div></div>
+        </div></div>
       </div>
       <div class="fo-col right">
         <svg class="fo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="align-self:flex-end"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
@@ -522,8 +447,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Panel 2: AI / Prescription -->
   <div class="fo-panel" id="fo-panel-2">
     <div class="fo-grid">
       <div class="fo-col">
@@ -533,15 +456,12 @@
         <p class="fo-body">Upload your prescription, our AI reads and verifies it instantly — no more manual pharmacy visits or lost papers.</p>
       </div>
       <div class="fo-phone-center">
-        <div class="features-iphone">
-          <div class="iphone-notch"></div>
-          <div class="ai-screen">
-            <div class="ai-screen-title">✦ For You</div>
-            <div class="ai-rec-card"><div class="ai-rec-img">💊</div><div><div class="ai-rec-name">Amoxicillin 500mg</div><div class="ai-rec-meta">Prescribed · 3 nearby</div></div><div class="ai-rec-price">LKR 280</div></div>
-            <div class="ai-rec-card"><div class="ai-rec-img">🧴</div><div><div class="ai-rec-name">Vitamin D3</div><div class="ai-rec-meta">Recommended</div></div><div class="ai-rec-price">LKR 650</div></div>
-            <div class="ai-rec-card"><div class="ai-rec-img">❤️</div><div><div class="ai-rec-name">Aspirin 100mg</div><div class="ai-rec-meta">Since you ordered...</div></div><div class="ai-rec-price">LKR 120</div></div>
-          </div>
-        </div>
+        <div class="features-iphone"><div class="iphone-notch"></div><div class="ai-screen">
+          <div class="ai-screen-title">✦ For You</div>
+          <div class="ai-rec-card"><div class="ai-rec-img">💊</div><div><div class="ai-rec-name">Amoxicillin 500mg</div><div class="ai-rec-meta">Prescribed · 3 nearby</div></div><div class="ai-rec-price">LKR 280</div></div>
+          <div class="ai-rec-card"><div class="ai-rec-img">🧴</div><div><div class="ai-rec-name">Vitamin D3</div><div class="ai-rec-meta">Recommended</div></div><div class="ai-rec-price">LKR 650</div></div>
+          <div class="ai-rec-card"><div class="ai-rec-img">❤️</div><div><div class="ai-rec-name">Aspirin 100mg</div><div class="ai-rec-meta">Since you ordered...</div></div><div class="ai-rec-price">LKR 120</div></div>
+        </div></div>
       </div>
       <div class="fo-col right">
         <svg class="fo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="align-self:flex-end"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
@@ -551,8 +471,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Panel 3: Delivery / Tracking -->
   <div class="fo-panel" id="fo-panel-3">
     <div class="fo-grid">
       <div class="fo-col">
@@ -562,16 +480,13 @@
         <p class="fo-body">Order medicines online and get them delivered within hours — track your order live every step of the way.</p>
       </div>
       <div class="fo-phone-center">
-        <div class="features-iphone">
-          <div class="iphone-notch"></div>
-          <div class="features-screen">
-            <div class="fs-header"><div class="fs-header-icon">🚚</div><div class="fs-header-text">Live Tracking</div></div>
-            <div class="fs-product-row"><div class="fs-product-icon">📦</div><div class="fs-product-info"><div class="fs-product-name">Order #MF-2041</div><div class="fs-product-desc">Out for delivery</div></div><div class="fs-product-price" style="color:#10b981">Live</div></div>
-            <div class="fs-product-row"><div class="fs-product-icon">🏪</div><div class="fs-product-info"><div class="fs-product-name">Picked from pharmacy</div><div class="fs-product-desc">2 min ago</div></div><div class="fs-product-price">✓</div></div>
-            <div class="fs-product-row"><div class="fs-product-icon">🛵</div><div class="fs-product-info"><div class="fs-product-name">Rider on the way</div><div class="fs-product-desc">~12 min away</div></div><div class="fs-product-price">🔵</div></div>
-            <div class="fs-product-row"><div class="fs-product-icon">🏠</div><div class="fs-product-info"><div class="fs-product-name">Your location</div><div class="fs-product-desc">Colombo 7</div></div><div class="fs-product-price">—</div></div>
-          </div>
-        </div>
+        <div class="features-iphone"><div class="iphone-notch"></div><div class="features-screen">
+          <div class="fs-header"><div class="fs-header-icon">🚚</div><div class="fs-header-text">Live Tracking</div></div>
+          <div class="fs-product-row"><div class="fs-product-icon">📦</div><div class="fs-product-info"><div class="fs-product-name">Order #MF-2041</div><div class="fs-product-desc">Out for delivery</div></div><div class="fs-product-price" style="color:#10b981">Live</div></div>
+          <div class="fs-product-row"><div class="fs-product-icon">🏪</div><div class="fs-product-info"><div class="fs-product-name">Picked from pharmacy</div><div class="fs-product-desc">2 min ago</div></div><div class="fs-product-price">✓</div></div>
+          <div class="fs-product-row"><div class="fs-product-icon">🛵</div><div class="fs-product-info"><div class="fs-product-name">Rider on the way</div><div class="fs-product-desc">~12 min away</div></div><div class="fs-product-price">🔵</div></div>
+          <div class="fs-product-row"><div class="fs-product-icon">🏠</div><div class="fs-product-info"><div class="fs-product-name">Your location</div><div class="fs-product-desc">Colombo 7</div></div><div class="fs-product-price">—</div></div>
+        </div></div>
       </div>
       <div class="fo-col right">
         <svg class="fo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="align-self:flex-end"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -581,20 +496,64 @@
       </div>
     </div>
   </div>
-
 </div>
 
-<!-- DASHBOARD -->
+<!-- ════════════════════════════════════════
+     DASHBOARD — fully styled in v14
+     macbook model-viewer + 4 animated cards
+════════════════════════════════════════ -->
 <section id="dashboard">
-  <p>Smart Dashboard</p>
-  <h2>Grow your pharmacy with AI</h2>
-  <p>Keep a pulse on inventory, orders, and analytics in one view while AI surfaces the next best actions.</p>
-  <div id="laptop-placeholder">[ Laptop / Dashboard mockup will appear here ]</div>
-  <div id="dashboard-cards">
-    <div><span>01</span><h4>Control Your Medicine Listings</h4><p>Create, update, and manage your products from pricing and stock to availability — all in one place.</p></div>
-    <div><span>02</span><h4>Stay on Top of Every Order</h4><p>Monitor incoming orders, track delivery progress, and ensure no order ever slips through the cracks.</p></div>
-    <div><span>03</span><h4>Understand Demand &amp; Patterns</h4><p>Capture customer purchase patterns and medicine demand to improve your future stock decisions.</p></div>
-    <div><span>04</span><h4>Learn from Customer Feedback</h4><p>Review feedback to spot recurring issues, refine your service, and reduce unnecessary returns.</p></div>
+  <div class="dashboard-pill">✦ Smart Dashboard</div>
+  <h2 class="dashboard-title">Grow your pharmacy with AI</h2>
+  <p class="dashboard-sub">Keep a pulse on inventory, orders, and analytics in one view while AI surfaces the next best actions for your business.</p>
+
+  <!-- Macbook 3D model -->
+  <div class="laptop-mockup">
+    <model-viewer
+      id="macbookModelViewer"
+      src="./Mac book model/scene.gltf"
+      alt="MediFind Dashboard"
+      camera-orbit="0deg 68deg 90%"
+      camera-target="0m 0.05m 0m"
+      field-of-view="30deg"
+      shadow-intensity="1"
+      exposure="1.1"
+      environment-image="neutral"
+      disable-zoom
+      interaction-prompt="none"
+      auto-rotate
+      auto-rotate-delay="0"
+      rotation-per-second="4deg"
+      style="width: 100%; height: 820px; background: transparent;"
+    ></model-viewer>
+  </div>
+
+  <!-- 4 dashboard cards -->
+  <div class="dash-cards">
+    <div class="dash-card">
+      <div class="dash-card-num">01</div>
+      <div class="dash-card-tag">Manage</div>
+      <div class="dash-card-heading">Control Your Medicine Listings</div>
+      <div class="dash-card-body">Create, update, and manage your products from pricing and stock to availability — all in one place.</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-num">02</div>
+      <div class="dash-card-tag">Track</div>
+      <div class="dash-card-heading">Stay on Top of Every Order</div>
+      <div class="dash-card-body">Monitor incoming orders, track delivery progress, and ensure no order ever slips through the cracks.</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-num">03</div>
+      <div class="dash-card-tag">Analyze</div>
+      <div class="dash-card-heading">Understand Demand & Patterns</div>
+      <div class="dash-card-body">Capture customer purchase patterns and medicine demand to improve your future stock decisions.</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-num">04</div>
+      <div class="dash-card-tag">Improve</div>
+      <div class="dash-card-heading">Learn from Customer Feedback</div>
+      <div class="dash-card-body">Review feedback to spot recurring issues, refine your service, and reduce unnecessary returns.</div>
+    </div>
   </div>
 </section>
 
@@ -689,12 +648,12 @@
   phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
 
   /* ── Refs ── */
-  const showcaseMV     = document.getElementById('showcaseModelViewer');
-  const showcaseInner  = document.getElementById('showcase-phone-inner');
-  const horizTrack     = document.getElementById('horiz-text-track');
-  const horizTextInner = document.getElementById('horiz-text-inner');
-  const phaseHint      = document.getElementById('scroll-phase-hint');
-  const phoneBlob      = document.getElementById('phone-blob');
+  const showcaseMV      = document.getElementById('showcaseModelViewer');
+  const showcaseInner   = document.getElementById('showcase-phone-inner');
+  const horizTrack      = document.getElementById('horiz-text-track');
+  const horizTextInner  = document.getElementById('horiz-text-inner');
+  const phaseHint       = document.getElementById('scroll-phase-hint');
+  const phoneBlob       = document.getElementById('phone-blob');
   const featuresOverlay = document.getElementById('features-overlay');
   const foPanels = [
     document.getElementById('fo-panel-1'),
@@ -721,21 +680,10 @@
     phaseHint.classList.remove('visible');
   }
 
-  /* ════════════════════════════════════════
-     PHASE BOUNDARIES
-     P1: 0.00 → 0.12  spin-in
-     P2: 0.12 → 0.30  phrase reveals
-     P3: 0.30 → 0.75  horiz scroll + model swaps
-     P4: 0.75 → 0.88  phone shrinks + blob grows
-     P5: 0.88 → 1.00  feature panels on blob ← NEW
-  ════════════════════════════════════════ */
   const P1_END   = 0.12;
-  const P2_START = 0.12;
-  const P2_END   = 0.30;
-  const P3_START = 0.30;
-  const P3_END   = 0.75;
-  const P4_START = 0.75;
-  const P4_END   = 0.88;
+  const P2_START = 0.12; const P2_END = 0.30;
+  const P3_START = 0.30; const P3_END = 0.75;
+  const P4_START = 0.75; const P4_END = 0.88;
   const P5_START = 0.88;
 
   ScrollTrigger.create({
@@ -747,7 +695,6 @@
     onUpdate(self) {
       const p = self.progress;
 
-      /* ── PHASE 1 ── */
       if (p <= P1_END) {
         stopFloat();
         const t = p / P1_END;
@@ -757,22 +704,17 @@
         phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
         gsap.set(horizTrack, { opacity: 0 });
         phoneBlob.style.transform = 'scale(0)'; phoneBlob.style.opacity = '0';
-        featuresOverlay.style.opacity = '0';
-        gsap.set(foPanels, { opacity: 0, y: 40 });
+        featuresOverlay.style.opacity = '0'; gsap.set(foPanels, { opacity: 0, y: 40 });
         modelDots.classList.remove('visible');
       }
-
-      /* ── PHASE 2 ── */
       else if (p <= P2_END) {
         gsap.set(showcaseInner, { scale: 1, opacity: 1 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
         startFloat();
         gsap.set(horizTrack, { opacity: 0 });
         phoneBlob.style.transform = 'scale(0)'; phoneBlob.style.opacity = '0';
-        featuresOverlay.style.opacity = '0';
-        gsap.set(foPanels, { opacity: 0, y: 40 });
+        featuresOverlay.style.opacity = '0'; gsap.set(foPanels, { opacity: 0, y: 40 });
         modelDots.classList.remove('visible');
-
         const t = (p - P2_START) / (P2_END - P2_START);
         phraseEls.forEach((el, i) => {
           const spans = allSpans[i];
@@ -783,8 +725,6 @@
           else { gsap.set(el, { opacity: 0, y: -30 }); spans.forEach(s => gsap.set(s, { opacity: 0, y: 0 })); }
         });
       }
-
-      /* ── PHASE 3 ── */
       else if (p <= P3_END) {
         gsap.set(showcaseInner, { scale: 1, opacity: 1 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
@@ -792,81 +732,46 @@
         gsap.set(phraseEls, { opacity: 0 });
         gsap.set(horizTrack, { opacity: 1 });
         phoneBlob.style.transform = 'scale(0)'; phoneBlob.style.opacity = '0';
-        featuresOverlay.style.opacity = '0';
-        gsap.set(foPanels, { opacity: 0, y: 40 });
+        featuresOverlay.style.opacity = '0'; gsap.set(foPanels, { opacity: 0, y: 40 });
         modelDots.classList.add('visible');
-
         const t = (p - P3_START) / (P3_END - P3_START);
         if (horizTextInner) horizTextInner.style.transform = `translateX(${-t * window.innerWidth * 5.5}px)`;
         const newIdx = Math.min(Math.floor(t * 6), 5);
         if (newIdx !== currentModelIdx) swapModel(newIdx);
       }
-
-      /* ── PHASE 4: Phone shrinks + blob grows ── */
       else if (p <= P4_END) {
-        stopFloat();
-        modelDots.classList.remove('visible');
+        stopFloat(); modelDots.classList.remove('visible');
         gsap.set(phraseEls, { opacity: 0 });
-        featuresOverlay.style.opacity = '0';
-        gsap.set(foPanels, { opacity: 0, y: 40 });
-
+        featuresOverlay.style.opacity = '0'; gsap.set(foPanels, { opacity: 0, y: 40 });
         const t = (p - P4_START) / (P4_END - P4_START);
-        const phoneScale = Math.max(1 - t * 1.18, 0);
-        gsap.set(showcaseInner, { scale: phoneScale, opacity: 1, y: 0 });
+        gsap.set(showcaseInner, { scale: Math.max(1 - t * 1.18, 0), opacity: 1, y: 0 });
         if (showcaseMV) showcaseMV.setAttribute('camera-orbit', `${-90 + 360 * t}deg 90deg 105%`);
         gsap.set(horizTrack, { opacity: Math.max(1 - t * 4, 0) });
-
         const blobScale = Math.max(0, Math.min(1, t / 0.9));
-        phoneBlob.style.transform = `scale(${blobScale})`;
-        phoneBlob.style.opacity   = blobScale > 0.01 ? '1' : '0';
+        phoneBlob.style.transform = `scale(${blobScale})`; phoneBlob.style.opacity = blobScale > 0.01 ? '1' : '0';
       }
-
-      /* ── PHASE 5: Feature panels on blob ── NEW IN v13 */
       else {
         stopFloat();
         gsap.set(showcaseInner, { scale: 0, opacity: 0 });
-        gsap.set(phraseEls, { opacity: 0 });
-        gsap.set(horizTrack, { opacity: 0 });
+        gsap.set(phraseEls, { opacity: 0 }); gsap.set(horizTrack, { opacity: 0 });
         modelDots.classList.remove('visible');
-
-        /* Blob stays full */
-        phoneBlob.style.transform = 'scale(1)';
-        phoneBlob.style.opacity   = '1';
+        phoneBlob.style.transform = 'scale(1)'; phoneBlob.style.opacity = '1';
         featuresOverlay.style.opacity = '1';
-
-        /* t = 0→1 within phase 5 */
         const t = (p - P5_START) / (1 - P5_START);
-
-        /* 3 panels, each gets 1/3 of t */
         foPanels.forEach((panel, i) => {
-          const pIn  = i / 3;
-          const pMid = (i + 0.4) / 3;
-          const pOut = (i + 0.85) / 3;
-          const pEnd = (i + 1) / 3;
-
+          const pIn = i/3, pMid = (i+0.4)/3, pOut = (i+0.85)/3, pEnd = (i+1)/3;
           let op = 0, y = 40;
-
-          if (t >= pIn && t < pMid) {
-            const s = (t - pIn) / (pMid - pIn);
-            op = s; y = 40 * (1 - s);
-          } else if (t >= pMid && t < pOut) {
-            op = 1; y = 0;
-          } else if (t >= pOut && t < pEnd) {
-            const s = (t - pOut) / (pEnd - pOut);
-            op = 1 - s; y = -40 * s;
-          } else {
-            op = 0; y = t < pIn ? 40 : -40;
-          }
-
+          if (t >= pIn && t < pMid)       { const s=(t-pIn)/(pMid-pIn);   op=s;   y=40*(1-s); }
+          else if (t >= pMid && t < pOut) {                                 op=1;   y=0;        }
+          else if (t >= pOut && t < pEnd) { const s=(t-pOut)/(pEnd-pOut); op=1-s; y=-40*s;    }
+          else                            { op=0; y=t<pIn?40:-40;                              }
           gsap.set(panel, { opacity: op, y });
         });
       }
     },
     onLeave() {
-      phoneBlob.style.transform = 'scale(0)';
-      phoneBlob.style.opacity   = '0';
-      featuresOverlay.style.opacity = '0';
-      gsap.set(foPanels, { opacity: 0 });
+      phoneBlob.style.transform = 'scale(0)'; phoneBlob.style.opacity = '0';
+      featuresOverlay.style.opacity = '0'; gsap.set(foPanels, { opacity: 0 });
     },
     onLeaveBack() {
       stopFloat();
@@ -876,23 +781,23 @@
       gsap.set(horizTrack, { opacity: 0 });
       if (horizTextInner) horizTextInner.style.transform = 'translateX(0)';
       if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '270deg 90deg 105%');
-      phoneBlob.style.transform = 'scale(0)';
-      phoneBlob.style.opacity   = '0';
-      featuresOverlay.style.opacity = '0';
-      gsap.set(foPanels, { opacity: 0, y: 40 });
-      modelDots.classList.remove('visible');
-      currentModelIdx = 0; updateDots(0);
+      phoneBlob.style.transform = 'scale(0)'; phoneBlob.style.opacity = '0';
+      featuresOverlay.style.opacity = '0'; gsap.set(foPanels, { opacity: 0, y: 40 });
+      modelDots.classList.remove('visible'); currentModelIdx = 0; updateDots(0);
     }
+  });
+
+  /* ── Dashboard cards scroll animation — NEW IN v14 ── */
+  gsap.utils.toArray('.dash-card').forEach((card, i) => {
+    gsap.to(card, {
+      scrollTrigger: { trigger: '#dashboard', start: 'top 70%' },
+      opacity: 1, y: 0, duration: 0.6, delay: i * 0.15, ease: 'power3.out'
+    });
   });
 
   if (showcaseMV) {
     showcaseMV.addEventListener('error', () => {
-      showcaseInner.innerHTML = `
-        <div style="width:280px;height:560px;background:#fff;border-radius:48px;
-          border:8px solid #1a1a2e;box-shadow:0 40px 80px rgba(26,58,255,0.18);
-          display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
-          <span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:22px;color:#1e40af;">MediFind</span>
-        </div>`;
+      showcaseInner.innerHTML = `<div style="width:280px;height:560px;background:#fff;border-radius:48px;border:8px solid #1a1a2e;box-shadow:0 40px 80px rgba(26,58,255,0.18);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;"><span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:22px;color:#1e40af;">MediFind</span></div>`;
     });
   }
 
