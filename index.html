@@ -204,94 +204,117 @@
   @keyframes phoneFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-18px); } }
 
   /* ════════════════════════════════════════
-     DASHBOARD — fully styled in v14
+     DASHBOARD
   ════════════════════════════════════════ */
-  #dashboard {
-    background: var(--light-bg);
-    padding: 60px 48px 40px;
-    text-align: center;
-  }
-
-  .dashboard-pill {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.25);
-    color: #2563EB; border-radius: 50px; padding: 6px 18px;
-    font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; margin-bottom: 16px;
-  }
-
-  .dashboard-title {
-    font-family: 'Montserrat', sans-serif; font-weight: 800;
-    font-size: clamp(32px, 4vw, 48px); color: var(--text-dark); margin-bottom: 10px;
-  }
-
-  .dashboard-sub {
-    color: var(--text-gray); font-size: 18px; max-width: 600px;
-    margin: 0 auto 16px; line-height: 1.6;
-  }
-
-  /* Macbook model-viewer wrapper */
-  .laptop-mockup {
-    max-width: 1200px;
-    margin: -40px auto -120px;
-    position: relative;
-  }
-
-  /* Dashboard cards */
-  .dash-cards {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 24px; max-width: 1100px; margin: 0 auto; padding-top: 24px;
-  }
-
-  .dash-card {
-    background: #fff; border-radius: 24px; padding: 32px 24px; text-align: left;
-    box-shadow: 0 4px 20px rgba(26,58,255,0.07);
-    opacity: 0; transform: translateY(30px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    cursor: pointer;
-  }
-  .dash-card:hover {
-    background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
-    box-shadow: 0 8px 40px rgba(37,99,235,0.5), 0 0 0 1px rgba(96,165,250,0.3);
-    transform: translateY(-4px);
-  }
-
-  .dash-card-num {
-    display: inline-flex; width: 36px; height: 36px;
-    background: linear-gradient(135deg, #2563EB, #06B6D4);
-    border-radius: 50%; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 800; color: #fff;
-    font-family: 'Montserrat', sans-serif; margin-bottom: 16px;
-    transition: background 0.3s ease;
-  }
+  #dashboard { background: var(--light-bg); padding: 60px 48px 40px; text-align: center; }
+  .dashboard-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.25); color: #2563EB; border-radius: 50px; padding: 6px 18px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+  .dashboard-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(32px, 4vw, 48px); color: var(--text-dark); margin-bottom: 10px; }
+  .dashboard-sub { color: var(--text-gray); font-size: 18px; max-width: 600px; margin: 0 auto 16px; line-height: 1.6; }
+  .laptop-mockup { max-width: 1200px; margin: -40px auto -120px; position: relative; }
+  .dash-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; padding-top: 24px; }
+  .dash-card { background: #fff; border-radius: 24px; padding: 32px 24px; text-align: left; box-shadow: 0 4px 20px rgba(26,58,255,0.07); opacity: 0; transform: translateY(30px); transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; cursor: pointer; }
+  .dash-card:hover { background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%); box-shadow: 0 8px 40px rgba(37,99,235,0.5), 0 0 0 1px rgba(96,165,250,0.3); transform: translateY(-4px); }
+  .dash-card-num { display: inline-flex; width: 36px; height: 36px; background: linear-gradient(135deg, #2563EB, #06B6D4); border-radius: 50%; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #fff; font-family: 'Montserrat', sans-serif; margin-bottom: 16px; transition: background 0.3s ease; }
   .dash-card:hover .dash-card-num { background: #fff; background-image: none; color: #2563EB; }
-
-  .dash-card-tag {
-    font-size: 10px; font-weight: 700; color: #2563EB;
-    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;
-    transition: color 0.3s ease;
-  }
+  .dash-card-tag { font-size: 10px; font-weight: 700; color: #2563EB; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; transition: color 0.3s ease; }
   .dash-card:hover .dash-card-tag { color: rgba(255,255,255,0.85); }
-
-  .dash-card-heading {
-    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px;
-    color: var(--text-dark); margin-bottom: 8px; transition: color 0.3s ease;
-  }
+  .dash-card-heading { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; color: var(--text-dark); margin-bottom: 8px; transition: color 0.3s ease; }
   .dash-card:hover .dash-card-heading { color: #fff; }
-
   .dash-card-body { color: #6B7280; font-size: 14px; line-height: 1.6; transition: color 0.3s ease; }
   .dash-card:hover .dash-card-body { color: rgba(255,255,255,0.85); }
 
   /* ════════════════════════════════════════
-     TEAM SECTION
+     TEAM SECTION — fully styled in v15
   ════════════════════════════════════════ */
-  #team { background: var(--light-bg); text-align: center; padding: 80px 48px; }
-  #team h2 { color: var(--text-dark); margin-bottom: 12px; font-size: 36px; }
-  #team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1000px; margin: 32px auto 0; }
-  #team-grid div { background: var(--card-light); border-radius: 16px; overflow: hidden; text-align: left; padding-bottom: 20px; }
-  #team-grid img { width: 100%; height: 220px; object-fit: cover; object-position: top center; }
-  #team-grid h4 { color: var(--blue-mid); padding: 16px 16px 4px; font-size: 16px; }
-  #team-grid p  { padding: 0 16px; font-size: 13px; }
+  #team {
+    background: var(--light-bg);
+    padding: 80px 48px;
+    text-align: center;
+  }
+
+  .team-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(28px, 4vw, 44px);
+    color: var(--text-dark);
+    margin-bottom: 10px;
+  }
+
+  .team-sub {
+    color: var(--text-gray);
+    font-size: 17px;
+    max-width: 520px;
+    margin: 0 auto 48px;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .team-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(26,58,255,0.07);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .team-card:hover {
+    background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
+    box-shadow: 0 8px 40px rgba(37,99,235,0.45), 0 0 0 1px rgba(96,165,250,0.3);
+    transform: translateY(-4px);
+  }
+
+  .team-photo {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  .team-info { padding: 20px; }
+
+  .team-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    background: linear-gradient(135deg, #2563EB, #06B6D4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+  }
+  .team-card:hover .team-name {
+    background: none;
+    -webkit-text-fill-color: #fff;
+  }
+
+  .team-role {
+    font-size: 13px;
+    color: #111;
+    font-weight: 600;
+    margin-bottom: 6px;
+    transition: color 0.3s ease;
+  }
+  .team-card:hover .team-role { color: rgba(255,255,255,0.95); }
+
+  .team-desc {
+    font-size: 12px;
+    color: #6B7280;
+    line-height: 1.5;
+    transition: color 0.3s ease;
+  }
+  .team-card:hover .team-desc { color: rgba(255,255,255,0.8); }
 
   /* ════════════════════════════════════════
      CTA / FOOTER
@@ -320,11 +343,12 @@
     .fo-phone-center { order: -1; }
     .dash-cards { grid-template-columns: 1fr 1fr; }
     #dashboard { padding: 60px 24px; }
-    #team-grid { grid-template-columns: 1fr 1fr; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    #team { padding: 60px 24px; }
   }
   @media (max-width: 600px) {
     .dash-cards { grid-template-columns: 1fr; }
-    #team-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
     .hero-title { font-size: 52px; }
   }
 
@@ -498,76 +522,84 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     DASHBOARD — fully styled in v14
-     macbook model-viewer + 4 animated cards
-════════════════════════════════════════ -->
+<!-- DASHBOARD -->
 <section id="dashboard">
   <div class="dashboard-pill">✦ Smart Dashboard</div>
   <h2 class="dashboard-title">Grow your pharmacy with AI</h2>
   <p class="dashboard-sub">Keep a pulse on inventory, orders, and analytics in one view while AI surfaces the next best actions for your business.</p>
-
-  <!-- Macbook 3D model -->
   <div class="laptop-mockup">
-    <model-viewer
-      id="macbookModelViewer"
-      src="./Mac book model/scene.gltf"
-      alt="MediFind Dashboard"
-      camera-orbit="0deg 68deg 90%"
-      camera-target="0m 0.05m 0m"
-      field-of-view="30deg"
-      shadow-intensity="1"
-      exposure="1.1"
-      environment-image="neutral"
-      disable-zoom
-      interaction-prompt="none"
-      auto-rotate
-      auto-rotate-delay="0"
-      rotation-per-second="4deg"
-      style="width: 100%; height: 820px; background: transparent;"
-    ></model-viewer>
+    <model-viewer id="macbookModelViewer" src="./Mac book model/scene.gltf" alt="MediFind Dashboard" camera-orbit="0deg 68deg 90%" camera-target="0m 0.05m 0m" field-of-view="30deg" shadow-intensity="1" exposure="1.1" environment-image="neutral" disable-zoom interaction-prompt="none" auto-rotate auto-rotate-delay="0" rotation-per-second="4deg" style="width: 100%; height: 820px; background: transparent;"></model-viewer>
   </div>
-
-  <!-- 4 dashboard cards -->
   <div class="dash-cards">
-    <div class="dash-card">
-      <div class="dash-card-num">01</div>
-      <div class="dash-card-tag">Manage</div>
-      <div class="dash-card-heading">Control Your Medicine Listings</div>
-      <div class="dash-card-body">Create, update, and manage your products from pricing and stock to availability — all in one place.</div>
-    </div>
-    <div class="dash-card">
-      <div class="dash-card-num">02</div>
-      <div class="dash-card-tag">Track</div>
-      <div class="dash-card-heading">Stay on Top of Every Order</div>
-      <div class="dash-card-body">Monitor incoming orders, track delivery progress, and ensure no order ever slips through the cracks.</div>
-    </div>
-    <div class="dash-card">
-      <div class="dash-card-num">03</div>
-      <div class="dash-card-tag">Analyze</div>
-      <div class="dash-card-heading">Understand Demand & Patterns</div>
-      <div class="dash-card-body">Capture customer purchase patterns and medicine demand to improve your future stock decisions.</div>
-    </div>
-    <div class="dash-card">
-      <div class="dash-card-num">04</div>
-      <div class="dash-card-tag">Improve</div>
-      <div class="dash-card-heading">Learn from Customer Feedback</div>
-      <div class="dash-card-body">Review feedback to spot recurring issues, refine your service, and reduce unnecessary returns.</div>
-    </div>
+    <div class="dash-card"><div class="dash-card-num">01</div><div class="dash-card-tag">Manage</div><div class="dash-card-heading">Control Your Medicine Listings</div><div class="dash-card-body">Create, update, and manage your products from pricing and stock to availability — all in one place.</div></div>
+    <div class="dash-card"><div class="dash-card-num">02</div><div class="dash-card-tag">Track</div><div class="dash-card-heading">Stay on Top of Every Order</div><div class="dash-card-body">Monitor incoming orders, track delivery progress, and ensure no order ever slips through the cracks.</div></div>
+    <div class="dash-card"><div class="dash-card-num">03</div><div class="dash-card-tag">Analyze</div><div class="dash-card-heading">Understand Demand & Patterns</div><div class="dash-card-body">Capture customer purchase patterns and medicine demand to improve your future stock decisions.</div></div>
+    <div class="dash-card"><div class="dash-card-num">04</div><div class="dash-card-tag">Improve</div><div class="dash-card-heading">Learn from Customer Feedback</div><div class="dash-card-body">Review feedback to spot recurring issues, refine your service, and reduce unnecessary returns.</div></div>
   </div>
 </section>
 
-<!-- TEAM -->
+<!-- ════════════════════════════════════════
+     TEAM — fully styled in v15
+════════════════════════════════════════ -->
 <section id="team">
-  <h2>Meet the Team</h2>
-  <p>Group G02-SE19 — building MediFind to transform healthcare access across Sri Lanka.</p>
-  <div id="team-grid">
-    <div><img src="./Assets/Achintha Jayaweera-Team member 01.jpg" alt="Achintha Jayaweera" /><h4>Achintha Jayaweera</h4><p>Full-Stack Developer</p><p>Leading the development of core features and backend architecture.</p></div>
-    <div><img src="./Assets/Buddhima.jpg" alt="Buddhima Samaraweera" /><h4>Buddhima Samaraweera</h4><p>AI/ML Engineer</p><p>Developing prescription reading and verification algorithms.</p></div>
-    <div><img src="./Assets/Thisanda Perera - Team member 03.png" alt="Thisanda Perera" /><h4>Thisanda Perera</h4><p>UI/UX Designer</p><p>Designing intuitive and beautiful user interfaces.</p></div>
-    <div><img src="./Assets/Adithya - Team member 04.png" alt="A.A.D. Adithya" /><h4>A.A.D. Adithya</h4><p>Mobile Developer</p><p>Creating seamless mobile experiences for iOS and Android.</p></div>
-    <div><img src="./Assets/Senuth.jpg" alt="Senuth Randiya" /><h4>Senuth Randiya</h4><p>Business Analyst</p><p>Managing partnerships and business development.</p></div>
-    <div><img src="./Assets/Nisal Perera - Team member 06.jpg" alt="Nisal Perera" /><h4>Nisal Perera</h4><p>QA Engineer</p><p>Ensuring quality and reliability across all platforms.</p></div>
+  <h2 class="team-title">Meet the Team</h2>
+  <p class="team-sub">Group G02-SE19 — building MediFind to transform healthcare access across Sri Lanka.</p>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <img class="team-photo" src="./Assets/Achintha Jayaweera-Team member 01.jpg" alt="Achintha Jayaweera"
+           onerror="this.style.background='linear-gradient(135deg,#DBEAFE,#BFDBFE)';this.style.height='220px'" />
+      <div class="team-info">
+        <div class="team-name">Achintha Jayaweera</div>
+        <div class="team-role">Full-Stack Developer</div>
+        <div class="team-desc">Leading the development of core features and backend architecture.</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <img class="team-photo" src="./Assets/Buddhima.jpg" alt="Buddhima Samaraweera"
+           onerror="this.style.background='linear-gradient(135deg,#DBEAFE,#BFDBFE)';this.style.height='220px'" />
+      <div class="team-info">
+        <div class="team-name">Buddhima Samaraweera</div>
+        <div class="team-role">AI/ML Engineer</div>
+        <div class="team-desc">Developing prescription reading and verification algorithms.</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <img class="team-photo" src="./Assets/Thisanda Perera - Team member 03.png" alt="Thisanda Perera"
+           onerror="this.style.background='linear-gradient(135deg,#DBEAFE,#BFDBFE)';this.style.height='220px'" />
+      <div class="team-info">
+        <div class="team-name">Thisanda Perera</div>
+        <div class="team-role">UI/UX Designer</div>
+        <div class="team-desc">Designing intuitive and beautiful user interfaces.</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <img class="team-photo" src="./Assets/Adithya - Team member 04.png" alt="A.A.D. Adithya"
+           onerror="this.style.background='linear-gradient(135deg,#DBEAFE,#BFDBFE)';this.style.height='220px'" />
+      <div class="team-info">
+        <div class="team-name">A.A.D. Adithya</div>
+        <div class="team-role">Mobile Developer</div>
+        <div class="team-desc">Creating seamless mobile experiences for iOS and Android.</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <img class="team-photo" src="./Assets/Senuth.jpg" alt="Senuth Randiya"
+           onerror="this.style.background='linear-gradient(135deg,#DBEAFE,#BFDBFE)';this.style.height='220px'" />
+      <div class="team-info">
+        <div class="team-name">Senuth Randiya</div>
+        <div class="team-role">Business Analyst</div>
+        <div class="team-desc">Managing partnerships and business development.</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <img class="team-photo" src="./Assets/Nisal Perera - Team member 06.jpg" alt="Nisal Perera"
+           onerror="this.style.background='linear-gradient(135deg,#DBEAFE,#BFDBFE)';this.style.height='220px'" />
+      <div class="team-info">
+        <div class="team-name">Nisal Perera</div>
+        <div class="team-role">QA Engineer</div>
+        <div class="team-desc">Ensuring quality and reliability across all platforms.</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -694,7 +726,6 @@
     scrub: true,
     onUpdate(self) {
       const p = self.progress;
-
       if (p <= P1_END) {
         stopFloat();
         const t = p / P1_END;
@@ -787,11 +818,19 @@
     }
   });
 
-  /* ── Dashboard cards scroll animation — NEW IN v14 ── */
+  /* ── Dashboard cards scroll animation ── */
   gsap.utils.toArray('.dash-card').forEach((card, i) => {
     gsap.to(card, {
       scrollTrigger: { trigger: '#dashboard', start: 'top 70%' },
       opacity: 1, y: 0, duration: 0.6, delay: i * 0.15, ease: 'power3.out'
+    });
+  });
+
+  /* ── Team cards scroll animation — NEW IN v15 ── */
+  gsap.utils.toArray('.team-card').forEach((card, i) => {
+    gsap.to(card, {
+      scrollTrigger: { trigger: '#team', start: 'top 75%' },
+      opacity: 1, y: 0, duration: 0.5, delay: i * 0.1, ease: 'power3.out'
     });
   });
 
