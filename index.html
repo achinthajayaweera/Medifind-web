@@ -52,7 +52,7 @@
   section { padding: 80px 48px; }
 
   /* ════════════════════════════════════════
-     FIXED NAV
+     FIXED NAV — polished logo fallback v18
   ════════════════════════════════════════ */
   #fixedNav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 999;
@@ -67,8 +67,22 @@
     transition: opacity 0.35s ease, transform 0.35s ease;
   }
   #fixedNav.nav-solid { opacity: 1; pointer-events: all; transform: translateY(0); }
+
+  /* Nav logo — image + SVG fallback */
   .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .nav-logo img { height: 52px; width: auto; object-fit: contain; }
+  .nav-logo-fallback {
+    display: none;
+    align-items: center; gap: 8px;
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: #fff;
+  }
+  .nav-logo-icon {
+    width: 32px; height: 32px;
+    background: var(--gradient-btn);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
   .nav-links { display: flex; align-items: center; gap: 36px; }
   .nav-links a { color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 500; text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: #fff; }
@@ -89,8 +103,16 @@
     backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
     border-bottom: 1px solid rgba(96,165,250,0.15);
   }
+
+  /* Hero nav logo — image + SVG fallback */
   .hn-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .hn-logo img { height: 52px; width: auto; object-fit: contain; }
+  .hn-logo-fallback {
+    display: none;
+    align-items: center; gap: 8px;
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: #fff;
+  }
+
   .hn-links { display: flex; align-items: center; gap: 36px; list-style: none; }
   .hn-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
   .hn-links a:hover { color: #fff; }
@@ -113,13 +135,7 @@
                 radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,58,255,0.3) 0%, transparent 60%);
     pointer-events: none;
   }
-  .hero-coming-soon {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(37,99,235,0.35); border: 1px solid rgba(96,165,250,0.3);
-    color: #fff; border-radius: 50px; padding: 6px 18px;
-    font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; margin-bottom: 20px; opacity: 0;
-  }
+  .hero-coming-soon { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,99,235,0.35); border: 1px solid rgba(96,165,250,0.3); color: #fff; border-radius: 50px; padding: 6px 18px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; opacity: 0; }
   .hero-coming-soon::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #06B6D4; display: block; }
   .hero-discover { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.25em; text-transform: uppercase; color: #93C5FD; margin-bottom: 12px; opacity: 0; }
   .hero-title {
@@ -259,132 +275,67 @@
   .cta-footer { border-top: 1px solid rgba(30,58,95,0.5); padding-top: 24px; color: #93C5FD; font-size: 13px; }
 
   /* ════════════════════════════════════════
-     RESPONSIVE — v17
-     All breakpoints in one place
+     RESPONSIVE
   ════════════════════════════════════════ */
-
-  /* ── Tablet: ≤ 1024px ── */
-  @media (max-width: 1024px) {
-    .fo-grid { gap: 40px; padding: 0 40px; }
-    .dash-cards { gap: 16px; }
-    .team-grid { gap: 20px; }
-  }
-
-  /* ── Tablet / Small desktop: ≤ 900px ── */
+  @media (max-width: 1024px) { .fo-grid { gap: 40px; padding: 0 40px; } .dash-cards { gap: 16px; } .team-grid { gap: 20px; } }
   @media (max-width: 900px) {
-
-    /* Nav */
-    #fixedNav  { padding: 14px 24px; }
-    .hero-nav  { padding: 16px 24px; }
-    .nav-links { display: none; }
-    .hn-links  { display: none; }
-
-    /* Hero */
-    #hero { padding: 60px 24px; }
-    .hero-title { font-size: 56px; }
-    .hero-sub { font-size: 17px; }
-    .hero-pills { gap: 10px; }
-    .hero-pill { padding: 8px 16px; font-size: 13px; }
-
-    /* Feature overlay */
+    #fixedNav { padding: 14px 24px; } .hero-nav { padding: 16px 24px; }
+    .nav-links { display: none; } .hn-links { display: none; }
+    #hero { padding: 60px 24px; } .hero-title { font-size: 56px; } .hero-sub { font-size: 17px; }
+    .hero-pills { gap: 10px; } .hero-pill { padding: 8px 16px; font-size: 13px; }
     .fo-grid { grid-template-columns: 1fr; padding: 0 24px; gap: 32px; }
-    .fo-col.right { align-items: flex-start; text-align: left; }
-    .fo-col.right .fo-divider { margin-left: 0; }
-    .fo-phone-center { order: -1; }
-    .features-iphone { width: 180px; height: 360px; }
-
-    /* Dashboard */
-    #dashboard { padding: 60px 24px 40px; }
-    .dash-cards { grid-template-columns: 1fr 1fr; gap: 16px; }
-    .laptop-mockup { margin: -20px auto -80px; }
-
-    /* Team */
-    #team { padding: 60px 24px; }
-    .team-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
-    .team-photo { height: 200px; }
-
-    /* CTA */
-    .cta-inner { padding: 60px 24px 40px; border-radius: 20px; min-height: auto; }
-    #cta { padding: 8px 8px 0; }
+    .fo-col.right { align-items: flex-start; text-align: left; } .fo-col.right .fo-divider { margin-left: 0; }
+    .fo-phone-center { order: -1; } .features-iphone { width: 180px; height: 360px; }
+    #dashboard { padding: 60px 24px 40px; } .dash-cards { grid-template-columns: 1fr 1fr; gap: 16px; } .laptop-mockup { margin: -20px auto -80px; }
+    #team { padding: 60px 24px; } .team-grid { grid-template-columns: 1fr 1fr; gap: 20px; } .team-photo { height: 200px; }
+    .cta-inner { padding: 60px 24px 40px; border-radius: 20px; min-height: auto; } #cta { padding: 8px 8px 0; }
     .cta-form { flex-direction: column; border-radius: 20px; gap: 8px; overflow: visible; }
     .cta-input { border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); }
     .cta-btn { border-radius: 50px; justify-content: center; }
-    .cta-title { font-size: 32px; }
-    .cta-sub { font-size: 16px; }
-    .cta-feature-pills { gap: 8px; }
-    .cta-feature-pill { min-width: 140px; padding: 12px 16px; }
+    .cta-title { font-size: 32px; } .cta-sub { font-size: 16px; }
+    .cta-feature-pills { gap: 8px; } .cta-feature-pill { min-width: 140px; padding: 12px 16px; }
   }
-
-  /* ── Mobile: ≤ 600px ── */
   @media (max-width: 600px) {
-
-    /* Base */
     section { padding: 60px 20px; }
-
-    /* Hero */
-    .hero-border-wrap { margin: 8px; border-radius: 20px; }
-    #hero { padding: 48px 20px; }
-    .hero-title { font-size: 48px; }
-    .hero-sub { font-size: 16px; }
-    .hero-discover { font-size: 14px; letter-spacing: 0.15em; }
-    .hero-pills { flex-direction: column; align-items: center; gap: 8px; margin-bottom: 60px; }
-    .hero-pill { width: 100%; justify-content: center; }
-
-    /* Phone showcase */
+    .hero-border-wrap { margin: 8px; border-radius: 20px; } #hero { padding: 48px 20px; }
+    .hero-title { font-size: 48px; } .hero-sub { font-size: 16px; } .hero-discover { font-size: 14px; letter-spacing: 0.15em; }
+    .hero-pills { flex-direction: column; align-items: center; gap: 8px; margin-bottom: 60px; } .hero-pill { width: 100%; justify-content: center; }
     #showcase-phone-inner model-viewer { width: 240px !important; height: 480px !important; }
-
-    /* Feature overlay */
-    .fo-heading { font-size: 22px; }
-    .fo-body { font-size: 14px; }
-    .features-iphone { width: 160px; height: 320px; }
-
-    /* Dashboard */
-    #dashboard { padding: 48px 20px 32px; }
-    .dashboard-title { font-size: 28px; }
-    .dashboard-sub { font-size: 15px; }
-    .dash-cards { grid-template-columns: 1fr; gap: 12px; }
-    .dash-card { padding: 24px 20px; }
+    .fo-heading { font-size: 22px; } .fo-body { font-size: 14px; } .features-iphone { width: 160px; height: 320px; }
+    #dashboard { padding: 48px 20px 32px; } .dashboard-title { font-size: 28px; } .dashboard-sub { font-size: 15px; }
+    .dash-cards { grid-template-columns: 1fr; gap: 12px; } .dash-card { padding: 24px 20px; }
     .laptop-mockup model-viewer { height: 400px !important; }
-
-    /* Team */
-    #team { padding: 48px 20px; }
-    .team-title { font-size: 28px; }
-    .team-grid { grid-template-columns: 1fr; gap: 16px; }
-    .team-photo { height: 240px; }
-
-    /* CTA */
-    #cta { padding: 8px 8px 0; }
-    .cta-inner { padding: 48px 20px 32px; border-radius: 16px; }
-    .cta-title { font-size: 26px; }
-    .cta-sub { font-size: 15px; }
-    .cta-feature-pills { flex-direction: column; align-items: stretch; gap: 8px; }
-    .cta-feature-pill { min-width: unset; }
-    .cta-prev-version { font-size: 12px; padding: 9px 18px; }
-    .cta-footer { font-size: 12px; }
-
-    /* Nav */
-    #fixedNav { padding: 12px 16px; }
-    .nav-cta { padding: 8px 16px; font-size: 13px; }
+    #team { padding: 48px 20px; } .team-title { font-size: 28px; } .team-grid { grid-template-columns: 1fr; gap: 16px; } .team-photo { height: 240px; }
+    #cta { padding: 8px 8px 0; } .cta-inner { padding: 48px 20px 32px; border-radius: 16px; }
+    .cta-title { font-size: 26px; } .cta-sub { font-size: 15px; }
+    .cta-feature-pills { flex-direction: column; align-items: stretch; gap: 8px; } .cta-feature-pill { min-width: unset; }
+    .cta-prev-version { font-size: 12px; padding: 9px 18px; } .cta-footer { font-size: 12px; }
+    #fixedNav { padding: 12px 16px; } .nav-cta { padding: 8px 16px; font-size: 13px; }
   }
-
-  /* ── Very small: ≤ 400px ── */
   @media (max-width: 400px) {
-    .hero-title { font-size: 38px; }
-    .hero-coming-soon { font-size: 11px; padding: 5px 14px; }
-    .cta-title { font-size: 22px; }
-    .dashboard-title { font-size: 24px; }
-    .team-title { font-size: 24px; }
+    .hero-title { font-size: 38px; } .hero-coming-soon { font-size: 11px; padding: 5px 14px; }
+    .cta-title { font-size: 22px; } .dashboard-title { font-size: 24px; } .team-title { font-size: 24px; }
   }
 
 </style>
 </head>
 <body>
 
-<!-- FIXED NAV -->
+<!-- FIXED NAV — polished fallback v18 -->
 <nav id="fixedNav">
   <a class="nav-logo" href="#">
-    <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <span style="display:none; align-items:center; gap:8px; font-family:Montserrat,sans-serif; font-weight:800; font-size:20px; color:#fff;">MediFind</span>
+    <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo"
+         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <!-- SVG fallback shown if image fails -->
+    <span class="nav-logo-fallback">
+      <span class="nav-logo-icon">
+        <svg viewBox="0 0 32 32" fill="none" width="20" height="20">
+          <path d="M16 7v4M16 21v4M7 16h4M21 16h4" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          <rect x="12" y="12" width="8" height="8" rx="2" fill="#fff" opacity="0.9"/>
+        </svg>
+      </span>
+      MediFind
+    </span>
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
@@ -399,8 +350,18 @@
 <div class="hero-border-wrap" id="heroBorderWrap">
   <nav class="hero-nav">
     <a class="hn-logo" href="#">
-      <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-      <span style="display:none; align-items:center; gap:8px; font-family:Montserrat,sans-serif; font-weight:800; font-size:20px; color:#fff;">MediFind</span>
+      <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+      <!-- SVG fallback shown if image fails -->
+      <span class="hn-logo-fallback">
+        <span class="nav-logo-icon">
+          <svg viewBox="0 0 32 32" fill="none" width="20" height="20">
+            <path d="M16 7v4M16 21v4M7 16h4M21 16h4" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="12" y="12" width="8" height="8" rx="2" fill="#fff" opacity="0.9"/>
+          </svg>
+        </span>
+        MediFind
+      </span>
     </a>
     <ul class="hn-links">
       <li><a href="#about">About</a></li>
@@ -583,18 +544,9 @@
     <h2 class="cta-title">Join the Future of Healthcare Commerce</h2>
     <p class="cta-sub">We're handpicking <strong>20 exceptional pharmacies</strong> for our curated MVP launch. Be among the first to reach patients across Sri Lanka.</p>
     <div class="cta-feature-pills">
-      <div class="cta-feature-pill">
-        <div class="cta-feature-pill-header"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Curated Selection</div>
-        <div class="cta-feature-pill-body">Your pharmacy featured among 20 handpicked partners</div>
-      </div>
-      <div class="cta-feature-pill">
-        <div class="cta-feature-pill-header"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>100% Free</div>
-        <div class="cta-feature-pill-body">Zero setup fees, no hidden costs to join</div>
-      </div>
-      <div class="cta-feature-pill">
-        <div class="cta-feature-pill-header"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>AI-Powered Growth</div>
-        <div class="cta-feature-pill-body">Smart tools to accelerate your pharmacy business</div>
-      </div>
+      <div class="cta-feature-pill"><div class="cta-feature-pill-header"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Curated Selection</div><div class="cta-feature-pill-body">Your pharmacy featured among 20 handpicked partners</div></div>
+      <div class="cta-feature-pill"><div class="cta-feature-pill-header"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>100% Free</div><div class="cta-feature-pill-body">Zero setup fees, no hidden costs to join</div></div>
+      <div class="cta-feature-pill"><div class="cta-feature-pill-header"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>AI-Powered Growth</div><div class="cta-feature-pill-body">Smart tools to accelerate your pharmacy business</div></div>
     </div>
     <div class="cta-form">
       <input class="cta-input" type="email" placeholder="Enter your pharmacy email" />
@@ -613,6 +565,7 @@
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
+  /* ── Fixed nav ── */
   const fixedNav    = document.getElementById('fixedNav');
   const heroSection = document.getElementById('hero');
   let hideSections  = 0;
@@ -627,6 +580,7 @@
   hideNavObserver.observe(heroSection);
   hideNavObserver.observe(document.querySelector('.cta-inner'));
 
+  /* ── Hero entrance animations ── */
   const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
   heroTL
     .to('.hero-coming-soon', { opacity: 1, y: 0, duration: 0.6, delay: 0.2 })
@@ -637,6 +591,7 @@
 
   gsap.to('.scroll-chevron', { y: 8, duration: 0.8, repeat: -1, yoyo: true, ease: 'power1.inOut' });
 
+  /* ── Model sources ── */
   const modelSources = [
     './17 pro max phone model 01/scene.gltf',
     './17 pro max phone model 02/scene.gltf',
@@ -655,6 +610,7 @@
     gsap.to(showcaseInner, { opacity: 0.2, duration: 0.15, onComplete() { showcaseMV.setAttribute('src', modelSources[newIdx]); gsap.to(showcaseInner, { opacity: 1, duration: 0.3 }); } });
   }
 
+  /* ── Build phrase elements ── */
   const phrases = ['Find Your Medicine.', 'Search Any Pharmacy.', 'Upload Your Prescription.', 'Order & Track Live.'];
   const revealLayer = document.getElementById('phrase-reveal-layer');
   const phraseEls   = phrases.map((text) => {
@@ -668,6 +624,7 @@
   gsap.set(phraseEls, { opacity: 0, y: 40 });
   phraseEls.forEach(el => gsap.set(el.querySelectorAll('span'), { opacity: 0, y: 24 }));
 
+  /* ── Refs ── */
   const showcaseMV      = document.getElementById('showcaseModelViewer');
   const showcaseInner   = document.getElementById('showcase-phone-inner');
   const horizTrack      = document.getElementById('horiz-text-track');
@@ -806,6 +763,43 @@
     }
   });
 
+  /* ════════════════════════════════════════
+     MOUSE TILT ON 3D PHONE — NEW IN v18
+     When phone is fully visible (Phase 2 & 3),
+     moving mouse tilts the camera slightly
+     for a parallax feel.
+  ════════════════════════════════════════ */
+  const showcaseSection = document.getElementById('phone-showcase');
+  if (showcaseSection) {
+    showcaseSection.addEventListener('mousemove', (e) => {
+      if (!showcaseMV) return;
+
+      /* Normalise mouse position: -1 → +1 */
+      const x = (e.clientX / window.innerWidth  - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+      /* Only tilt when phone is fully visible (scale ≈ 1) */
+      const scaleVal = parseFloat(
+        showcaseInner.style.transform?.match(/scale\(([^)]+)\)/)?.[1] || 0
+      );
+      if (scaleVal > 0.9) {
+        /* Tilt: ±10° horizontal, ±5° vertical */
+        showcaseMV.setAttribute(
+          'camera-orbit',
+          `${-90 + x * 10}deg ${90 - y * 5}deg 105%`
+        );
+      }
+    });
+
+    /* Reset camera when mouse leaves */
+    showcaseSection.addEventListener('mouseleave', () => {
+      if (showcaseMV) {
+        showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
+      }
+    });
+  }
+
+  /* ── Dashboard cards scroll animation ── */
   gsap.utils.toArray('.dash-card').forEach((card, i) => {
     gsap.to(card, {
       scrollTrigger: { trigger: '#dashboard', start: 'top 70%' },
@@ -813,6 +807,7 @@
     });
   });
 
+  /* ── Team cards scroll animation ── */
   gsap.utils.toArray('.team-card').forEach((card, i) => {
     gsap.to(card, {
       scrollTrigger: { trigger: '#team', start: 'top 75%' },
@@ -820,6 +815,7 @@
     });
   });
 
+  /* ── Hover micro-interactions ── */
   document.querySelectorAll('.hero-pill, .cta-feature-pill').forEach(el => {
     el.addEventListener('mouseenter', () => gsap.to(el, { scale: 1.04, duration: 0.2 }));
     el.addEventListener('mouseleave', () => gsap.to(el, { scale: 1,    duration: 0.2 }));
@@ -831,6 +827,7 @@
     ctaBtn.addEventListener('mouseleave', () => gsap.to(ctaBtn, { scale: 1,    duration: 0.2 }));
   }
 
+  /* ── Model error fallback ── */
   if (showcaseMV) {
     showcaseMV.addEventListener('error', () => {
       showcaseInner.innerHTML = `<div style="width:280px;height:560px;background:#fff;border-radius:48px;border:8px solid #1a1a2e;box-shadow:0 40px 80px rgba(26,58,255,0.18);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;"><span style="font-family:Montserrat,sans-serif;font-weight:800;font-size:22px;color:#1e40af;">MediFind</span></div>`;
