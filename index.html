@@ -52,7 +52,7 @@
   section { padding: 80px 48px; }
 
   /* ════════════════════════════════════════
-     FIXED NAV — polished logo fallback v18
+     FIXED NAV
   ════════════════════════════════════════ */
   #fixedNav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 999;
@@ -65,24 +65,13 @@
     opacity: 0; pointer-events: none;
     transform: translateY(-100%);
     transition: opacity 0.35s ease, transform 0.35s ease;
+    will-change: transform, opacity; /* v19 */
   }
   #fixedNav.nav-solid { opacity: 1; pointer-events: all; transform: translateY(0); }
-
-  /* Nav logo — image + SVG fallback */
   .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .nav-logo img { height: 52px; width: auto; object-fit: contain; }
-  .nav-logo-fallback {
-    display: none;
-    align-items: center; gap: 8px;
-    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: #fff;
-  }
-  .nav-logo-icon {
-    width: 32px; height: 32px;
-    background: var(--gradient-btn);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-  }
-
+  .nav-logo-fallback { display: none; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: #fff; }
+  .nav-logo-icon { width: 32px; height: 32px; background: var(--gradient-btn); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
   .nav-links { display: flex; align-items: center; gap: 36px; }
   .nav-links a { color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 500; text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: #fff; }
@@ -92,27 +81,11 @@
   /* ════════════════════════════════════════
      HERO BORDER WRAP + HERO NAV
   ════════════════════════════════════════ */
-  .hero-border-wrap {
-    margin: 16px; border-radius: 32px;
-    background: linear-gradient(170deg, #1535CC 0%, #0A5A8A 25%, #06B6D4 52%, #7FD8E8 75%, #C5EEF5 88%, var(--light-bg) 100%);
-    overflow: hidden; position: relative; z-index: 1;
-  }
-  .hero-nav {
-    width: 100%; display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 64px; background: rgba(8,20,60,0.30);
-    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(96,165,250,0.15);
-  }
-
-  /* Hero nav logo — image + SVG fallback */
+  .hero-border-wrap { margin: 16px; border-radius: 32px; background: linear-gradient(170deg, #1535CC 0%, #0A5A8A 25%, #06B6D4 52%, #7FD8E8 75%, #C5EEF5 88%, var(--light-bg) 100%); overflow: hidden; position: relative; z-index: 1; }
+  .hero-nav { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 20px 64px; background: rgba(8,20,60,0.30); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid rgba(96,165,250,0.15); }
   .hn-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .hn-logo img { height: 52px; width: auto; object-fit: contain; }
-  .hn-logo-fallback {
-    display: none;
-    align-items: center; gap: 8px;
-    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: #fff;
-  }
-
+  .hn-logo-fallback { display: none; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: #fff; }
   .hn-links { display: flex; align-items: center; gap: 36px; list-style: none; }
   .hn-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
   .hn-links a:hover { color: #fff; }
@@ -120,34 +93,14 @@
   .hn-cta:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(6,182,212,0.4); }
 
   /* ════════════════════════════════════════
-     HERO SECTION
+     HERO
   ════════════════════════════════════════ */
-  #hero {
-    min-height: calc(100vh - 32px);
-    background: linear-gradient(155deg, #1A3AFF 0%, #0E6BA8 20%, #06B6D4 48%, #054E6B 72%, #0A0F1E 100%);
-    display: flex; flex-direction: column; align-items: center;
-    justify-content: center; text-align: center;
-    padding: 80px 48px; position: relative; overflow: hidden;
-  }
-  #hero::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 60% 60% at 70% 30%, rgba(6,182,212,0.25) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,58,255,0.3) 0%, transparent 60%);
-    pointer-events: none;
-  }
+  #hero { min-height: calc(100vh - 32px); background: linear-gradient(155deg, #1A3AFF 0%, #0E6BA8 20%, #06B6D4 48%, #054E6B 72%, #0A0F1E 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 48px; position: relative; overflow: hidden; }
+  #hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 70% 30%, rgba(6,182,212,0.25) 0%, transparent 70%), radial-gradient(ellipse 50% 50% at 20% 80%, rgba(26,58,255,0.3) 0%, transparent 60%); pointer-events: none; }
   .hero-coming-soon { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,99,235,0.35); border: 1px solid rgba(96,165,250,0.3); color: #fff; border-radius: 50px; padding: 6px 18px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; opacity: 0; }
   .hero-coming-soon::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #06B6D4; display: block; }
   .hero-discover { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.25em; text-transform: uppercase; color: #93C5FD; margin-bottom: 12px; opacity: 0; }
-  .hero-title {
-    font-family: 'Montserrat', sans-serif; font-weight: 900;
-    font-size: clamp(64px, 10vw, 100px); line-height: 1.0;
-    background: linear-gradient(135deg, #ffffff 0%, #E0F2FE 40%, #BAE6FD 70%, #ffffff 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; margin-bottom: 20px; opacity: 0;
-    cursor: default; background-size: 200% 200%;
-    animation: gradientShift 6s ease infinite;
-    text-shadow: 0 0 40px rgba(255,255,255,0.15);
-  }
+  .hero-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(64px, 10vw, 100px); line-height: 1.0; background: linear-gradient(135deg, #ffffff 0%, #E0F2FE 40%, #BAE6FD 70%, #ffffff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 20px; opacity: 0; cursor: default; background-size: 200% 200%; animation: gradientShift 6s ease infinite; text-shadow: 0 0 40px rgba(255,255,255,0.15); }
   .hero-title:hover { background: linear-gradient(135deg, #06B6D4 0%, #38BDF8 30%, #ffffff 60%, #BFDBFE 100%); -webkit-background-clip: text; background-clip: text; animation: none; }
   @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
   .hero-sub { color: #BFDBFE; font-size: 20px; font-weight: 400; margin-bottom: 40px; opacity: 0; }
@@ -158,24 +111,75 @@
   .scroll-chevron { width: 28px; height: 28px; color: #60A5FA; }
 
   /* ════════════════════════════════════════
-     PHONE SHOWCASE
+     PHONE SHOWCASE — v19 will-change hints
   ════════════════════════════════════════ */
   #phone-showcase { position: relative; height: 900vh; background: var(--light-bg); }
-  #showcase-phone-wrap { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; isolation: isolate; }
-  #horiz-text-track { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); height: 160px; display: flex; align-items: center; z-index: 1; pointer-events: none; overflow: hidden; opacity: 0; }
-  #horiz-text-inner { display: flex; white-space: nowrap; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(64px, 9vw, 120px); line-height: 1; color: var(--text-dark); letter-spacing: -0.02em; will-change: transform; }
+
+  #showcase-phone-wrap {
+    position: sticky; top: 0; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; isolation: isolate;
+    /* v19: contain layout so sticky children repaint cheaply */
+    contain: layout style;
+  }
+
+  #horiz-text-track {
+    position: absolute; top: 50%; left: 0; right: 0;
+    transform: translateY(-50%); height: 160px;
+    display: flex; align-items: center;
+    z-index: 1; pointer-events: none; overflow: hidden; opacity: 0;
+  }
+  #horiz-text-inner {
+    display: flex; white-space: nowrap;
+    font-family: 'Montserrat', sans-serif; font-weight: 900;
+    font-size: clamp(64px, 9vw, 120px); line-height: 1;
+    color: var(--text-dark); letter-spacing: -0.02em;
+    will-change: transform; /* v19 */
+  }
+
   #phrase-reveal-layer { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 1; pointer-events: none; }
-  .reveal-phrase { position: absolute; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(48px, 7vw, 96px); line-height: 1.05; text-align: center; color: var(--text-dark); letter-spacing: -0.02em; opacity: 0; transform: translateY(40px); max-width: 80vw; z-index: 1; }
-  .reveal-phrase span { display: inline-block; opacity: 0; transform: translateY(30px); }
-  #showcase-phone-inner { position: relative; z-index: 10; filter: drop-shadow(0 30px 50px rgba(37,99,235,0.18)); transform-origin: center center; opacity: 0; transform: scale(0); }
+  .reveal-phrase {
+    position: absolute; font-family: 'Montserrat', sans-serif; font-weight: 900;
+    font-size: clamp(48px, 7vw, 96px); line-height: 1.05;
+    text-align: center; color: var(--text-dark); letter-spacing: -0.02em;
+    opacity: 0; transform: translateY(40px); max-width: 80vw; z-index: 1;
+    will-change: opacity, transform; /* v19 */
+  }
+  .reveal-phrase span { display: inline-block; opacity: 0; transform: translateY(30px); will-change: opacity, transform; /* v19 */ }
+
+  #showcase-phone-inner {
+    position: relative; z-index: 10;
+    filter: drop-shadow(0 30px 50px rgba(37,99,235,0.18));
+    transform-origin: center center;
+    opacity: 0; transform: scale(0);
+    will-change: transform, opacity; /* v19 */
+  }
+
   model-viewer::part(default-progress-bar), model-viewer::part(default-progress-mask), model-viewer::part(progress-bar) { display: none !important; opacity: 0 !important; }
   model-viewer { --progress-bar-color: transparent; --progress-mask: transparent; }
+
   #scroll-phase-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: rgba(107,114,128,0.6); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0; z-index: 20; transition: opacity 0.5s; }
   #scroll-phase-hint.visible { opacity: 1; }
   #scroll-phase-hint svg { width: 20px; height: 20px; }
-  #phone-blob { position: fixed; top: 50vh; left: 50vw; width: 150vmax; height: 150vmax; border-radius: 50%; background: #0A0F1E; margin-top: -75vmax; margin-left: -75vmax; transform: scale(0); opacity: 0; z-index: 500; pointer-events: none; }
+
+  /* Blob — v19: promote to own layer */
+  #phone-blob {
+    position: fixed; top: 50vh; left: 50vw;
+    width: 150vmax; height: 150vmax; border-radius: 50%;
+    background: #0A0F1E;
+    margin-top: -75vmax; margin-left: -75vmax;
+    transform: scale(0); opacity: 0;
+    z-index: 500; pointer-events: none;
+    will-change: transform, opacity; /* v19 */
+  }
+
   #features-overlay { position: fixed; inset: 0; z-index: 502; pointer-events: none; }
-  .fo-panel { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(40px); }
+  .fo-panel {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: translateY(40px);
+    will-change: opacity, transform; /* v19 */
+  }
   .fo-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; width: 100%; padding: 0 80px; }
   .fo-col { display: flex; flex-direction: column; }
   .fo-col.right { align-items: flex-end; text-align: right; }
@@ -208,7 +212,6 @@
   #model-dots.visible { opacity: 1; }
   .model-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(107,114,128,0.3); transition: background 0.3s, transform 0.3s; }
   .model-dot.active { background: var(--blue-mid); transform: scale(1.4); }
-  @keyframes phoneFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-18px); } }
 
   /* ════════════════════════════════════════
      DASHBOARD
@@ -219,7 +222,7 @@
   .dashboard-sub { color: var(--text-gray); font-size: 18px; max-width: 600px; margin: 0 auto 16px; line-height: 1.6; }
   .laptop-mockup { max-width: 1200px; margin: -40px auto -120px; position: relative; }
   .dash-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; padding-top: 24px; }
-  .dash-card { background: #fff; border-radius: 24px; padding: 32px 24px; text-align: left; box-shadow: 0 4px 20px rgba(26,58,255,0.07); opacity: 0; transform: translateY(30px); transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; cursor: pointer; }
+  .dash-card { background: #fff; border-radius: 24px; padding: 32px 24px; text-align: left; box-shadow: 0 4px 20px rgba(26,58,255,0.07); opacity: 0; transform: translateY(30px); transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; cursor: pointer; will-change: transform; /* v19 */ }
   .dash-card:hover { background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%); box-shadow: 0 8px 40px rgba(37,99,235,0.5), 0 0 0 1px rgba(96,165,250,0.3); transform: translateY(-4px); }
   .dash-card-num { display: inline-flex; width: 36px; height: 36px; background: linear-gradient(135deg, #2563EB, #06B6D4); border-radius: 50%; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: #fff; font-family: 'Montserrat', sans-serif; margin-bottom: 16px; transition: background 0.3s ease; }
   .dash-card:hover .dash-card-num { background: #fff; background-image: none; color: #2563EB; }
@@ -237,7 +240,7 @@
   .team-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: clamp(28px, 4vw, 44px); color: var(--text-dark); margin-bottom: 10px; }
   .team-sub { color: var(--text-gray); font-size: 17px; max-width: 520px; margin: 0 auto 48px; }
   .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1000px; margin: 0 auto; }
-  .team-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(26,58,255,0.07); opacity: 0; transform: translateY(20px); transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; cursor: pointer; text-align: left; }
+  .team-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 20px rgba(26,58,255,0.07); opacity: 0; transform: translateY(20px); transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; cursor: pointer; text-align: left; will-change: transform; /* v19 */ }
   .team-card:hover { background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%); box-shadow: 0 8px 40px rgba(37,99,235,0.45), 0 0 0 1px rgba(96,165,250,0.3); transform: translateY(-4px); }
   .team-photo { width: 100%; height: 260px; object-fit: cover; object-position: top center; display: block; }
   .team-info { padding: 20px; }
@@ -321,12 +324,11 @@
 </head>
 <body>
 
-<!-- FIXED NAV — polished fallback v18 -->
+<!-- FIXED NAV -->
 <nav id="fixedNav">
   <a class="nav-logo" href="#">
     <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo"
          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-    <!-- SVG fallback shown if image fails -->
     <span class="nav-logo-fallback">
       <span class="nav-logo-icon">
         <svg viewBox="0 0 32 32" fill="none" width="20" height="20">
@@ -352,7 +354,6 @@
     <a class="hn-logo" href="#">
       <img src="./Assets/New logo White text vrtical.png" alt="MediFind Logo"
            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-      <!-- SVG fallback shown if image fails -->
       <span class="hn-logo-fallback">
         <span class="nav-logo-icon">
           <svg viewBox="0 0 32 32" fill="none" width="20" height="20">
@@ -565,6 +566,16 @@
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
+  /* ════════════════════════════════════════
+     v19 — ScrollTrigger global config
+     Throttle scroll events for smoother
+     performance on slower devices
+  ════════════════════════════════════════ */
+  ScrollTrigger.config({
+    limitCallbacks: true,    /* only fire when genuinely needed */
+    syncInterval: 40,        /* batch DOM reads every 40ms      */
+  });
+
   /* ── Fixed nav ── */
   const fixedNav    = document.getElementById('fixedNav');
   const heroSection = document.getElementById('hero');
@@ -668,7 +679,7 @@
     start: 'bottom 95%',
     endTrigger: '#phone-showcase',
     end: 'bottom bottom',
-    scrub: true,
+    scrub: 0.4, /* v19: light smoothing instead of scrub:true — feels less jittery */
     onUpdate(self) {
       const p = self.progress;
       if (p <= P1_END) {
@@ -763,39 +774,34 @@
     }
   });
 
-  /* ════════════════════════════════════════
-     MOUSE TILT ON 3D PHONE — NEW IN v18
-     When phone is fully visible (Phase 2 & 3),
-     moving mouse tilts the camera slightly
-     for a parallax feel.
-  ════════════════════════════════════════ */
+  /* ── Mouse tilt on 3D phone ── */
   const showcaseSection = document.getElementById('phone-showcase');
+  /* v19: throttle mousemove to ~60fps with rAF */
+  let tiltRaf = null;
+  let tiltX = 0, tiltY = 0;
   if (showcaseSection) {
     showcaseSection.addEventListener('mousemove', (e) => {
-      if (!showcaseMV) return;
-
-      /* Normalise mouse position: -1 → +1 */
-      const x = (e.clientX / window.innerWidth  - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
-
-      /* Only tilt when phone is fully visible (scale ≈ 1) */
-      const scaleVal = parseFloat(
-        showcaseInner.style.transform?.match(/scale\(([^)]+)\)/)?.[1] || 0
-      );
-      if (scaleVal > 0.9) {
-        /* Tilt: ±10° horizontal, ±5° vertical */
-        showcaseMV.setAttribute(
-          'camera-orbit',
-          `${-90 + x * 10}deg ${90 - y * 5}deg 105%`
-        );
+      tiltX = (e.clientX / window.innerWidth  - 0.5) * 2;
+      tiltY = (e.clientY / window.innerHeight - 0.5) * 2;
+      if (!tiltRaf) {
+        tiltRaf = requestAnimationFrame(() => {
+          tiltRaf = null;
+          if (!showcaseMV) return;
+          const scaleStr = showcaseInner.style.transform || '';
+          const match    = scaleStr.match(/scale\(([^)]+)\)/);
+          const scaleVal = match ? parseFloat(match[1]) : 0;
+          if (scaleVal > 0.9) {
+            showcaseMV.setAttribute(
+              'camera-orbit',
+              `${-90 + tiltX * 10}deg ${90 - tiltY * 5}deg 105%`
+            );
+          }
+        });
       }
     });
-
-    /* Reset camera when mouse leaves */
     showcaseSection.addEventListener('mouseleave', () => {
-      if (showcaseMV) {
-        showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
-      }
+      if (tiltRaf) { cancelAnimationFrame(tiltRaf); tiltRaf = null; }
+      if (showcaseMV) showcaseMV.setAttribute('camera-orbit', '-90deg 90deg 105%');
     });
   }
 
@@ -820,7 +826,6 @@
     el.addEventListener('mouseenter', () => gsap.to(el, { scale: 1.04, duration: 0.2 }));
     el.addEventListener('mouseleave', () => gsap.to(el, { scale: 1,    duration: 0.2 }));
   });
-
   const ctaBtn = document.querySelector('.cta-btn');
   if (ctaBtn) {
     ctaBtn.addEventListener('mouseenter', () => gsap.to(ctaBtn, { scale: 1.06, duration: 0.2 }));
@@ -834,7 +839,29 @@
     });
   }
 
-  window.addEventListener('load', () => { ScrollTrigger.refresh(); });
+  /* ════════════════════════════════════════
+     v19 — Smart ScrollTrigger refresh
+     Debounced on resize + after all models
+     are loaded so positions are accurate
+  ════════════════════════════════════════ */
+  let refreshTimer = null;
+  function scheduleRefresh(delay = 200) {
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(() => ScrollTrigger.refresh(), delay);
+  }
+
+  /* Refresh once fonts + images are ready */
+  window.addEventListener('load', () => scheduleRefresh(100));
+
+  /* Refresh after resize (debounced 250ms) */
+  window.addEventListener('resize', () => scheduleRefresh(250));
+
+  /* Refresh when each model-viewer finishes loading */
+  document.querySelectorAll('model-viewer').forEach(mv => {
+    mv.addEventListener('load',  () => scheduleRefresh(300));
+    mv.addEventListener('error', () => scheduleRefresh(300));
+  });
+
 </script>
 
 </body>
