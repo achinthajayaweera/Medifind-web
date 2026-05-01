@@ -52,7 +52,7 @@
   section { padding: 80px 48px; }
 
   /* ════════════════════════════════════════
-     FIXED NAV
+     FIXED NAV — v21 hamburger + scroll-spy
   ════════════════════════════════════════ */
   #fixedNav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 999;
@@ -68,15 +68,89 @@
     will-change: transform, opacity;
   }
   #fixedNav.nav-solid { opacity: 1; pointer-events: all; transform: translateY(0); }
+
   .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .nav-logo img { height: 52px; width: auto; object-fit: contain; }
   .nav-logo-fallback { display: none; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 20px; color: #fff; }
   .nav-logo-icon { width: 32px; height: 32px; background: var(--gradient-btn); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+
+  /* Desktop nav links */
   .nav-links { display: flex; align-items: center; gap: 36px; }
-  .nav-links a { color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 500; text-decoration: none; transition: color 0.2s; }
-  .nav-links a:hover { color: #fff; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); font-size: 15px; font-weight: 500;
+    text-decoration: none; transition: color 0.2s;
+    position: relative; padding-bottom: 2px;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+    height: 2px; border-radius: 1px;
+    background: var(--gradient-btn);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .nav-links a:hover,
+  .nav-links a.active { color: #fff; }
+  .nav-links a.active::after,
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-right { display: flex; align-items: center; gap: 16px; }
   .nav-cta { background: var(--gradient-btn); color: #fff; border-radius: 50px; padding: 10px 24px; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
   .nav-cta:hover { transform: scale(1.05); box-shadow: 0 4px 20px rgba(6,182,212,0.4); }
+
+  /* ── Hamburger button — NEW v21 ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column; justify-content: center; align-items: center;
+    gap: 5px; width: 40px; height: 40px;
+    background: transparent; border: none; cursor: pointer; padding: 4px;
+  }
+  .nav-hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: #fff; border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── Mobile drawer — NEW v21 ── */
+  #mobileMenu {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 998;
+    background: rgba(7,11,24,0.97);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px;
+    opacity: 0; pointer-events: none;
+    transform: translateY(-16px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  #mobileMenu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+
+  .mobile-nav-link {
+    font-family: 'Montserrat', sans-serif; font-weight: 700;
+    font-size: clamp(28px, 7vw, 42px);
+    color: rgba(255,255,255,0.7);
+    text-decoration: none; letter-spacing: -0.01em;
+    transition: color 0.2s, transform 0.2s;
+    transform: translateY(20px); opacity: 0; /* animated in by JS */
+  }
+  .mobile-nav-link:hover { color: #fff; transform: translateX(6px) !important; text-decoration: none; }
+  .mobile-nav-link.active { color: #fff; }
+
+  .mobile-cta {
+    margin-top: 24px;
+    background: var(--gradient-btn); color: #fff; border-radius: 50px;
+    padding: 14px 36px; font-size: 16px; font-weight: 700;
+    transform: translateY(20px); opacity: 0;
+  }
+
+  .mobile-footer {
+    position: absolute; bottom: 32px;
+    font-size: 12px; color: rgba(147,197,253,0.5);
+    opacity: 0;
+  }
 
   /* ════════════════════════════════════════
      HERO BORDER WRAP + HERO NAV
@@ -133,24 +207,11 @@
   .model-dot.active { background: var(--blue-mid); transform: scale(1.4); }
 
   /* ════════════════════════════════════════
-     FEATURES OVERLAY — v20 real 3D phones
+     FEATURES OVERLAY — real 3D phones
   ════════════════════════════════════════ */
   #features-overlay { position: fixed; inset: 0; z-index: 502; pointer-events: none; }
-
-  .fo-panel {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transform: translateY(40px);
-    will-change: opacity, transform;
-  }
-
-  .fo-grid {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 48px; align-items: center;
-    max-width: 1200px; width: 100%; padding: 0 60px;
-  }
-
+  .fo-panel { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(40px); will-change: opacity, transform; }
+  .fo-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 48px; align-items: center; max-width: 1200px; width: 100%; padding: 0 60px; }
   .fo-col { display: flex; flex-direction: column; }
   .fo-col.right { align-items: flex-end; text-align: right; }
   .fo-icon { width: 40px; height: 40px; color: #60A5FA; margin-bottom: 16px; }
@@ -158,32 +219,10 @@
   .fo-col.right .fo-divider { margin-left: auto; }
   .fo-heading { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: clamp(18px, 2vw, 28px); color: #fff; line-height: 1.2; margin-bottom: 12px; }
   .fo-body { color: #93C5FD; font-size: 14px; line-height: 1.6; }
-
-  /* ── Real 3D phone in center column — NEW IN v20 ── */
-  .fo-phone-center {
-    display: flex; justify-content: center; align-items: center;
-    position: relative; z-index: 10;
-  }
-
-  .fo-phone-wrap {
-    position: relative;
-    /* floating animation */
-    animation: foPhoneFloat 2.4s ease-in-out infinite;
-    filter: drop-shadow(0 24px 48px rgba(6,182,212,0.25));
-  }
-
-  @keyframes foPhoneFloat {
-    0%,  100% { transform: translateY(0px);   }
-    50%        { transform: translateY(-18px); }
-  }
-
-  /* model-viewer inside the panel — hide its chrome */
-  .fo-model-viewer {
-    width: 280px;
-    height: 560px;
-    background: transparent;
-    pointer-events: none;
-  }
+  .fo-phone-center { display: flex; justify-content: center; align-items: center; position: relative; z-index: 10; }
+  .fo-phone-wrap { position: relative; animation: foPhoneFloat 2.4s ease-in-out infinite; filter: drop-shadow(0 24px 48px rgba(6,182,212,0.25)); }
+  @keyframes foPhoneFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-18px); } }
+  .fo-model-viewer { width: 280px; height: 560px; background: transparent; pointer-events: none; }
 
   /* ════════════════════════════════════════
      DASHBOARD
@@ -250,27 +289,68 @@
   .cta-footer { border-top: 1px solid rgba(30,58,95,0.5); padding-top: 24px; color: #93C5FD; font-size: 13px; }
 
   /* ════════════════════════════════════════
+     BACK TO TOP — NEW v21
+  ════════════════════════════════════════ */
+  #backToTop {
+    position: fixed; bottom: 32px; right: 32px;
+    z-index: 998;
+    width: 48px; height: 48px;
+    background: var(--gradient-btn);
+    border: none; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(37,99,235,0.4);
+    opacity: 0; pointer-events: none;
+    transform: translateY(16px) scale(0.85);
+    transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s ease;
+    will-change: transform, opacity;
+  }
+  #backToTop.visible { opacity: 1; pointer-events: all; transform: translateY(0) scale(1); }
+  #backToTop:hover { box-shadow: 0 6px 28px rgba(6,182,212,0.6); transform: translateY(-3px) scale(1.08); }
+  #backToTop svg { width: 20px; height: 20px; color: #fff; }
+
+  /* ════════════════════════════════════════
      RESPONSIVE
   ════════════════════════════════════════ */
   @media (max-width: 1024px) { .fo-grid { gap: 32px; padding: 0 32px; } .fo-model-viewer { width: 240px; height: 480px; } .dash-cards { gap: 16px; } .team-grid { gap: 20px; } }
+
   @media (max-width: 900px) {
-    #fixedNav { padding: 14px 24px; } .hero-nav { padding: 16px 24px; }
-    .nav-links { display: none; } .hn-links { display: none; }
+    /* Nav */
+    #fixedNav { padding: 14px 24px; }
+    .hero-nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hn-links { display: none; }
+    .nav-hamburger { display: flex; }          /* show hamburger */
+    .nav-cta { display: none; }               /* hide desktop CTA in nav */
+
+    /* Hero */
     #hero { padding: 60px 24px; } .hero-title { font-size: 56px; } .hero-sub { font-size: 17px; }
     .hero-pills { gap: 10px; } .hero-pill { padding: 8px 16px; font-size: 13px; }
+
+    /* Feature overlay */
     .fo-grid { grid-template-columns: 1fr; padding: 0 24px; gap: 24px; }
     .fo-col.right { align-items: flex-start; text-align: left; } .fo-col.right .fo-divider { margin-left: 0; }
     .fo-phone-center { order: -1; }
     .fo-model-viewer { width: 200px; height: 400px; }
+
+    /* Dashboard */
     #dashboard { padding: 60px 24px 40px; } .dash-cards { grid-template-columns: 1fr 1fr; gap: 16px; } .laptop-mockup { margin: -20px auto -80px; }
+
+    /* Team */
     #team { padding: 60px 24px; } .team-grid { grid-template-columns: 1fr 1fr; gap: 20px; } .team-photo { height: 200px; }
+
+    /* CTA */
     .cta-inner { padding: 60px 24px 40px; border-radius: 20px; min-height: auto; } #cta { padding: 8px 8px 0; }
     .cta-form { flex-direction: column; border-radius: 20px; gap: 8px; overflow: visible; }
     .cta-input { border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); }
     .cta-btn { border-radius: 50px; justify-content: center; }
     .cta-title { font-size: 32px; } .cta-sub { font-size: 16px; }
     .cta-feature-pills { gap: 8px; } .cta-feature-pill { min-width: 140px; padding: 12px 16px; }
+
+    /* Back to top */
+    #backToTop { bottom: 20px; right: 20px; width: 44px; height: 44px; }
   }
+
   @media (max-width: 600px) {
     section { padding: 60px 20px; }
     .hero-border-wrap { margin: 8px; border-radius: 20px; } #hero { padding: 48px 20px; }
@@ -286,8 +366,9 @@
     .cta-title { font-size: 26px; } .cta-sub { font-size: 15px; }
     .cta-feature-pills { flex-direction: column; align-items: stretch; gap: 8px; } .cta-feature-pill { min-width: unset; }
     .cta-prev-version { font-size: 12px; padding: 9px 18px; } .cta-footer { font-size: 12px; }
-    #fixedNav { padding: 12px 16px; } .nav-cta { padding: 8px 16px; font-size: 13px; }
+    #fixedNav { padding: 12px 16px; }
   }
+
   @media (max-width: 400px) {
     .hero-title { font-size: 38px; } .hero-coming-soon { font-size: 11px; padding: 5px 14px; }
     .cta-title { font-size: 22px; } .dashboard-title { font-size: 24px; } .team-title { font-size: 24px; }
@@ -312,14 +393,33 @@
       MediFind
     </span>
   </a>
+
+  <!-- Desktop links -->
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#dashboard">Features</a></li>
-    <li><a href="#team">Team</a></li>
-    <li><a href="#cta">Contact</a></li>
+    <li><a href="#hero"      data-section="hero">About</a></li>
+    <li><a href="#dashboard" data-section="dashboard">Features</a></li>
+    <li><a href="#team"      data-section="team">Team</a></li>
+    <li><a href="#cta"       data-section="cta">Contact</a></li>
   </ul>
-  <button class="nav-cta">Download the App</button>
+
+  <div class="nav-right">
+    <button class="nav-cta">Download the App</button>
+    <!-- Hamburger -->
+    <button class="nav-hamburger" id="hamburgerBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- MOBILE MENU DRAWER -->
+<div id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <a href="#hero"      class="mobile-nav-link" data-close>About</a>
+  <a href="#dashboard" class="mobile-nav-link" data-close>Features</a>
+  <a href="#team"      class="mobile-nav-link" data-close>Team</a>
+  <a href="#cta"       class="mobile-nav-link" data-close>Contact</a>
+  <button class="mobile-cta" data-close>Download the App</button>
+  <p class="mobile-footer">© 2025–2026 MediFind</p>
+</div>
 
 <!-- HERO BORDER WRAP -->
 <div class="hero-border-wrap" id="heroBorderWrap">
@@ -338,7 +438,7 @@
       </span>
     </a>
     <ul class="hn-links">
-      <li><a href="#about">About</a></li>
+      <li><a href="#hero">About</a></li>
       <li><a href="#dashboard">Features</a></li>
       <li><a href="#team">Team</a></li>
       <li><a href="#cta">Contact</a></li>
@@ -394,12 +494,10 @@
         alt="MediFind App"
         camera-orbit="270deg 90deg 105%"
         field-of-view="30deg"
-        shadow-intensity="1.2"
-        exposure="1.1"
+        shadow-intensity="1.2" exposure="1.1"
         environment-image="neutral"
-        disable-zoom
-        interaction-prompt="none"
-        style="width: 320px; height: 640px; background: transparent; pointer-events: none;">
+        disable-zoom interaction-prompt="none"
+        style="width:320px;height:640px;background:transparent;pointer-events:none;">
       </model-viewer>
     </div>
     <div id="scroll-phase-hint">
@@ -414,15 +512,8 @@
 
 <div id="phone-blob"></div>
 
-<!-- ════════════════════════════════════════
-     FEATURES OVERLAY — v20 real 3D phones
-     Panel 1: model 07 — Pharmacy
-     Panel 2: model 08 — AI / Prescription
-     Panel 3: model 09 — Delivery / Tracking
-════════════════════════════════════════ -->
+<!-- FEATURES OVERLAY -->
 <div id="features-overlay">
-
-  <!-- Panel 1 -->
   <div class="fo-panel" id="fo-panel-1">
     <div class="fo-grid">
       <div class="fo-col">
@@ -431,25 +522,7 @@
         <h3 class="fo-heading">The one-stop for all your medicine needs</h3>
         <p class="fo-body">Discover and order medicines from verified local pharmacies through a single, unified platform experience.</p>
       </div>
-
-      <!-- Real 3D phone — model 07 -->
-      <div class="fo-phone-center">
-        <div class="fo-phone-wrap">
-          <model-viewer
-            class="fo-model-viewer"
-            src="./17 pro max phone model 07/scene.gltf"
-            alt="MediFind Pharmacy Screen"
-            camera-orbit="-90deg 90deg 105%"
-            field-of-view="30deg"
-            shadow-intensity="1.2"
-            exposure="1.1"
-            environment-image="neutral"
-            disable-zoom
-            interaction-prompt="none">
-          </model-viewer>
-        </div>
-      </div>
-
+      <div class="fo-phone-center"><div class="fo-phone-wrap"><model-viewer class="fo-model-viewer" src="./17 pro max phone model 07/scene.gltf" alt="MediFind Pharmacy Screen" camera-orbit="-90deg 90deg 105%" field-of-view="30deg" shadow-intensity="1.2" exposure="1.1" environment-image="neutral" disable-zoom interaction-prompt="none"></model-viewer></div></div>
       <div class="fo-col right">
         <svg class="fo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="align-self:flex-end"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
         <div class="fo-divider"></div>
@@ -458,8 +531,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Panel 2 -->
   <div class="fo-panel" id="fo-panel-2">
     <div class="fo-grid">
       <div class="fo-col">
@@ -468,25 +539,7 @@
         <h3 class="fo-heading">Manage your prescriptions digitally</h3>
         <p class="fo-body">Upload your prescription, our AI reads and verifies it instantly — no more manual pharmacy visits or lost papers.</p>
       </div>
-
-      <!-- Real 3D phone — model 08 -->
-      <div class="fo-phone-center">
-        <div class="fo-phone-wrap">
-          <model-viewer
-            class="fo-model-viewer"
-            src="./17 pro max phone model 08/scene.gltf"
-            alt="MediFind AI Screen"
-            camera-orbit="-90deg 90deg 105%"
-            field-of-view="30deg"
-            shadow-intensity="1.2"
-            exposure="1.1"
-            environment-image="neutral"
-            disable-zoom
-            interaction-prompt="none">
-          </model-viewer>
-        </div>
-      </div>
-
+      <div class="fo-phone-center"><div class="fo-phone-wrap"><model-viewer class="fo-model-viewer" src="./17 pro max phone model 08/scene.gltf" alt="MediFind AI Screen" camera-orbit="-90deg 90deg 105%" field-of-view="30deg" shadow-intensity="1.2" exposure="1.1" environment-image="neutral" disable-zoom interaction-prompt="none"></model-viewer></div></div>
       <div class="fo-col right">
         <svg class="fo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="align-self:flex-end"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
         <div class="fo-divider"></div>
@@ -495,8 +548,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Panel 3 -->
   <div class="fo-panel" id="fo-panel-3">
     <div class="fo-grid">
       <div class="fo-col">
@@ -505,25 +556,7 @@
         <h3 class="fo-heading">Fast delivery to your doorstep</h3>
         <p class="fo-body">Order medicines online and get them delivered within hours — track your order live every step of the way.</p>
       </div>
-
-      <!-- Real 3D phone — model 09 -->
-      <div class="fo-phone-center">
-        <div class="fo-phone-wrap">
-          <model-viewer
-            class="fo-model-viewer"
-            src="./17 pro max phone model 09/scene.gltf"
-            alt="MediFind Tracking Screen"
-            camera-orbit="-90deg 90deg 105%"
-            field-of-view="30deg"
-            shadow-intensity="1.2"
-            exposure="1.1"
-            environment-image="neutral"
-            disable-zoom
-            interaction-prompt="none">
-          </model-viewer>
-        </div>
-      </div>
-
+      <div class="fo-phone-center"><div class="fo-phone-wrap"><model-viewer class="fo-model-viewer" src="./17 pro max phone model 09/scene.gltf" alt="MediFind Tracking Screen" camera-orbit="-90deg 90deg 105%" field-of-view="30deg" shadow-intensity="1.2" exposure="1.1" environment-image="neutral" disable-zoom interaction-prompt="none"></model-viewer></div></div>
       <div class="fo-col right">
         <svg class="fo-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="align-self:flex-end"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         <div class="fo-divider"></div>
@@ -532,7 +565,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <!-- DASHBOARD -->
@@ -541,7 +573,7 @@
   <h2 class="dashboard-title">Grow your pharmacy with AI</h2>
   <p class="dashboard-sub">Keep a pulse on inventory, orders, and analytics in one view while AI surfaces the next best actions for your business.</p>
   <div class="laptop-mockup">
-    <model-viewer id="macbookModelViewer" src="./Mac book model/scene.gltf" alt="MediFind Dashboard" camera-orbit="0deg 68deg 90%" camera-target="0m 0.05m 0m" field-of-view="30deg" shadow-intensity="1" exposure="1.1" environment-image="neutral" disable-zoom interaction-prompt="none" auto-rotate auto-rotate-delay="0" rotation-per-second="4deg" style="width: 100%; height: 820px; background: transparent;"></model-viewer>
+    <model-viewer id="macbookModelViewer" src="./Mac book model/scene.gltf" alt="MediFind Dashboard" camera-orbit="0deg 68deg 90%" camera-target="0m 0.05m 0m" field-of-view="30deg" shadow-intensity="1" exposure="1.1" environment-image="neutral" disable-zoom interaction-prompt="none" auto-rotate auto-rotate-delay="0" rotation-per-second="4deg" style="width:100%;height:820px;background:transparent;"></model-viewer>
   </div>
   <div class="dash-cards">
     <div class="dash-card"><div class="dash-card-num">01</div><div class="dash-card-tag">Manage</div><div class="dash-card-heading">Control Your Medicine Listings</div><div class="dash-card-body">Create, update, and manage your products from pricing and stock to availability — all in one place.</div></div>
@@ -590,12 +622,101 @@
   </div>
 </section>
 
+<!-- BACK TO TOP — NEW v21 -->
+<button id="backToTop" aria-label="Back to top">
+  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+  </svg>
+</button>
+
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
-  ScrollTrigger.config({
-    limitCallbacks: true,
-    syncInterval: 40,
+  ScrollTrigger.config({ limitCallbacks: true, syncInterval: 40 });
+
+  /* ════════════════════════════════════════
+     HAMBURGER MENU — NEW v21
+  ════════════════════════════════════════ */
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu   = document.getElementById('mobileMenu');
+  const mobileLinks  = mobileMenu.querySelectorAll('.mobile-nav-link, .mobile-cta');
+  const mobileFooter = mobileMenu.querySelector('.mobile-footer');
+  let menuOpen = false;
+
+  function openMenu() {
+    menuOpen = true;
+    hamburgerBtn.classList.add('open');
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden'; /* prevent scroll behind drawer */
+    /* stagger link animations */
+    gsap.fromTo(mobileLinks,
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.4, stagger: 0.07, ease: 'power3.out', delay: 0.1 }
+    );
+    gsap.to(mobileFooter, { opacity: 1, duration: 0.4, delay: 0.5 });
+  }
+
+  function closeMenu() {
+    menuOpen = false;
+    hamburgerBtn.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+    gsap.set(mobileLinks, { opacity: 0, y: 24 });
+    gsap.set(mobileFooter, { opacity: 0 });
+  }
+
+  hamburgerBtn.addEventListener('click', () => menuOpen ? closeMenu() : openMenu());
+
+  /* Close when any drawer link is tapped */
+  mobileMenu.querySelectorAll('[data-close]').forEach(el => {
+    el.addEventListener('click', closeMenu);
+  });
+
+  /* Close on Escape */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuOpen) closeMenu();
+  });
+
+  /* ════════════════════════════════════════
+     SCROLL-SPY — NEW v21
+     Highlights the active nav link as
+     the user scrolls past each section
+  ════════════════════════════════════════ */
+  const spySections = [
+    { id: 'hero',      el: document.getElementById('hero') },
+    { id: 'dashboard', el: document.getElementById('dashboard') },
+    { id: 'team',      el: document.getElementById('team') },
+    { id: 'cta',       el: document.querySelector('.cta-inner') },
+  ];
+  const spyLinks = document.querySelectorAll('.nav-links a[data-section]');
+
+  function updateActiveSpy() {
+    const scrollMid = window.scrollY + window.innerHeight * 0.45;
+    let active = spySections[0].id;
+    for (const s of spySections) {
+      if (s.el && s.el.getBoundingClientRect().top + window.scrollY <= scrollMid) {
+        active = s.id;
+      }
+    }
+    spyLinks.forEach(a => {
+      a.classList.toggle('active', a.dataset.section === active);
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveSpy, { passive: true });
+  updateActiveSpy();
+
+  /* ════════════════════════════════════════
+     BACK TO TOP — NEW v21
+  ════════════════════════════════════════ */
+  const backToTopBtn = document.getElementById('backToTop');
+
+  window.addEventListener('scroll', () => {
+    backToTopBtn.classList.toggle('visible', window.scrollY > 600);
+  }, { passive: true });
+
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   /* ── Fixed nav ── */
@@ -624,7 +745,7 @@
 
   gsap.to('.scroll-chevron', { y: 8, duration: 0.8, repeat: -1, yoyo: true, ease: 'power1.inOut' });
 
-  /* ── Model sources (showcase phone) ── */
+  /* ── Model sources ── */
   const modelSources = [
     './17 pro max phone model 01/scene.gltf',
     './17 pro max phone model 02/scene.gltf',
@@ -690,7 +811,7 @@
     phaseHint.classList.remove('visible');
   }
 
-  const P1_END   = 0.12;
+  const P1_END = 0.12;
   const P2_START = 0.12; const P2_END = 0.30;
   const P3_START = 0.30; const P3_END = 0.75;
   const P4_START = 0.75; const P4_END = 0.88;
@@ -796,7 +917,7 @@
     }
   });
 
-  /* ── Mouse tilt (rAF throttled) ── */
+  /* ── Mouse tilt ── */
   const showcaseSection = document.getElementById('phone-showcase');
   let tiltRaf = null, tiltX = 0, tiltY = 0;
   if (showcaseSection) {
@@ -807,7 +928,7 @@
         tiltRaf = requestAnimationFrame(() => {
           tiltRaf = null;
           if (!showcaseMV) return;
-          const match    = (showcaseInner.style.transform || '').match(/scale\(([^)]+)\)/);
+          const match = (showcaseInner.style.transform || '').match(/scale\(([^)]+)\)/);
           const scaleVal = match ? parseFloat(match[1]) : 0;
           if (scaleVal > 0.9) showcaseMV.setAttribute('camera-orbit', `${-90 + tiltX * 10}deg ${90 - tiltY * 5}deg 105%`);
         });
