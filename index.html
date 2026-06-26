@@ -481,6 +481,45 @@
 
   .fade-up { opacity: 0; transform: translateY(30px); }
 
+
+  #pharmacy-modal-overlay {
+    display:none; position:fixed; inset:0; z-index:9999;
+    background:rgba(7,11,24,0.88); backdrop-filter:blur(12px);
+    align-items:center; justify-content:center;
+  }
+  #pharmacy-modal-overlay.active { display:flex; }
+  .pharmacy-modal {
+    background:linear-gradient(145deg,#0d1b3e,#0a1628);
+    border:1px solid rgba(96,165,250,0.25); border-radius:24px;
+    padding:40px; width:100%; max-width:480px; position:relative;
+    box-shadow:0 40px 80px rgba(0,0,0,0.5);
+  }
+  .pharmacy-modal h3 { font-family:"Montserrat",sans-serif; font-weight:800; font-size:22px; color:#fff; margin-bottom:6px; }
+  .modal-sub { color:#93C5FD; font-size:14px; margin-bottom:24px; }
+  .modal-field { margin-bottom:14px; }
+  .modal-field label { display:block; font-size:11px; font-weight:700; color:#60A5FA; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:5px; }
+  .modal-field input, .modal-field select {
+    width:100%; background:rgba(255,255,255,0.07); border:1px solid rgba(96,165,250,0.2);
+    border-radius:10px; padding:11px 14px; color:#fff; font-size:14px;
+    font-family:"DM Sans",sans-serif; outline:none;
+  }
+  .modal-field input::placeholder { color:rgba(147,197,253,0.4); }
+  .modal-field select option { background:#0d1b3e; }
+  .modal-submit {
+    width:100%; background:linear-gradient(90deg,#2563EB,#06B6D4);
+    color:#fff; border:none; border-radius:50px; padding:13px;
+    font-size:15px; font-weight:700; font-family:"DM Sans",sans-serif;
+    cursor:pointer; margin-top:6px;
+  }
+  .modal-close { position:absolute; top:14px; right:18px; background:none; border:none; color:#93C5FD; font-size:20px; cursor:pointer; }
+  .modal-success { text-align:center; padding:20px 0; }
+  .modal-success .success-icon { font-size:48px; margin-bottom:12px; }
+  .modal-success h3 { color:#fff; font-family:"Montserrat",sans-serif; font-weight:800; font-size:20px; margin-bottom:8px; }
+  .modal-success p { color:#93C5FD; font-size:14px; line-height:1.6; }
+  .auth-loading { text-align:center; padding:40px 0; color:#93C5FD; }
+  .spinner { width:34px; height:34px; border:3px solid rgba(96,165,250,0.15); border-top-color:#06B6D4; border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 14px; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
   model-viewer::part(default-progress-bar),
   model-viewer::part(default-progress-mask),
   model-viewer::part(progress-bar) {
@@ -1219,5 +1258,123 @@ if (ctaBtn) {
   ctaBtn.addEventListener('mouseleave', () => gsap.to(ctaBtn, { scale: 1, duration: 0.2 }));
 }
 </script>
+
+<!-- PHARMACY REGISTRATION MODAL -->
+<div id="pharmacy-modal-overlay">
+  <div class="pharmacy-modal">
+    <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+    <div id="modal-content">
+      <div class="auth-loading"><div class="spinner"></div><p>Loading...</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ASGARDEO_BASE = "https://api.asgardeo.io/t/medifind";
+const CLIENT_ID     = "W5z0u9EjQ1Jj7kpgeXsl6lhLJC8a";
+const REDIRECT_URI  = "https://achinthajayaweera.github.io/Medifind-web/";
+const SCOPES        = "openid profile email";
+
+function b64url(buf) {
+  return btoa(String.fromCharCode(...new Uint8Array(buf)))
+    .replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+async function generatePKCE() {
+  const verifier  = b64url(crypto.getRandomValues(new Uint8Array(32)));
+  const hashed    = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier));
+  const challenge = b64url(hashed);
+  return { verifier, challenge };
+}
+
+async function handleGetStarted() {
+  document.getElementById("pharmacy-modal-overlay").classList.add("active");
+  document.getElementById("modal-content").innerHTML =
+    "<div class=\"auth-loading\"><div class=\"spinner\"></div><p>Redirecting to secure sign-in...</p></div>";
+  const { verifier, challenge } = await generatePKCE();
+  const state = b64url(crypto.getRandomValues(new Uint8Array(8)));
+  sessionStorage.setItem("pkce_verifier", verifier);
+  sessionStorage.setItem("oauth_state", state);
+  const p = new URLSearchParams({
+    response_type:"code", client_id:CLIENT_ID,
+    redirect_uri:REDIRECT_URI, scope:SCOPES,
+    state, code_challenge:challenge, code_challenge_method:"S256"
+  });
+  window.location.href = ASGARDEO_BASE + "/oauth2/authorize?" + p.toString();
+}
+
+async function handleCallback() {
+  const params  = new URLSearchParams(window.location.search);
+  const code    = params.get("code");
+  const state   = params.get("state");
+  const verifier   = sessionStorage.getItem("pkce_verifier");
+  const savedState = sessionStorage.getItem("oauth_state");
+  if (!code || !verifier || state !== savedState) return;
+  window.history.replaceState({}, "", REDIRECT_URI);
+  sessionStorage.removeItem("pkce_verifier");
+  sessionStorage.removeItem("oauth_state");
+  document.getElementById("pharmacy-modal-overlay").classList.add("active");
+  document.getElementById("modal-content").innerHTML =
+    "<div class=\"auth-loading\"><div class=\"spinner\"></div><p>Signing you in...</p></div>";
+  try {
+    const res = await fetch(ASGARDEO_BASE + "/oauth2/token", {
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded"},
+      body: new URLSearchParams({
+        grant_type:"authorization_code", client_id:CLIENT_ID,
+        redirect_uri:REDIRECT_URI, code, code_verifier:verifier
+      })
+    });
+    const data = await res.json();
+    if (!data.id_token) throw new Error("no token");
+    const payload = JSON.parse(atob(data.id_token.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")));
+    showRegistrationForm(payload);
+  } catch(e) {
+    document.getElementById("modal-content").innerHTML =
+      "<div class=\"auth-loading\"><p style=\"color:#f87171\">Sign-in failed. Please try again.</p></div>";
+  }
+}
+
+function showRegistrationForm(user) {
+  const email = user.email || "";
+  document.getElementById("modal-content").innerHTML =
+    "<h3>Register Your Pharmacy</h3>" +
+    "<p class=\"modal-sub\">Signed in as <strong style=\"color:#fff\">" + email + "</strong></p>" +
+    "<div class=\"modal-field\"><label>Pharmacy Name</label><input type=\"text\" id=\"ph-name\" placeholder=\"e.g. City Medical Pharmacy\" /></div>" +
+    "<div class=\"modal-field\"><label>Business Registration No.</label><input type=\"text\" id=\"ph-reg\" placeholder=\"e.g. BR-2024-XXXXX\" /></div>" +
+    "<div class=\"modal-field\"><label>Contact Number</label><input type=\"tel\" id=\"ph-tel\" placeholder=\"e.g. +94 77 123 4567\" /></div>" +
+    "<div class=\"modal-field\"><label>City</label><select id=\"ph-city\"><option value=\"\">Select city</option><option>Colombo</option><option>Kandy</option><option>Galle</option><option>Negombo</option><option>Jaffna</option><option>Other</option></select></div>" +
+    "<div class=\"modal-field\"><label>Email</label><input type=\"email\" id=\"ph-email\" value=\"" + email + "\" /></div>" +
+    "<button class=\"modal-submit\" onclick=\"submitRegistration()\">Submit Application &#x2192;</button>";
+}
+
+function submitRegistration() {
+  const name  = document.getElementById("ph-name").value.trim();
+  const reg   = document.getElementById("ph-reg").value.trim();
+  const tel   = document.getElementById("ph-tel").value.trim();
+  const city  = document.getElementById("ph-city").value;
+  const email = document.getElementById("ph-email").value.trim();
+  if (!name||!reg||!tel||!city||!email) { alert("Please fill in all fields."); return; }
+  document.getElementById("modal-content").innerHTML =
+    "<div class=\"modal-success\"><div class=\"success-icon\">&#x1F389;</div>" +
+    "<h3>Application Received!</h3>" +
+    "<p>Thank you, <strong style=\"color:#fff\">" + name + "</strong>. We will contact you at <strong style=\"color:#06B6D4\">" + email + "</strong> within 2-3 business days.</p></div>";
+}
+
+function closeModal() {
+  document.getElementById("pharmacy-modal-overlay").classList.remove("active");
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  var btn = document.querySelector(".cta-btn");
+  if (btn) {
+    btn.addEventListener("click", function(e) { e.preventDefault(); handleGetStarted(); });
+  }
+  document.getElementById("pharmacy-modal-overlay").addEventListener("click", function(e) {
+    if (e.target.id === "pharmacy-modal-overlay") closeModal();
+  });
+  if (window.location.search.indexOf("code=") !== -1) handleCallback();
+});
+</script>
+
 </body>
 </html>
