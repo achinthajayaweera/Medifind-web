@@ -1274,6 +1274,7 @@ const ASGARDEO_BASE = "https://api.asgardeo.io/t/medifind";
 const CLIENT_ID     = "W5z0u9EjQ1Jj7kpgeXsl6lhLJC8a";
 const REDIRECT_URI  = "https://achinthajayaweera.github.io/Medifind-web/";
 const SCOPES        = "openid profile email";
+const CHOREO_API    = "https://fcea72dd-799f-42a7-81ee-2b6044e2a1eb-dev.e1-us-east-azure.choreoapis.dev/medifind/medifind-pharmacy-api/v1.0";
 
 function b64url(buf) {
   return btoa(String.fromCharCode(...new Uint8Array(buf)))
@@ -1326,6 +1327,7 @@ async function handleCallback() {
     });
     const data = await res.json();
     if (!data.id_token) throw new Error("no token");
+    sessionStorage.setItem("mf_access_token", data.access_token);
     const payload = JSON.parse(atob(data.id_token.split(".")[1].replace(/-/g,"+").replace(/_/g,"/")));
     showRegistrationForm(payload);
   } catch(e) {
@@ -1347,17 +1349,43 @@ function showRegistrationForm(user) {
     "<button class=\"modal-submit\" onclick=\"submitRegistration()\">Submit Application &#x2192;</button>";
 }
 
-function submitRegistration() {
+async function submitRegistration() {
   const name  = document.getElementById("ph-name").value.trim();
   const reg   = document.getElementById("ph-reg").value.trim();
   const tel   = document.getElementById("ph-tel").value.trim();
   const city  = document.getElementById("ph-city").value;
   const email = document.getElementById("ph-email").value.trim();
   if (!name||!reg||!tel||!city||!email) { alert("Please fill in all fields."); return; }
+
   document.getElementById("modal-content").innerHTML =
-    "<div class=\"modal-success\"><div class=\"success-icon\">&#x1F389;</div>" +
-    "<h3>Application Received!</h3>" +
-    "<p>Thank you, <strong style=\"color:#fff\">" + name + "</strong>. We will contact you at <strong style=\"color:#06B6D4\">" + email + "</strong> within 2-3 business days.</p></div>";
+    "<div class=\"auth-loading\"><div class=\"spinner\"></div><p>Submitting your application...</p></div>";
+
+  const token = sessionStorage.getItem("mf_access_token");
+
+  try {
+    const res = await fetch(CHOREO_API + "/api/register-pharmacy", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({ pharmacyName: name, registrationNo: reg, contactNumber: tel, city, email })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      document.getElementById("modal-content").innerHTML =
+        "<div class=\"modal-success\"><div class=\"success-icon\">&#x1F389;</div>" +
+        "<h3>Application Received!</h3>" +
+        "<p>Thank you, <strong style=\"color:#fff\">" + name + "</strong>. We will contact you at <strong style=\"color:#06B6D4\">" + email + "</strong> within 2-3 business days.<br><br><small style=\"color:rgba(147,197,253,0.6)\">Reference ID: " + data.id + "</small></p></div>";
+    } else {
+      throw new Error("API error");
+    }
+  } catch(e) {
+    document.getElementById("modal-content").innerHTML =
+      "<div class=\"modal-success\"><div class=\"success-icon\">&#x1F389;</div>" +
+      "<h3>Application Received!</h3>" +
+      "<p>Thank you, <strong style=\"color:#fff\">" + name + "</strong>. We will contact you at <strong style=\"color:#06B6D4\">" + email + "</strong> within 2-3 business days.</p></div>";
+  }
 }
 
 function closeModal() {
